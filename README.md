@@ -13,3 +13,10 @@
 
 ### v0.0.32:
 - Se arreglaron errores en el middleware de multer al crear carpetas.
+
+### v0.0.4:
+- Cambios en el estilo de los formularios(el input date, se cambio el h3 del total de capitulos en el formulario de series a un input text, modificacion del campo "descripcion", ).
+- Correccion de errores en el frontend como el de resetear, el efecto de los inputs y el input del total de capitulos.
+- Cambios en el html del formSerie.
+- Se Agrego la ruta y el controlador del formulario de serie al backend.
+- Modificaciones en el middleware de multer para crear las carpetas.

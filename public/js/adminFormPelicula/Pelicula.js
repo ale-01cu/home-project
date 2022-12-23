@@ -12,6 +12,7 @@ export class Pelicula {
         this.inputTamaño = document.getElementById("tamaño");
         this.inputImg = document.getElementById("img");
         this.inputFile = document.getElementById("file");
+        this.inputDate = document.getElementById("date")
         this.reset = document.querySelector("[type=reset]");
         this.estados = document.querySelectorAll(".formulario .grid-item card-input .estado");
         this.nav = document.querySelectorAll(".formulario .grid-item ul li a");
@@ -21,22 +22,23 @@ export class Pelicula {
 
     // Efecto de Seleccionado y deseleccionada de cada widget
     efectosDeLaInterfaz() {
-    
+        this.inputDate.onfocus = () => {
+            this.inputDate.classList.add("focus");
+        }
+        this.inputDate.onblur = () => {
+            if(!this.inputDate.value != "") this.inputDate.classList.remove("focus");
+        }
+
         this.inputs.forEach( ( e ) =>  {
-            if ( e.type !== "month" && e.type !== "checkbox") {
+            if ( e.previousElementSibling && e.previousElementSibling.tagName === "SPAN" ) {
                 e.onfocus = () => {
                     e.previousElementSibling.classList.add("top");
-                    e.previousElementSibling.classList.add("focus");
-                    if ( e.tagName === "TEXTAREA" )  e.classList.add("focus");
-                    else if ( e.id !== "caps" ) e.parentElement.classList.add("focus");
+                    if ( e.id !== "caps" ) e.parentElement.classList.add("focus");
                 }
-                
                 e.onblur = () => {
                     if(!e.value != ""){
                         e.previousElementSibling.classList.remove("top");
-                        e.previousElementSibling.classList.remove("focus");
                         e.parentElement.classList.remove("focus");
-                        if ( e.tagName === "TEXTAREA" ) e.classList.remove("focus");
                     }
                 }
             }
@@ -54,13 +56,12 @@ export class Pelicula {
     // Efecto de Deseleccion en todos los widgets
     resetear() {
         this.reset.addEventListener("click", () => {
+            this.inputDate.classList.remove("focus");
             this.inputs.forEach( ( elemnts ) =>  {
-                if ( elemnts.type !== "month" ) {
+                if (  elemnts.previousElementSibling && elemnts.previousElementSibling.tagName === "SPAN" ) {
                     elemnts.previousElementSibling.classList.remove("top");
                     elemnts.previousElementSibling.classList.remove("focus");
                     elemnts.parentElement.classList.remove("focus");
-                    elemnts.classList.remove("focus");
-                    elemnts.parentElement.previousElementSibling.classList.remove("active");
                 }
             })
             this.divImagen.innerHTML = "";

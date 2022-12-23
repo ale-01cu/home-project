@@ -14,8 +14,15 @@ const guardarPelicula = ( req, res = response) => {
     res.status(201);
 }
 
+const guardarSerie = ( req, res = response ) => {
+    console.log(req.file);
+    console.log(req.body);
+    res.status(201);
+}
+
 module.exports = {
     pelicula,
     serie,
-    guardarPelicula
+    guardarPelicula,
+    guardarSerie
 }

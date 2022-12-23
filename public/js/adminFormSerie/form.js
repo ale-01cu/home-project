@@ -9,6 +9,7 @@ const form = () => {
     formSerie.obtenerDatos();
     formSerie.resetear();
     formSerie.formularioCapXtemporadas();
+    formSerie.enviarDatos( "http://10.31.103.6:3000/api/admin/serie/guardar" );
 
 }
 

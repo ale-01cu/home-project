@@ -6,42 +6,44 @@ export class Serie {
         this.inputs = document.querySelectorAll(".formulario .grid-item .card-input input, textarea");
         this.textArea = document.querySelector("textarea");
         this.divImagen = document.querySelector(".formulario .grid-item .imagen")
-
+        this.formulario = document.getElementById("form");
         this.inputName = document.getElementById("nombre");
         this.inputPath = document.getElementById("path");
         this.inputFormato = document.getElementById("formato");
         this.inputTamaño = document.getElementById("tamaño");
         this.inputImg = document.getElementById("img");
         this.inputFile = document.getElementById("file");
+        this.inputDate = document.getElementById("date")
         this.reset = document.querySelector("[type=reset]");
         this.estados = document.querySelectorAll(".formulario .grid-item card-input .estado");
         this.nav = document.querySelectorAll(".formulario .grid-item ul li a");
-
-
-
+        this.inputCantDeTemp = document.getElementById("#temp");
         this.containerFormTemp = document.querySelector(".formulario .grid-item .form-serie div.container-temp");
         this.containerFormTotalCaps = document.querySelector(".formulario .grid-item .form-serie .container-total-caps");
-        this.inputCantDeTemp = document.getElementById("#temp");
+        
     }
 
      // Efecto de Seleccionado y deseleccionada de cada widget
-    efectosDeLaInterfaz() {
-    
+     efectosDeLaInterfaz() {
+        this.inputDate.onfocus = () => {
+            this.inputDate.classList.add("focus");
+        }
+        this.inputDate.onblur = () => {
+            if(!this.inputDate.value != "") this.inputDate.classList.remove("focus");
+        }
+
         this.inputs.forEach( ( e ) =>  {
-            if ( e.type !== "month" && e.type !== "checkbox") {
+            if ( e.previousElementSibling && e.previousElementSibling.tagName === "SPAN" ) {
                 e.onfocus = () => {
                     e.previousElementSibling.classList.add("top");
                     e.previousElementSibling.classList.add("focus");
-                    if ( e.tagName === "TEXTAREA" )  e.classList.add("focus");
-                    else if ( e.id !== "caps" ) e.parentElement.classList.add("focus");
+                    if ( e.id !== "caps" ) e.parentElement.classList.add("focus");
                 }
-                
                 e.onblur = () => {
                     if(!e.value != ""){
                         e.previousElementSibling.classList.remove("top");
                         e.previousElementSibling.classList.remove("focus");
                         e.parentElement.classList.remove("focus");
-                        if ( e.tagName === "TEXTAREA" ) e.classList.remove("focus");
                     }
                 }
             }
@@ -59,12 +61,13 @@ export class Serie {
     // Efecto de Deseleccion en todos los widgets
     resetear() {
         this.reset.addEventListener("click", () => {
+            this.inputDate.classList.remove("focus");
+
             this.inputs.forEach( ( elemnts ) =>  {
-                if ( elemnts.type !== "month" ) {
+                if (  elemnts.previousElementSibling && elemnts.previousElementSibling.tagName === "SPAN" ) {
                     elemnts.previousElementSibling.classList.remove("top");
                     elemnts.previousElementSibling.classList.remove("focus");
                     elemnts.parentElement.classList.remove("focus");
-                    elemnts.classList.remove("focus");
                 }
             })
     
@@ -94,19 +97,23 @@ export class Serie {
     }
 
     // Enviar formulario al servidor
-    async fetchPost( url, data ) {
+    async fetchPost( url ) {
+        const formData = new FormData( this.formulario );
         const respuestaCoduficada = await fetch( url , {
             method: "post",
-            headers: {
-                'content-type': 'application/json; charset=UTF-8'
-            },
-            body: JSON.stringify( data )
+            body: formData
         });
         const respuesta = await respuestaCoduficada.json();
 
         return respuesta;
     }
 
+    enviarDatos( url ) {
+        this.formulario.addEventListener("submit", ( e ) => {
+            e.preventDefault()
+            this.fetchPost( url );
+        })
+    }
     // Extraer detos de un archivo seleccionado y agregarlo a su campo correspondiente
     obtenerDatos() {
         this.inputImg.addEventListener("change", () => {
@@ -193,7 +200,7 @@ export class Serie {
                         <label for="">
                             <h4>T${i}:</h4>
                             <span># caps</span>
-                            <input type="number" name="" id="caps" min="0" max="50" required>
+                            <input type="number" name="temporada_${i}" id="caps" min="0" max="50" required>
                         </label>
                     </div>
                     `;
@@ -212,7 +219,10 @@ export class Serie {
     
                         this.containerFormTotalCaps.innerHTML = `
                             <div class="total-caps">
-                                <h3>Total de capitulos ${cantDeCap}</h3>
+                                <label for="total-caps">
+                                    Total de Capitulos:
+                                    <input type="number" name="TotalDeCapitulos" id="total-caps" min="0" value="${cantDeCap}">
+                                </label>
                             </div>
                         `;
                         

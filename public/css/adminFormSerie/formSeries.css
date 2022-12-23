@@ -62,7 +62,6 @@
 
 .formulario .grid-item .card-input label textarea
 {
-    height: 150px;
     border: none;
     outline: none;
     background-color: transparent;
@@ -71,10 +70,8 @@
     max-height: 215px;
     font-size: 15px;
     min-height: 120px;
-    border: 2px solid #11101d;
     border-radius: 15px;
     transition: all 0.1s;
-    padding: 6px 12px;
     color: #11101d;
     font-size: 18px;
 }
@@ -82,13 +79,10 @@
 .formulario .grid-item .card-input.text-area label
 {
     border-left: none;
+    border: 2px solid #11101d;
+    border-radius: 20px;
+    
 }
-
-.formulario .grid-item .card-input label textarea:hover
-{
-    border: 2px solid #2e2f52;
-}
-
 .formulario .grid-item .text-area label
 {
     border-bottom: none;
@@ -264,9 +258,18 @@ textarea
 {
     width: 50%;
     margin-left: 6px;
-    border: 2px solid #11101d;
-    border-radius: 10px;
+    border-bottom: 2PX solid #11101d;
+    height: 100%;
+    text-align: center;
+    padding: 3px;
+    transition: border 0.1s;
 }
+
+.formulario .grid-item .card-input.date input.focus
+{
+    border-bottom: 2px solid #0fff23;
+}
+
 
 /* Navegador */
 .formulario .grid-item.nav 
@@ -378,6 +381,7 @@ textarea
     outline: 2px solid #0fff23;
 }
 
+
 .formulario .grid-item .form-serie
 {
     width: 50%;
@@ -438,6 +442,18 @@ textarea
 .formulario .grid-item .form-serie .total-caps
 {
     margin-top: 25px;
+}
+
+.formulario .grid-item .form-serie .total-caps label
+{
+    font-size: 18px;
+    color: #11101d;
+    text-align: center;
+}
+
+.formulario .grid-item .form-serie .total-caps input
+{
+    color: #0fff23;
 }
 
 .formulario .grid-item .form-serie .container-total-caps

@@ -13,7 +13,7 @@
     <%- include('partials/silderbar'); %>
 
     <main id="main">
-        <form id="enviar">
+        <form id="form">
             <div class="formulario">
                 <div class="grid-item nav">
                     <header>
@@ -48,7 +48,7 @@
                 <div class="grid-item">
                     <div>
                         <label for="img"><span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><circle cx="7.499" cy="9.5" r="1.5"></circle><path d="m10.499 14-1.5-2-3 4h12l-4.5-6z"></path><path d="M19.999 4h-16c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm-16 14V6h16l.002 12H3.999z"></path></svg></span> Seleccione la Imagen</label>
-                        <input type="file" name="imagen" id="img" multiple hidden accept="image/*" required>
+                        <input type="file" name="imagen" id="img" hidden accept="image/*" required>
                     </div>
                 </div>
                 <div class="grid-item">
@@ -96,11 +96,11 @@
                     <div class="card-input-subtitulos">
                         <h3>Subtitulos</h3>
                         <div>
-                            <input type="checkbox" id="sub" name="subtitulada">
-                            <label for="sub">Subtitulada</label>
-                            <input type="checkbox" name="español" id="es">
-                            <label for="es">Español</label>
-                            <input type="checkbox" name="" id="ng">
+                            <input type="checkbox" id="si" name="Subtitulos" value="subtitulada">
+                            <label for="si">Subtitulada</label>
+                            <input type="checkbox" name="Subtitulos" id="no" value="español">
+                            <label for="no">Español</label>
+                            <input type="checkbox" name="Subtitulos" id="ng" value="nunguna">
                             <label for="ng">Ninguna</label>
                         </div>
                     </div>
@@ -317,7 +317,7 @@
                             <div class="estado"></div>                                
                             <label for="#temp">
                                 <span>Temporadas</span>
-                                <input type="number" id="#temp" min="0" max="20" required>
+                                <input type="number" id="#temp" min="0" max="20" required name="temporadas">
                             </label>
                         </div>
                         <div class="container-temp"></div>
