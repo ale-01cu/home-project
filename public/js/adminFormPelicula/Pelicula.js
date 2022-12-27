@@ -90,13 +90,22 @@ export class Pelicula {
     // Enviar formulario al servidor
     async fetchPost( url ) {
         const formData = new FormData( this.formulario );
-        const respuestaCoduficada = await fetch( url , {
-            method: "post",
-            body: formData
-        });
-        const respuesta = await respuestaCoduficada.json();
 
-        return respuesta;
+        try {
+            const respuestaCoduficada = await fetch( url , {
+                method: "post",
+                body: formData
+            });
+            const respuesta = await respuestaCoduficada.json();
+            console.log(respuesta);
+            return respuesta;
+
+        } catch (error) {
+            console.log(error);
+        }
+
+        
+        
     }
 
     enviarDatos( url ) {

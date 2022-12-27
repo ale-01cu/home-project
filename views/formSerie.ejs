@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/nav.css">
-    <link rel="stylesheet" href="/css/adminFormSerie/InterfazAlmacenar.css">
+    <link rel="stylesheet" href="/css/adminFormPelicula/InterfazAlmacenar.css">
+    <link rel="stylesheet" href="/css/adminFormPelicula/formPeliculas.css">
     <link rel="stylesheet" href="/css/adminFormSerie/formSeries.css">
     <title>Almacenar Serie</title>
 </head>
@@ -41,7 +42,7 @@
                         <div class="estado"></div>
                         <label for="">
                             <span>Ubicación:</span>
-                            <input type="url" name="path" id="path" class="path" required>
+                            <input type="url" name="ubicacion" id="path" class="path" required>
                         </label>
                     </div>
                 </div>
@@ -94,13 +95,13 @@
                         </label>
                     </div>
                     <div class="card-input-subtitulos">
-                        <h3>Subtitulos</h3>
+                        <h3>Audio:</h3>
                         <div>
-                            <input type="checkbox" id="si" name="Subtitulos" value="subtitulada">
+                            <input type="checkbox" id="si" name="audio" value="subtitulada">
                             <label for="si">Subtitulada</label>
-                            <input type="checkbox" name="Subtitulos" id="no" value="español">
+                            <input type="checkbox" name="audio" id="no" value="español">
                             <label for="no">Español</label>
-                            <input type="checkbox" name="Subtitulos" id="ng" value="nunguna">
+                            <input type="checkbox" name="audio" id="ng" value="nunguna">
                             <label for="ng">Ninguna</label>
                         </div>
                     </div>
@@ -329,7 +330,7 @@
                         <div class="estado"></div>
                         <label for="">
                             <span>Descripcion:</span>
-                            <textarea name="" id="textarea" cols="" rows="" required></textarea>
+                            <textarea name="descripcion" id="textarea" cols="" rows="" required></textarea>
                         </label>
                     </div>
                 </div>

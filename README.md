@@ -20,3 +20,17 @@
 - Cambios en el html del formSerie.
 - Se Agrego la ruta y el controlador del formulario de serie al backend.
 - Modificaciones en el middleware de multer para crear las carpetas.
+
+### v0.0.5: 
+- Se agrego la Base de datos.
+- Se instalo Mongoose.
+- Se instalo express-validator.
+- Se crearon los directorios ( helpers, db, models, validators ).
+- Se configuro Mongoose.
+- Se crearon los modelos.
+- Modificaciones en el middleware de multer.
+- Se crearon las validaciones en validators/formCategorias.
+- Se le quitaron los bordes a los labels en el frontend.
+- Se organizaron los archivos css de las vistas.
+- Se aplico la herencia a los archivos js de los formularios de las categorias.
+- En el controlador formAdmin se agregó el manejo con la base de datos.
