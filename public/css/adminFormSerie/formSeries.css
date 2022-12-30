@@ -11,10 +11,7 @@
     border-left: 2px solid #11101d;
 }
 
-.formulario .grid-item .form-serie .container-temp label:hover
-{
-    border-left: 2px solid #13165f;
-}
+
 .formulario .grid-item .form-serie  label input
 {
     text-align: center;
@@ -51,7 +48,7 @@
 .formulario .grid-item .form-serie .temporadas label input
 {
     font-size: 17px;
-    margin-left: 26%;
+    margin-left: 5%;
     height: 20px;
     text-align: center;
 }

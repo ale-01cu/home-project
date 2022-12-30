@@ -27,8 +27,8 @@ const peliculasSchema = Schema({
         required: [true, 'El actores son obligatorios']
     },
     fechaDeEstreno: {
-        type: String,
-        default: "Desconocido"
+        type: Array,
+        required: [true, "La fecha de estreno es obligatoria"]
     },
     audio: {
         type: Array,
@@ -54,4 +54,7 @@ const peliculasSchema = Schema({
 
 })
 
-module.exports = model( "Peliculas", peliculasSchema);
+module.exports = {
+    Pelicula: model( "Peliculas", peliculasSchema),
+    peliculasSchema
+}

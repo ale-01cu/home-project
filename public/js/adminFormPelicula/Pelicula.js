@@ -17,18 +17,12 @@ export class Pelicula {
         this.estados = document.querySelectorAll(".formulario .grid-item card-input .estado");
         this.nav = document.querySelectorAll(".formulario .grid-item ul li a");
         this.submit = document.getElementById("Guardar");
+        this.fragment = document.createDocumentFragment();
 
     }
 
     // Efecto de Seleccionado y deseleccionada de cada widget
     efectosDeLaInterfaz() {
-        this.inputDate.onfocus = () => {
-            this.inputDate.classList.add("focus");
-        }
-        this.inputDate.onblur = () => {
-            if(!this.inputDate.value != "") this.inputDate.classList.remove("focus");
-        }
-
         this.inputs.forEach( ( e ) =>  {
             if ( e.previousElementSibling && e.previousElementSibling.tagName === "SPAN" ) {
                 e.onfocus = () => {
@@ -55,16 +49,21 @@ export class Pelicula {
 
     // Efecto de Deseleccion en todos los widgets
     resetear() {
-        this.reset.addEventListener("click", () => {
-            this.inputDate.classList.remove("focus");
-            this.inputs.forEach( ( elemnts ) =>  {
-                if (  elemnts.previousElementSibling && elemnts.previousElementSibling.tagName === "SPAN" ) {
-                    elemnts.previousElementSibling.classList.remove("top");
-                    elemnts.previousElementSibling.classList.remove("focus");
-                    elemnts.parentElement.classList.remove("focus");
-                }
-            })
-            this.divImagen.innerHTML = "";
+        this.inputs.forEach( ( elemnts ) =>  {
+            if (  elemnts.previousElementSibling && elemnts.previousElementSibling.tagName === "SPAN" ) {
+                elemnts.previousElementSibling.classList.remove("top");
+                elemnts.previousElementSibling.classList.remove("focus");
+                elemnts.parentElement.classList.remove("focus");
+            }
+        })
+        this.reset.click();
+        this.divImagen.innerHTML = "";
+        
+    }
+
+    btnReset () {
+        this.reset.addEventListener("click", (e) => {
+            this.resetear();
         })  
     }
 
@@ -87,6 +86,44 @@ export class Pelicula {
         return bytes;
     }
 
+    // Ventana Modal
+    modal ( res ) {
+        const modal = document.querySelector(".modal");
+        const modalInfo = document.querySelector(".modal .modal-info");
+        const ModalIcon = document.querySelector(".modal .icon");
+        modal.classList.add("active");
+
+        modalInfo.lastElementChild.innerHTML = "";
+        for ( let i in res ) {
+            if ( i === "errors" ) {
+                modal.classList.add("error");
+                modalInfo.firstElementChild.innerHTML = "Error";
+
+                res[i].forEach( e => {
+                    const li = document.createElement("LI");
+                    li.innerHTML = e.msg;
+                    this.fragment.appendChild(li);
+                })
+                modalInfo.lastElementChild.appendChild(this.fragment);   
+            }else if (i === "status") {
+                if ( modal.classList.contains("error") ) modal.classList.remove("error");
+                modal.classList.add("ok");
+                modalInfo.firstElementChild.innerHTML = "Guardado";
+                this.resetear();
+
+                setTimeout( () => {
+                    modal.classList.remove( "active", "ok" );
+                }, 3000)
+            }
+        }
+
+        ModalIcon.addEventListener("click", () => {
+            modal.classList.remove( "active", "error", "ok" );
+            modalInfo.lastElementChild.innerHTML = "";
+        })
+
+    }
+
     // Enviar formulario al servidor
     async fetchPost( url ) {
         const formData = new FormData( this.formulario );
@@ -97,21 +134,24 @@ export class Pelicula {
                 body: formData
             });
             const respuesta = await respuestaCoduficada.json();
-            console.log(respuesta);
             return respuesta;
 
         } catch (error) {
-            console.log(error);
+            throw new Error(error)
         }
-
-        
         
     }
 
     enviarDatos( url ) {
         this.formulario.addEventListener("submit", ( e ) => {
             e.preventDefault()
-            this.fetchPost( url );
+            this.fetchPost( url )
+                .then( res => this.modal( res ))
+                .catch(err => {
+                    console.log(err);
+                    location.reload();
+                })
+
         })
     }
 
@@ -142,6 +182,55 @@ export class Pelicula {
                 this.efectoAlInsertar(this.inputTamaño);
             }
         })
+    }
+
+    configInputDate () {
+
+        const selectorsDates = document.querySelectorAll(".formulario .grid-item .card-input.date select");
+        
+        // Selector de dias
+        const dias = selectorsDates.item(0);
+        dias.addEventListener( "click", () => {
+            if ( dias.children.length == 1 ) {
+                for ( let i = 1; i <= 31; i++ ) {
+                    const optionElement = document.createElement("option");
+                    optionElement.innerText = i;
+                    optionElement.value = i;
+                    this.fragment.appendChild(optionElement);
+                }
+                dias.appendChild(this.fragment);
+            }
+        })
+
+        // Selector de Meses
+        const meses = selectorsDates.item(1);
+        meses.addEventListener("click", () => {
+            if ( meses.children.length == 1 ) {
+                for ( let i = 1; i <= 12; i++ ) {
+                    const optionElement = document.createElement("option");
+                    optionElement.innerText = i;
+                    optionElement.value = i;
+                    this.fragment.appendChild(optionElement);
+                }
+                meses.appendChild(this.fragment);
+            }
+        })
+
+
+        // Selector de años
+        const años = selectorsDates.item(2);
+        años.addEventListener("click", () => {
+            if (  años.children.length == 1 ) {
+                for ( let i = new Date().getFullYear(); i >= 1900; i-- ) {
+                    const optionElement = document.createElement("option");
+                    optionElement.innerText = `${i}`;
+                    optionElement.value = i;
+                    this.fragment.appendChild(optionElement);
+                }
+                años.appendChild(this.fragment);
+            }
+        })
+
     }
 
     configEstado() {

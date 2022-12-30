@@ -2,20 +2,20 @@ main
 {
     position: relative;
     height: 100VH;
-    width: calc(100% - 78px);
-    left: 78px;
-    transition: all 0.5s;
-    z-index: -1;
+    width: calc(100% - 4rem);
+    left: 4rem;
+    transition: all 0.3s;
+    z-index: 30;
 }
 
 
 main.active
 {
-    width: calc(100% - 200px);
-    left: 200px;
+    width: calc(100% - 12rem);
+    left: 12rem;
 }
 
-@media screen and (max-width: 800px)
+@media screen and (max-width: 1024px)
 {
     #main
     {
@@ -32,7 +32,7 @@ main.active
     grid-template-rows: 50px repeat(3, 1fr) 100px ;
     width: 100%;
     height: 100vh;
-    grid-gap: 10px;
+    grid-gap: 5px;
     z-index: 0;
     opacity: .5;
     padding: 0 30px;
@@ -42,7 +42,7 @@ main.active
 {   
     grid-column: 1 / 4;
     position: relative;
-    border-bottom: 1px solid #11101d;
+    border-bottom: 2px solid #11101d;
 }
 
 .formulario .grid-item
@@ -54,7 +54,6 @@ main.active
     justify-content: center;
     flex-direction: column;
 }
-
 
 .formulario .grid-item:nth-child(7)
 {

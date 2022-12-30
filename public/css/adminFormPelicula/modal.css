@@ -1,0 +1,86 @@
+.modal
+{
+    position: fixed;
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    top: -40em;
+    right: 0;
+    left: 0;
+    margin: auto;
+    width: 30%;
+    height: auto;
+    background-color: #fff;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    transition: all 0.5s ease;
+}
+
+.modal.active
+{
+    top: 0;
+    border: 1px solid gray;
+    box-shadow: 2px 2px 10px 0 rgb(78, 78, 78);
+}
+
+
+.modal span
+{
+    width: 100%;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal span svg
+{
+    cursor: pointer;
+}
+
+.modal .modal-info
+{
+    width: 100%;
+    min-height: 6em;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.modal .modal-info h1
+{
+    text-align: center;
+    color: #fff;
+    padding: 10px;
+    font-size: 25px;
+    font-weight: 800;
+}
+
+.modal .modal-info ul 
+{
+    display: flex;
+    flex-direction: column;
+    width: 85%;
+}
+
+.modal .modal-info ul li
+{
+    color: #fff;
+    padding: 5px;
+}
+
+.modal.active.ok
+{
+    background-color: rgb(151, 255, 151);
+}
+
+.modal.active.ok .modal-info
+{
+    justify-content: center;
+}
+
+.modal.active.error
+{
+    background-color: rgb(255, 134, 134);
+}

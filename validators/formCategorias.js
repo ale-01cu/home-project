@@ -1,7 +1,7 @@
 const { check } = require('express-validator') //TODO <---
 const { validateResult } = require('../helpers/validateResult');
-const Pelicula = require("../models/Pelicula");
-const Serie = require("../models/Serie");
+const { Pelicula } = require("../models/Pelicula");
+const { Serie } = require("../models/Serie");
 const { PELICULA, SERIE } = require("../helpers/variablesGlobales")
 
 const validateCreate = ( categoria ) => {
@@ -31,8 +31,16 @@ const validateCreate = ( categoria ) => {
             .not()
             .isEmpty(),
         check("fechaDeEstreno", "Fecha no valida")
-            .not()
-            .isDate(),
+            .custom( ( value, {req} ) => {
+                console.log(value);
+                if ( value[2] === 'none' ) throw new Error('Rellene el año de estreno.')
+                else if ( value[1] === 'none') {
+                    if ( value[0] !== 'none' ) throw new Error('Fecha de estreno invalida.');
+                    else return true;
+                }else{
+                    return true;
+                }
+            }),
         check("generos", "Los generos estan vacios")
             .not()
             .isEmpty(),

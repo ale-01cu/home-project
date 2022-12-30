@@ -1,6 +1,6 @@
 const { response } = require("express");
-const Pelicula = require("../models/Pelicula");
-const Serie = require("../models/Serie");
+const { Pelicula } = require("../models/Pelicula");
+const { Serie } = require("../models/Serie");
 
 const pelicula = ( req, res = response ) => {
     res.render("formPelicula");
@@ -11,6 +11,8 @@ const serie = ( req, res = response ) => {
 };
 
 const guardarPelicula = async ( req, res = response) => {
+
+    console.log(req.body);
 
     const modelo = Object.assign(req.body, {imagen: req.file.path});
     const pelicula = new Pelicula( modelo );

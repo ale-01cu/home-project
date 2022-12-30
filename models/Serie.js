@@ -66,4 +66,7 @@ const seriesSchema = Schema({
 
 })
 
-module.exports = model( "Series", seriesSchema)
+module.exports = {
+    Serie: model( "Series", seriesSchema),
+    seriesSchema
+}

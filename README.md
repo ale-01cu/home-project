@@ -34,3 +34,10 @@
 - Se organizaron los archivos css de las vistas.
 - Se aplico la herencia a los archivos js de los formularios de las categorias.
 - En el controlador formAdmin se agregó el manejo con la base de datos.
+
+### v0.0.55:
+- Se organizaron las vistas de formCategorias y se separaron en pequeñas partes.
+- Cambios de Estilo en el formulario de las categorias( se cambio el input date, entre otras cosas ).
+- Instalacion de Tailwindcss.
+- Cambio del estilo SilderBar a tailwindcss. 
+- Se corrijeron errores en el modal. 
