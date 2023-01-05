@@ -513,6 +513,30 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
+nav div ul li a:hover .icon svg {
+  fill: #000;
+}
+
+nav div ul li a:hover span:last-child {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
+nav div ul li a.active .icon svg {
+  fill: #000;
+}
+
+nav div ul li a.active span:last-child {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
+nav div ul a:hover + .tooltip {
+  opacity: 1;
+  --tw-translate-y: 1.5rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
 .pointer-events-none {
   pointer-events: none;
 }

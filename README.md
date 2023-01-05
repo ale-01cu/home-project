@@ -41,3 +41,8 @@
 - Instalacion de Tailwindcss.
 - Cambio del estilo SilderBar a tailwindcss. 
 - Se corrijeron errores en el modal. 
+
+
+### V0.0.56:
+- Algunos cambios en el diseño de los formularios de las categorias.
+- Se agregaron mis clases a tailwind en la parte del navegador lateral.

@@ -12,8 +12,6 @@ const serie = ( req, res = response ) => {
 
 const guardarPelicula = async ( req, res = response) => {
 
-    console.log(req.body);
-
     const modelo = Object.assign(req.body, {imagen: req.file.path});
     const pelicula = new Pelicula( modelo );
     await pelicula.save();
