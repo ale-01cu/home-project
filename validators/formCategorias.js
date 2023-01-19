@@ -32,7 +32,6 @@ const validateCreate = ( categoria ) => {
             .isEmpty(),
         check("fechaDeEstreno", "Fecha no valida")
             .custom( ( value, {req} ) => {
-                console.log(value);
                 if ( value[2] === 'none' ) throw new Error('Rellene el año de estreno.')
                 else if ( value[1] === 'none') {
                     if ( value[0] !== 'none' ) throw new Error('Fecha de estreno invalida.');
@@ -43,7 +42,12 @@ const validateCreate = ( categoria ) => {
             }),
         check("generos", "Los generos estan vacios")
             .not()
-            .isEmpty(),
+            .isEmpty()
+            .custom( ( value, {req} ) => {
+                const generos = value.split(" ");
+                const generosFiltrados = generos.filter( e => e.length > 0 )
+                return generosFiltrados;
+            }),
         check("actores", "Los actores estan vacios")
             .not()
             .isEmpty(),

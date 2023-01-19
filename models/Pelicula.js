@@ -19,7 +19,7 @@ const peliculasSchema = Schema({
         required: [true, 'El tamaño es obligatorio']
     },
     generos: {
-        type: String,
+        type: Array,
         required: [true, 'Los generos son obligatorios']
     },
     actores: {

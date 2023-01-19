@@ -46,3 +46,8 @@
 ### V0.0.56:
 - Algunos cambios en el diseño de los formularios de las categorias.
 - Se agregaron mis clases a tailwind en la parte del navegador lateral.
+
+
+### v0.0.6:
+- Se agrego la vista del catalogo.
+- Se configuro el controlador para que devuelva la informacion necesaria a la vista.

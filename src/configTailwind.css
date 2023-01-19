@@ -27,5 +27,22 @@ nav div ul a:hover + .tooltip
     @apply translate-y-6;
 }
 
+@media screen and (min-width: 1024px)
+{
+    main
+    {
+        width: calc(100% - 4rem) !important;
+    }
+
+
+    #header{
+        width: calc(100% - 4rem);
+    }
+}
+
+#generos-cards {
+    padding: 1px 8px;
+  }
+
 
 @tailwind utilities;
