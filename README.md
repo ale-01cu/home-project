@@ -1,5 +1,6 @@
 #  Versiones:
 
+
 ### v0.0.3:
 - Tiene el formulario del frontend para agregar categorias con toda la informacion que necesita.
 - Envia el formulario con toda la informacion al servidor por un formData y fetch.
@@ -51,3 +52,10 @@
 ### v0.0.6:
 - Se agrego la vista del catalogo.
 - Se configuro el controlador para que devuelva la informacion necesaria a la vista.
+
+## v0.0.7:
+- Se configuro la vista dinamicamente para las busquedas, el filtrado de generos y las targetas.
+- Se configuro la funcionalidad del buscador del catalogo.
+- Se configuro las funcionalidades del carrucel.
+- Se cambio el estilo de las targetas.
+- Se configuro todo en la vista para movil y pantallas grandes.

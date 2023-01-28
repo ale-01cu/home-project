@@ -12,89 +12,271 @@
         <%- include('partials/silderbar'); %>
         <!--nav--> 
 
-        <main class="relative z-30 transition-all duration-300 ease-in-out lg:left-16">
-            <div id="header" class="bg-white fixed z-20 flex justify-between items-center h-14 px-4 w-full lg:justify-center">
-                <div id="nav" class="flex">
-                    <button>
-                        <span>
-                            <svg class="icon z-30 fill-black lg:hidden" xmlns="http://www.w3.org/2000/svg" width="30 " height="30 " viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"></path></svg>
-                        </span>
-                    </button>
+        <main class="
+                    relative 
+                    z-30 
+                    transition-all 
+                    duration-300 
+                    ease-in-out 
+                    lg:left-16">
+
+            <div id="header" class="
+                                    bg-white
+                                    fixed
+                                    z-20 
+                                    flex 
+                                    flex-col 
+                                    justify-between 
+                                    items-center 
+                                    px-4 
+                                    pt-2 
+                                    w-full 
+                                    top-0 
+                                    lg:justify-center 
+                                    transition-transform
+                                    duration-300
+                                    ">
+                
+                <div class="
+                            flex
+                            justify-between 
+                            w-full">
+                    <div id="nav" class="flex">
+                        <button>
+                            <span>
+                                <svg class="
+                                            icon z-30 
+                                            fill-black 
+                                            lg:hidden" 
+                                            xmlns="http://www.w3.org/2000/svg" width="30 " height="30 " viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"></path></svg>
+                            </span>
+                        </button>
+                    </div>
+        
+                    <% if ( busqueda.length > 0 ) { %> 
+                        <div id="search-after" class="
+                                    w-1/2 
+                                    flex 
+                                    justify-center 
+                                    items-center 
+                                    mx-2 
+                                    lg:hidden 
+                                    h-full "
+                                    >
+                            <div class="
+                                        flex 
+                                        w-full 
+                                        h-1/2 
+                                        justify-center 
+                                        border 
+                                        border-solid 
+                                        border-gray-900 
+                                        rounded-2xl 
+                                        px-2 
+                                        py-1 
+                                        space-x-2 
+                                        shadow-md 
+                                        shadow-slate-500"
+                                        >
+                                <input type="text" name="" id="" class="w-full outline-none cursor-pointer" placeholder="Buscar..." <%- busqueda %> disabled>  
+                                <span class="hidden flex justify-center items-center" id="anular"><svg class="icon fill-slate-500 cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"></path></svg></span>
+                            </div>  
+                        </div>
+                    <% } %> 
+        
+                    <div id="sacar-search" class="flex lg:hidden">
+                        <button>
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M19.023 16.977a35.13 35.13 0 0 1-1.367-1.384c-.372-.378-.596-.653-.596-.653l-2.8-1.337A6.962 6.962 0 0 0 16 9c0-3.859-3.14-7-7-7S2 5.141 2 9s3.14 7 7 7c1.763 0 3.37-.66 4.603-1.739l1.337 2.8s.275.224.653.596c.387.363.896.854 1.384 1.367l1.358 1.392.604.646 2.121-2.121-.646-.604c-.379-.372-.885-.866-1.391-1.36zM9 14c-2.757 0-5-2.243-5-5s2.243-5 5-5 5 2.243 5 5-2.243 5-5 5z"></path></svg>
+                            </span>
+                        </button>
+                    </div>
                 </div>
+
     
-                <div class="hidden w-1/2 flex justify-center items-center mx-2 lg:hidden" id="search-after">
-                    <div class="flex w-full h-1/2 justify-center border border-solid border-gray-900 rounded-lg px-2 py-1 space-x-2">
-                        <input type="text" name="" id="" class="w-full outline-none" placeholder="Buscar...">  
-                        <span class="hidden flex justify-center items-center" id="anular"><svg class="icon fill-slate-500 cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"></path></svg></span>
-                    </div>  
-                </div>
-    
-                <div id="sacar-search" class="flex lg:hidden">
-                    <button>
-                        <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M19.023 16.977a35.13 35.13 0 0 1-1.367-1.384c-.372-.378-.596-.653-.596-.653l-2.8-1.337A6.962 6.962 0 0 0 16 9c0-3.859-3.14-7-7-7S2 5.141 2 9s3.14 7 7 7c1.763 0 3.37-.66 4.603-1.739l1.337 2.8s.275.224.653.596c.387.363.896.854 1.384 1.367l1.358 1.392.604.646 2.121-2.121-.646-.604c-.379-.372-.885-.866-1.391-1.36zM9 14c-2.757 0-5-2.243-5-5s2.243-5 5-5 5 2.243 5 5-2.243 5-5 5z"></path></svg>
-                        </span>
-                    </button>
-                </div>
-    
-                <div class="fixed top-0 left-0 h-14 w-full flex flex-col items-center justify-start mt-2 bg-white translate-x-full transition-transform duration-300 lg:hidden" id="search">
-                    <div class="flex w-3/4 justify-center border border-solid border-gray-900 rounded-lg p-2 space-x-2">
+                <div id="search" class="
+                                        fixed 
+                                        top-0 
+                                        left-0
+                                        h-screen
+                                        w-full 
+                                        flex 
+                                        flex-col 
+                                        items-center 
+                                        justify-start 
+                                        bg-white 
+                                        translate-x-full 
+                                        transition-transform
+                                        duration-200 
+                                        lg:hidden z-30 
+                                        overflow-auto" >
+                    <div class="
+                                flex
+                                w-3/4 
+                                justify-center 
+                                border 
+                                border-solid 
+                                border-gray-900 
+                                rounded-lg 
+                                p-2 
+                                space-x-2 
+                                mt-2">
                         <span class="flex items-center cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12.707 17.293 8.414 13H18v-2H8.414l4.293-4.293-1.414-1.414L4.586 12l6.707 6.707z"></path></svg></span>
-                        <input type="text" name="" id="" class="w-full outline-none" placeholder="Buscar...">  
+                        <input type="text" name="" id="" class="w-full outline-none" placeholder="Buscar..." <%- busqueda %> >  
                         <span class="hidden flex justify-center items-center" id="anular"><svg class="icon fill-slate-500 cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"></path></svg></span>
+                        <button id="btn-buscar">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M19.023 16.977a35.13 35.13 0 0 1-1.367-1.384c-.372-.378-.596-.653-.596-.653l-2.8-1.337A6.962 6.962 0 0 0 16 9c0-3.859-3.14-7-7-7S2 5.141 2 9s3.14 7 7 7c1.763 0 3.37-.66 4.603-1.739l1.337 2.8s.275.224.653.596c.387.363.896.854 1.384 1.367l1.358 1.392.604.646 2.121-2.121-.646-.604c-.379-.372-.885-.866-1.391-1.36zM9 14c-2.757 0-5-2.243-5-5s2.243-5 5-5 5 2.243 5 5-2.243 5-5 5z"></path></svg>
+                            </span>
+                        </button>
                     </div> 
                     
-                    <div class="bg-white w-3/4 p-3 rounded-b-lg" id="historial-busqueda">
-                        <ul class="space-y-3">
-                            <li class="flex space-x-3 items-center justify-start">
-                                <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M19.023 16.977a35.13 35.13 0 0 1-1.367-1.384c-.372-.378-.596-.653-.596-.653l-2.8-1.337A6.962 6.962 0 0 0 16 9c0-3.859-3.14-7-7-7S2 5.141 2 9s3.14 7 7 7c1.763 0 3.37-.66 4.603-1.739l1.337 2.8s.275.224.653.596c.387.363.896.854 1.384 1.367l1.358 1.392.604.646 2.121-2.121-.646-.604c-.379-.372-.885-.866-1.391-1.36zM9 14c-2.757 0-5-2.243-5-5s2.243-5 5-5 5 2.243 5 5-2.243 5-5 5z"></path></svg></span>
-                                <a href="">busqueda 1</a>
-                            </li>
-                        </ul>
+                    <div id="resultado-busqueda" class="
+                                                        bg-white  
+                                                        w-4/5 
+                                                        p-3 
+                                                        rounded-b-lg 
+                                                        transition-all 
+                                                        duration-300" >
+                        <ul class="space-y-3" id="resultado-busqueda-list"></ul>
                     </div>
                 </div>
     
-                <div id="search-md" class="hidden lg:flex md:w-2/4 lg:justify-center lg:border-b-2 lg:border-solid lg:border-gray-900 lg:p-2 lg:space-x-2">
-                    <span class="flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M19.023 16.977a35.13 35.13 0 0 1-1.367-1.384c-.372-.378-.596-.653-.596-.653l-2.8-1.337A6.962 6.962 0 0 0 16 9c0-3.859-3.14-7-7-7S2 5.141 2 9s3.14 7 7 7c1.763 0 3.37-.66 4.603-1.739l1.337 2.8s.275.224.653.596c.387.363.896.854 1.384 1.367l1.358 1.392.604.646 2.121-2.121-.646-.604c-.379-.372-.885-.866-1.391-1.36zM9 14c-2.757 0-5-2.243-5-5s2.243-5 5-5 5 2.243 5 5-2.243 5-5 5z"></path></svg>
-                    </span>
-                    <input type="text" name="" id="" placeholder="Buscar..." class="w-full outline-none">
-                    <span class="hidden" id="anular">
-                        <svg class="icon fill-slate-500 cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"></path></svg>
-                    </span>
+                <div id="container-search-md" class="
+                                                    hidden 
+                                                    lg:w-2/4 
+                                                    lg:flex 
+                                                    lg:flex-col 
+                                                    lg:relative 
+                                                    lg:z-30">
+                    <div id="search-md" class="
+                                                h-11 
+                                                lg:flex 
+                                                lg:justify-center 
+                                                lg:border 
+                                                lg:w-full 
+                                                lg:border-solid 
+                                                lg:border-gray-900 
+                                                lg:shadow-md 
+                                                lg:shadow-slate-400 
+                                                lg:p-2 
+                                                lg:space-x-2 
+                                                lg:rounded-3xl">
+                        <button class="flex items-center" id="btn-buscar-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M19.023 16.977a35.13 35.13 0 0 1-1.367-1.384c-.372-.378-.596-.653-.596-.653l-2.8-1.337A6.962 6.962 0 0 0 16 9c0-3.859-3.14-7-7-7S2 5.141 2 9s3.14 7 7 7c1.763 0 3.37-.66 4.603-1.739l1.337 2.8s.275.224.653.596c.387.363.896.854 1.384 1.367l1.358 1.392.604.646 2.121-2.121-.646-.604c-.379-.372-.885-.866-1.391-1.36zM9 14c-2.757 0-5-2.243-5-5s2.243-5 5-5 5 2.243 5 5-2.243 5-5 5z"></path></svg>
+                        </button>
+                        <input type="text" name="" id="" placeholder="Buscar..." class="w-full outline-none" <%- busqueda %>>
+                        <span class="hidden" id="anular">
+                            <svg class="icon fill-slate-500 cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"></path></svg>
+                        </span>
+                    </div>
+
+                    <div id="res-search-container-md" class="
+                                                            lg:flex 
+                                                            lg:w-full 
+                                                            lg:absolute 
+                                                            lg:top-full 
+                                                            lg:bg-white 
+                                                            rounded-xl">
+                        <ul id="res-search-list" class="lg:px-1 lg:w-full"></ul>
+                    </div>
                 </div>
+
+                <div id="carrusel-generos" class="
+                                                relative 
+                                                flex 
+                                                justify-center 
+                                                items-center 
+                                                right-0 
+                                                left-0 
+                                                h-10 
+                                                bg-white 
+                                                transition-all 
+                                                duration-100 
+                                                ease-in-out 
+                                                mt-2 
+                                                w-full">
+                    <ul class="
+                                flex 
+                                space-x-3 
+                                overflow-hidden 
+                                scroll-smooth 
+                                transition-all 
+                                duration-100 
+                                ease-linear" id="overflow">
+                        <% for ( let clave of generos ) { %> 
+                            <% if ( clave == genero ) { %> 
+                                <li class="transition-all duration-100 select-none"><a <%- `href="genero?genero=${clave}"` %>  class="
+                                                                                                                                    rounded-xl 
+                                                                                                                                    border 
+                                                                                                                                    border-gray-500 
+                                                                                                                                    border-solid 
+                                                                                                                                    px-2 
+                                                                                                                                    py-1 
+                                                                                                                                    bg-gray-300 
+                                                                                                                                    flex 
+                                                                                                                                    text-center 
+                                                                                                                                    whitespace-nowrap 
+                                                                                                                                    text-sm 
+                                                                                                                                    transition-all 
+                                                                                                                                    duration-100 
+                                                                                                                                    select-none"
+                                                                                                                                    ><%= clave %> </a></li>
+                            <% } else { %>
+                                <li class="transition-all duration-100 select-none"><a <%- `href="genero?genero=${clave}"` %>  class="
+                                                                                                                                    rounded-xl 
+                                                                                                                                    border 
+                                                                                                                                    border-gray-500 
+                                                                                                                                    border-solid 
+                                                                                                                                    px-2 
+                                                                                                                                    py-1 
+                                                                                                                                    lg:hover:bg-gray-300 
+                                                                                                                                    flex 
+                                                                                                                                    text-center 
+                                                                                                                                    whitespace-nowrap 
+                                                                                                                                    text-sm 
+                                                                                                                                    transition-all 
+                                                                                                                                    duration-100 
+                                                                                                                                    select-none"
+                                                                                                                                    ><%= clave %> </a></li>
+                            <% } %> 
+                        
+                        <% } %> 
+                    </ul>
+                </div>
+
             </div>
     
-            <div id="carrusel-generos" class="flex justify-center items-center fixed z-10 top-14 right-0 left-0 px-5 h-10 bg-white transition-all duration-100 ease-in-out lg:left-16">
-                <button class="hidden rounded-full hover:bg-slate-300 transition duration-300"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg></button>
-                <ul class="flex space-x-3 overflow-hidden scroll-smooth transition-all duration-100 ease-linear" id="overflow">
-                    <% for ( let clave of generos ) {%> 
-                    <li class="transition-all duration-100"><a href="" class="rounded-xl border border-gray-500 border-solid px-2 py-1 hover:bg-gray-300 flex text-center whitespace-nowrap text-sm transition-all duration-100"><%= clave %> </a></li>
-                    <% } %> 
-                </ul>
-                <button class="hidden rounded-full hover:bg-slate-300 transition duration-300"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path></svg></button>
-            </div>
-    
-            <div id="cards" class="relative z-0 top-24 w-full h-max grid grid-cols-1 gap-y-7 py-8 px-8 justify-items-center sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+            <div id="cards" class="
+                                    relative 
+                                    z-0 
+                                    top-24 
+                                    w-full 
+                                    h-max 
+                                    grid 
+                                    gap-y-7 
+                                    gap-x-5 
+                                    p-8 
+                                    sm:p-5 
+                                    lg:p-8 
+                                    justify-center 
+                                    grid-cols-1
+                                    tablet:grid-cols-2 
+                                    sm:grid-cols-2 
+                                    md:grid-cols-3 
+                                    lg:grid-cols-4 
+                                    xl:grid-cols-5
+                                    2xl:grid-cols-6">
                 <% for ( let i of documentosFiltrados ) {%> 
-                    <a href="#" id="card" class="relative w-64 h-96 shadow-lg shadow-slate-800 font-sans hover:-translate-y-2 transition-transform duration-500">
-                        <div id="poster" class="overflow-hidden relative h-full"><%- i.imagen %> </div>
-                        <div id="details" class="p-2 space-y-1 w-full absolute bottom-0 flex flex-col flex-wrap backdrop-blur-sm">
-                            <h3 id="añoEstreno" class="w-max text-white backdrop-blur-sm  rounded-lg italic font-normal"><%= i.fechaDeEstreno[2] %> </h3>
-                            <h2 id="nombre" class="text-white backdrop-blur-sm rounded-lg font-medium"><%= i.nombre %> </h3>
-                            <div id="valoracion" class="flex justify-between">
-                                <div class="flex">
-                                    <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgb(236, 248, 71);"><path d="m6.516 14.323-1.49 6.452a.998.998 0 0 0 1.529 1.057L12 18.202l5.445 3.63a1.001 1.001 0 0 0 1.517-1.106l-1.829-6.4 4.536-4.082a1 1 0 0 0-.59-1.74l-5.701-.454-2.467-5.461a.998.998 0 0 0-1.822 0L8.622 8.05l-5.701.453a1 1 0 0 0-.619 1.713l4.214 4.107zm2.853-4.326a.998.998 0 0 0 .832-.586L12 5.43l1.799 3.981a.998.998 0 0 0 .832.586l3.972.315-3.271 2.944c-.284.256-.397.65-.293 1.018l1.253 4.385-3.736-2.491a.995.995 0 0 0-1.109 0l-3.904 2.603 1.05-4.546a1 1 0 0 0-.276-.94l-3.038-2.962 4.09-.326z"></path></svg></span>
-                                <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgb(236, 248, 71);"><path d="m6.516 14.323-1.49 6.452a.998.998 0 0 0 1.529 1.057L12 18.202l5.445 3.63a1.001 1.001 0 0 0 1.517-1.106l-1.829-6.4 4.536-4.082a1 1 0 0 0-.59-1.74l-5.701-.454-2.467-5.461a.998.998 0 0 0-1.822 0L8.622 8.05l-5.701.453a1 1 0 0 0-.619 1.713l4.214 4.107zm2.853-4.326a.998.998 0 0 0 .832-.586L12 5.43l1.799 3.981a.998.998 0 0 0 .832.586l3.972.315-3.271 2.944c-.284.256-.397.65-.293 1.018l1.253 4.385-3.736-2.491a.995.995 0 0 0-1.109 0l-3.904 2.603 1.05-4.546a1 1 0 0 0-.276-.94l-3.038-2.962 4.09-.326z"></path></svg></span>
-                                <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgb(236, 248, 71);"><path d="m6.516 14.323-1.49 6.452a.998.998 0 0 0 1.529 1.057L12 18.202l5.445 3.63a1.001 1.001 0 0 0 1.517-1.106l-1.829-6.4 4.536-4.082a1 1 0 0 0-.59-1.74l-5.701-.454-2.467-5.461a.998.998 0 0 0-1.822 0L8.622 8.05l-5.701.453a1 1 0 0 0-.619 1.713l4.214 4.107zm2.853-4.326a.998.998 0 0 0 .832-.586L12 5.43l1.799 3.981a.998.998 0 0 0 .832.586l3.972.315-3.271 2.944c-.284.256-.397.65-.293 1.018l1.253 4.385-3.736-2.491a.995.995 0 0 0-1.109 0l-3.904 2.603 1.05-4.546a1 1 0 0 0-.276-.94l-3.038-2.962 4.09-.326z"></path></svg></span>
-                                <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgb(236, 248, 71);"><path d="m6.516 14.323-1.49 6.452a.998.998 0 0 0 1.529 1.057L12 18.202l5.445 3.63a1.001 1.001 0 0 0 1.517-1.106l-1.829-6.4 4.536-4.082a1 1 0 0 0-.59-1.74l-5.701-.454-2.467-5.461a.998.998 0 0 0-1.822 0L8.622 8.05l-5.701.453a1 1 0 0 0-.619 1.713l4.214 4.107zm2.853-4.326a.998.998 0 0 0 .832-.586L12 5.43l1.799 3.981a.998.998 0 0 0 .832.586l3.972.315-3.271 2.944c-.284.256-.397.65-.293 1.018l1.253 4.385-3.736-2.491a.995.995 0 0 0-1.109 0l-3.904 2.603 1.05-4.546a1 1 0 0 0-.276-.94l-3.038-2.962 4.09-.326z"></path></svg></span>
-                                <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgb(236, 248, 71);"><path d="m6.516 14.323-1.49 6.452a.998.998 0 0 0 1.529 1.057L12 18.202l5.445 3.63a1.001 1.001 0 0 0 1.517-1.106l-1.829-6.4 4.536-4.082a1 1 0 0 0-.59-1.74l-5.701-.454-2.467-5.461a.998.998 0 0 0-1.822 0L8.622 8.05l-5.701.453a1 1 0 0 0-.619 1.713l4.214 4.107zm2.853-4.326a.998.998 0 0 0 .832-.586L12 5.43l1.799 3.981a.998.998 0 0 0 .832.586l3.972.315-3.271 2.944c-.284.256-.397.65-.293 1.018l1.253 4.385-3.736-2.491a.995.995 0 0 0-1.109 0l-3.904 2.603 1.05-4.546a1 1 0 0 0-.276-.94l-3.038-2.962 4.09-.326z"></path></svg></span>
-                                </div>
-                                <span class="text-white font-medium backdrop-blur-sm">#/5</span>
-                            </div>
-                            <div id="generos" class="text-white rounded-lg w-full space-x-2">
+                    <a href="#" id="card" class="relative w-full h-max font-sans transition-transform duration-500 rounded-2xl">
+                        <div id="poster" class="overflow-hidden h-96 relative rounded-2xl"><%- i.imagen %> </div>
+                        <div id="details" class="p-2 space-y-1 relative bottom-0 flex flex-wrap">
+                            <h3 id="añoEstreno" class="w-1/2 backdrop-blur-sm flex items-center  rounded-lg italic font-normal text-md"><%= i.fechaDeEstreno[2] %> </h3>
+                            <h3 id="precio" class="w-1/2 flex items-center justify-end text-lg">Precio: $5</h3>
+                            <h2 id="nombre" class=" backdrop-blur-sm rounded-lg font-medium w-full"><%= i.nombre %> </h3> 
+                            <div id="generos" class="text-white rounded-lg flex flex-wrap">
                                 <% i.generos.forEach( e => { %> 
-                                <span class=" bg-red-600 rounded-lg align-middle text-sm font-medium" id="generos-cards"><%= e %> </span>
+                                    <span class=" bg-red-600 rounded-lg align-middle text-sm font-medium px-2 py-1 mr-1 mb-1" id="generos-cards"><%= e %> </span>
                                 <% }) %> 
                             </div>
                         </div>
