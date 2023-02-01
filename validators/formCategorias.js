@@ -65,6 +65,9 @@ const validateCreate = ( categoria ) => {
                 if ( !req.file ) throw new Error("No se ha mandado ninguna imagen.")
                 return true;
             }),
+        check("precio")
+            .not()
+            .isEmpty()
     ];
 
     const validacionesSeries = [

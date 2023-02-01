@@ -6,11 +6,14 @@ const form = () => {
 
     const formSerie = new Serie();
     formSerie.configInputDate();
-    formSerie.efectosDeLaInterfaz();
+    //formSerie.efectosDeLaInterfaz();
     formSerie.obtenerDatosSerie();
     formSerie.btnResetSerie();
     formSerie.formularioCapXtemporadas();
     formSerie.enviarDatos( "http://10.31.103.6:3000/api/admin/serie/guardar" );
+    formSerie.btnMostrarCategorias();
+    formSerie.btnSubir();
+    formSerie.precio();
 
 }
 

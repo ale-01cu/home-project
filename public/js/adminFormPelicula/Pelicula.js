@@ -17,12 +17,14 @@ export class Pelicula {
         this.estados = document.querySelectorAll(".formulario .grid-item card-input .estado");
         this.nav = document.querySelectorAll(".formulario .grid-item ul li a");
         this.submit = document.getElementById("Guardar");
+        this.inputPrecio = document.getElementById("precio");
         this.fragment = document.createDocumentFragment();
+        
 
     }
 
     // Efecto de Seleccionado y deseleccionada de cada widget
-    efectosDeLaInterfaz() {
+    /*efectosDeLaInterfaz() {
         this.inputs.forEach( ( e ) =>  {
             if ( e.previousElementSibling && e.previousElementSibling.tagName === "SPAN" ) {
                 e.onfocus = () => {
@@ -37,7 +39,7 @@ export class Pelicula {
                 }
             }
         })        
-    }
+    }*/
 
     // El mismo efecto pero de un widget especifico
     efectoAlInsertar( elemento ) {
@@ -49,13 +51,13 @@ export class Pelicula {
 
     // Efecto de Deseleccion en todos los widgets
     resetear() {
-        this.inputs.forEach( ( elemnts ) =>  {
+        /*this.inputs.forEach( ( elemnts ) =>  {
             if (  elemnts.previousElementSibling && elemnts.previousElementSibling.tagName === "SPAN" ) {
                 elemnts.previousElementSibling.classList.remove("top");
                 elemnts.previousElementSibling.classList.remove("focus");
                 elemnts.parentElement.classList.remove("focus");
             }
-        })
+        })*/
         this.reset.click();
         this.divImagen.innerHTML = "";
         
@@ -88,38 +90,43 @@ export class Pelicula {
 
     // Ventana Modal
     modal ( res ) {
-        const modal = document.querySelector(".modal");
-        const modalInfo = document.querySelector(".modal .modal-info");
-        const ModalIcon = document.querySelector(".modal .icon");
-        modal.classList.add("active");
+        const modal = document.getElementById("modal");
+        const modalInfo = document.querySelector("#modal .modal-info");
+        const ModalIcon = document.querySelector("#modal .icon");
 
         modalInfo.lastElementChild.innerHTML = "";
+        modal.classList.remove("translate-x-full", "opacity-0");
+        modalInfo.lastElementChild.innerHTML = "";
+
         for ( let i in res ) {
             if ( i === "errors" ) {
-                modal.classList.add("error");
+                modal.classList.remove("bg-emerald-300");
+                modal.classList.add("bg-red-400");
                 modalInfo.firstElementChild.innerHTML = "Error";
 
                 res[i].forEach( e => {
                     const li = document.createElement("LI");
-                    li.innerHTML = e.msg;
+                    const p = document.createElement("p");
+                    p.textContent = e.msg;
+                    li.classList.add("text-lg", "break-words");
+                    li.appendChild(p);
                     this.fragment.appendChild(li);
                 })
                 modalInfo.lastElementChild.appendChild(this.fragment);   
             }else if (i === "status") {
-                if ( modal.classList.contains("error") ) modal.classList.remove("error");
-                modal.classList.add("ok");
+                if ( modal.classList.contains("error") ) modal.classList.remove("bg-red-400");
+                modal.classList.add("bg-emerald-300");
                 modalInfo.firstElementChild.innerHTML = "Guardado";
                 this.resetear();
 
                 setTimeout( () => {
-                    modal.classList.remove( "active", "ok" );
+                    modal.classList.add("translate-x-full", "opacity-0");
                 }, 3000)
             }
         }
 
         ModalIcon.addEventListener("click", () => {
-            modal.classList.remove( "active", "error", "ok" );
-            modalInfo.lastElementChild.innerHTML = "";
+            modal.classList.add( "translate-x-full", "opacity-0" );
         })
 
     }
@@ -145,12 +152,19 @@ export class Pelicula {
     enviarDatos( url ) {
         this.formulario.addEventListener("submit", ( e ) => {
             e.preventDefault()
-            this.fetchPost( url )
+            
+            if ( !this.divImagen.firstChild ) {
+                window.scrollTo(0, 0);
+                this.inputImg.nextElementSibling.classList.remove("hidden");
+                
+            }else {
+                this.fetchPost( url )
                 .then( res => this.modal( res ))
                 .catch(err => {
                     console.log(err);
                     location.reload();
                 })
+            }
 
         })
     }
@@ -161,6 +175,7 @@ export class Pelicula {
             const img = this.inputImg.files[0];
 
             if ( img ) {
+                this.inputImg.nextElementSibling.classList.add("hidden");
                 const urlImg = URL.createObjectURL(img);
                 this.divImagen.innerHTML = `<img src="${urlImg}" alt="foto" class="mostrarImg">`;
             }
@@ -172,10 +187,12 @@ export class Pelicula {
 
             // video
             if ( file && file.type.split("/")[0] === "video") {
-                this.inputName.value = file.name.split(".")[0];
+                const arrayName = file.name.split(".");
+
+                this.inputName.value = arrayName[0];
                 this.efectoAlInsertar(this.inputName);
         
-                this.inputFormato.value = file.type.split("/")[1];
+                this.inputFormato.value = arrayName[arrayName.length - 1];
                 this.efectoAlInsertar(this.inputFormato)
         
                 this.inputTamaño.value =  this.calcularTamaño(file.size);
@@ -263,6 +280,29 @@ export class Pelicula {
         }, function() {
             console.log('Ups! No se copio');
         });
+    }
+
+    btnMostrarCategorias () {
+        const container = document.getElementById("container");
+        const botton = document.querySelector(".grid-item.nav span");
+        const svg = document.querySelector(".grid-item.nav span svg");
+        const containerCategorias = document.querySelector(".grid-item.nav #container-categorias");
+        
+        botton.addEventListener("click", e => {
+            svg.classList.toggle("-rotate-90")
+            containerCategorias.classList.toggle("hidden")
+        })
+    }
+    
+    btnSubir () {
+        const btn = document.getElementById("btn-subir");
+        btn.addEventListener("click", e => {
+            window.scrollTo(0, 0);
+        }) 
+    }
+
+    precio () {
+        this.inputPrecio.value = "2.50";
     }
 
 }

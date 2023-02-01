@@ -61,6 +61,11 @@ const seriesSchema = Schema({
     imagen: {
         type: String,
         required: [true, 'La imagen es obligatoria']
+    },
+    precio: {
+        type: Number,
+        default: 2.50,
+        required: [true, 'El precio es obligatoria']
     }
 
 

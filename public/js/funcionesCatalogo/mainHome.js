@@ -1,4 +1,4 @@
-import { Home } from "./FuncionesHome.js";
+import { Catalogo } from "./Catalogo.js";
 
 
 const main = () => {
@@ -6,12 +6,12 @@ const main = () => {
     navSeleccionado.classList.add("active", "bg-white");
 
 
-    const home = new Home();
+    const home = new Catalogo();
     home.headerFuncionesMovil();
     home.headerFuncionesPantallasGrandes();
     home.funcionesCarrucel();
     home.funcionesBuscadores();
-    home.esconderHeader();
+    //home.esconderHeader();
 }
 
 main();

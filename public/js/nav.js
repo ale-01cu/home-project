@@ -4,11 +4,12 @@ const textNav = document.querySelectorAll("nav div ul li a span:last-child");
 const tooltip = document.querySelectorAll(".tooltip");
 const cortina = document.querySelector(".cortina");
 const main = document.querySelector("main");
-const btnNavMovil = document.querySelector("main #header #nav button");
+const btnNavMovil = document.querySelector("#nav button");
 
 const efectosNav = () => {
     btn.classList.toggle("active");
     nav.classList.toggle("w-48");
+    nav.classList.toggle("w-16")
     nav.classList.toggle("-translate-x-16");
     main.classList.toggle("active");
 

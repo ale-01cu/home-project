@@ -4,6 +4,7 @@
 
     <head>
         <%- include('partials/head') %> 
+        <link rel="stylesheet" href="/css/tailwindCatalogo.css">
     </head>
 
     <body class="">
@@ -270,7 +271,7 @@
                 <% for ( let i of documentosFiltrados ) {%> 
                     <a href="#" id="card" class="relative w-full h-max font-sans transition-transform duration-500 rounded-2xl">
                         <div id="poster" class="overflow-hidden h-96 relative rounded-2xl"><%- i.imagen %> </div>
-                        <div id="details" class="p-2 space-y-1 relative bottom-0 flex flex-wrap">
+                        <div id="details" class="p-2 space-y-1 relative bottom-0 flex flex-wrap overflow-hidden">
                             <h3 id="añoEstreno" class="w-1/2 backdrop-blur-sm flex items-center  rounded-lg italic font-normal text-md"><%= i.fechaDeEstreno[2] %> </h3>
                             <h3 id="precio" class="w-1/2 flex items-center justify-end text-lg">Precio: $5</h3>
                             <h2 id="nombre" class=" backdrop-blur-sm rounded-lg font-medium w-full"><%= i.nombre %> </h3> 

@@ -1,6 +1,46 @@
-<div class="grid-item">
+<div class="grid-item m-1 w-1/2  justify-self-end mb-2 lg:col-start-3 lg:col-end-3 space-y-2 lg:justify-self-center">
+    
     <div>
-        <label for="img"><span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><circle cx="7.499" cy="9.5" r="1.5"></circle><path d="m10.499 14-1.5-2-3 4h12l-4.5-6z"></path><path d="M19.999 4h-16c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm-16 14V6h16l.002 12H3.999z"></path></svg></span> Seleccione la Imagen</label>
-        <input type="file" name="imagen" id="img" hidden accept="image/*" required>
+        <label for="img" class="
+                            text-gray-500 
+                            flex justify-center 
+                            items-center 
+                            space-x-2 
+                            active:bg-gray-200 
+                            border border-solid 
+                            border-gray-300 
+                            rounded-3xl 
+                            p-1 
+                            cursor-pointer 
+                            lg:hover:bg-gray-200 
+                            transition 
+                            duration-200
+                            " >Seleccione <br> la Imagen<span><svg class="fill-gray-500" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" style=""><circle cx="7.499" cy="9.5" r="1.5"></circle><path d="m10.499 14-1.5-2-3 4h12l-4.5-6z"></path><path d="M19.999 4h-16c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm-16 14V6h16l.002 12H3.999z"></path></svg></span></label>
+        <input class="required:border border-solid border-red-500" type="file" name="imagen" id="img" hidden accept="image/*">
+        <h4 class="text-red-400 hidden">Falta la imagen !</h4>
     </div>
+
+    <div class="grid-item lg:col-start-3 lg:col-end-3">
+        <div class="imagen lg:h-32"></div>
+    </div>
+</div>
+
+<div class="grid-item lg:col-start-4 lg:row-start-1 lg:justify-self-center flex flex-col items-center">
+    <h1 class="text-2xl text-gray-500 text-center">Precio:</h1>
+    <div class="flex">
+        <p class="">$</p>
+        <input class="
+                    border-none
+                    p-0
+                    w-9
+                    text-center
+                    rounded-md
+                    shadow-sm
+                    focus:border-indigo-300 
+                    focus:ring 
+                    focus:ring-indigo-200 
+                    focus:ring-opacity-50
+                    " type="text" name="precio" id="precio" required>
+    </div>
+    
 </div>

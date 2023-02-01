@@ -1,5 +1,5 @@
 
-export class Home {
+export class Catalogo {
     constructor() {
         //TODO: Header
         this.header = document.getElementById("header");
@@ -118,10 +118,8 @@ export class Home {
     //autocompletado buscador
     autocompletado ( input, lista ) {
         const url = "autocompletado";
-
         lista.innerHTML = "";  
-        
-
+    
         this.usarFetch( url, 'post', input )
             .then( res => {
                 res.resultados.forEach( e => {
@@ -146,11 +144,17 @@ export class Home {
 
     }
 
-    comprobarSiElBuscadorEsValidoParaLaBusqueda ( input ) {
-        for ( let i of input.value ) {
-            if ( i !== " " && input.value.length > 0) return true;
-        }  
-        return false;
+    comprobarSiElBuscadorEsValidoParaLaBusqueda ( input, campoResultadosBusqueda ) {
+        if ( input.value.length > 0 ) {
+            for ( let i of input.value ) {
+                if ( i !== " " && input.value.length > 0) return true;
+            }  
+            return false;
+        }else {
+            campoResultadosBusqueda.innerHTML = "";
+            return false;
+        }
+
     }
 
     funcionesBuscadores () {
@@ -162,13 +166,13 @@ export class Home {
         })
 
         this.buscador.addEventListener('input', e => {
-            if ( this.comprobarSiElBuscadorEsValidoParaLaBusqueda( this.buscador ) ) this.autocompletado( this.buscador.value, this.resultadosBusqueda );
+            if ( this.comprobarSiElBuscadorEsValidoParaLaBusqueda( this.buscador, this.resultadosBusqueda ) ) this.autocompletado( this.buscador.value, this.resultadosBusqueda );
         })
 
         this.buscador.addEventListener('keydown', async e => {
             
             if ( e.key.toLowerCase() === 'enter' && this.buscador.value.length > 0 ) {
-                if ( this.comprobarSiElBuscadorEsValidoParaLaBusqueda( this.buscador ) ) this.busquedas( this.buscador );
+                if ( this.comprobarSiElBuscadorEsValidoParaLaBusqueda( this.buscador, this.resultadosBusqueda ) ) this.busquedas( this.buscador );
             }
         })
         
@@ -185,12 +189,12 @@ export class Home {
         })
 
         this.buscadorMd.addEventListener("input", e => {
-            if ( this.comprobarSiElBuscadorEsValidoParaLaBusqueda( this.buscadorMd ) ) this.autocompletado( this.buscadorMd.value, this.resultadosBusquedasPantallasGrandes );
+            if ( this.comprobarSiElBuscadorEsValidoParaLaBusqueda( this.buscadorMd, this.resultadosBusquedasPantallasGrandes ) ) this.autocompletado( this.buscadorMd.value, this.resultadosBusquedasPantallasGrandes );
         })
 
         this.buscadorMd.addEventListener("keydown", e => {
             if ( e.key.toLowerCase() === 'enter' && this.buscadorMd.value.length > 0 ) {
-                if ( this.comprobarSiElBuscadorEsValidoParaLaBusqueda( this.buscadorMd ) ) this.busquedas( this.buscadorMd );
+                if ( this.comprobarSiElBuscadorEsValidoParaLaBusqueda( this.buscadorMd, this.resultadosBusquedasPantallasGrandes ) ) this.busquedas( this.buscadorMd );
             }
         })
 

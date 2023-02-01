@@ -59,6 +59,8 @@ export class Serie extends Pelicula{
     }
 
     obtenerDatosSerie() {
+        let tamañoAnterior = 0;
+
         this.inputImg.addEventListener("change", () => {
             const img = this.inputImg.files[0];
 
@@ -74,24 +76,28 @@ export class Serie extends Pelicula{
             const files = this.inputFile.files;
                 
             // video
-            let AuxSize = 0;
+            let tamañoSeleccionado = 0;
 
             if ( files[0] && files[0].type.split("/")[0] === "video") {
                 for ( let i of files ) {
                     //Formato
+                    const arrayName = i.name.split(".");
                     if ( i.type.split("/")[0] === "video" ) {
-                        this.inputFormato.value +=  this.inputFormato.value.includes( i.type.split("/")[1] ) 
+                        this.inputFormato.value +=  this.inputFormato.value.includes( arrayName[arrayName.length-1] ) 
                                                                                                             ? "" 
-                                                                                                            :  i.type.split("/")[1] + " "
+                                                                                                            :  arrayName[arrayName.length-1] + " "
                         this.efectoAlInsertar(this.inputFormato)
-                        AuxSize += i.size; 
+                        tamañoSeleccionado += i.size; 
                     }
                 }
+                
                 // Tamaño
-                this.inputTamaño.value = ( parseFloat(this.inputTamaño.value) )
-                                                                                ? Math.round(( parseFloat(this.inputTamaño.value.split(" ")[0]) + parseFloat(this.calcularTamaño(AuxSize).split(" ")[0]) ) * 100) /100  + " " + this.calcularTamaño(AuxSize).split(" ")[1]
-                                                                                : this.calcularTamaño(AuxSize)
-                this.efectoAlInsertar(this.inputTamaño);
+                const resultado = tamañoAnterior + tamañoSeleccionado;
+                this.inputTamaño.value = ( tamañoAnterior !== 0 )
+                                                ? this.calcularTamaño(resultado)
+                                                : this.calcularTamaño(tamañoSeleccionado)
+                tamañoAnterior = resultado;
+                //this.efectoAlInsertar(this.inputTamaño);
             }
         })
     }
@@ -107,11 +113,24 @@ export class Serie extends Pelicula{
             if ( this.inputCantDeTemp.value <= 20 ) {
                 for ( let i=1; i <= this.inputCantDeTemp.value; i++ ) {
                     this.containerFormTemp.innerHTML += `
-                    <div class="temporadas">
-                        <label for="">
-                            <h4>T${i}:</h4>
-                            <span># caps</span>
-                            <input type="number" name="capsPorTemporadas" id="caps" min="0" max="50" required>
+                    <div class="temporadas ">
+                        <label for="" class="flex justify-end items-center space-x-2">
+                            <h4 class="text-lg text-gray-600">T${i}:</h4>
+                            <span class="text-gray-600"># caps</span>
+                            <input type="number" name="capsPorTemporadas" id="caps" min="0" max="50" class="
+                                                                                                        placeholder:text-sm
+                                                                                                        placeholder:text-gray-300
+                                                                                                        mt-1
+                                                                                                        mb-2
+                                                                                                        block
+                                                                                                        
+                                                                                                        rounded-md
+                                                                                                        border-gray-300
+                                                                                                        shadow-sm
+                                                                                                        focus:border-indigo-300 
+                                                                                                        focus:ring 
+                                                                                                        focus:ring-indigo-200 
+                                                                                                        focus:ring-opacity-50" required>
                         </label>
                     </div>
                     `;
@@ -130,9 +149,24 @@ export class Serie extends Pelicula{
     
                         this.containerFormTotalCaps.innerHTML = `
                             <div class="total-caps">
-                                <label for="total-caps">
+                                <label for="total-caps" class="flex justify-center items-center text-lg text-gray-600 space-x-2">
                                     Total de Capitulos:
-                                    <input type="number" name="totalDeCapitulos" id="total-caps" min="0" value="${cantDeCap}">
+                                    <input type="number" placeholder="Total de Capitulos..." name="totalDeCapitulos" id="total-caps" min="0" value="${cantDeCap}" class="
+                                                                                                        placeholder:text-sm
+                                                                                                        placeholder:text-gray-300
+                                                                                                        mt-1
+                                                                                                        mb-2
+                                                                                                        border-b
+                                                                                                        border-gray-300
+                                                                                                        border-solid
+                                                                                                        block
+                                                                                                        w-16
+                                                                                                        rounded-md
+                                                                                                        focus:border-indigo-300 
+                                                                                                        focus:ring 
+                                                                                                        focus:ring-indigo-200 
+                                                                                                        focus:ring-opacity-50
+                                                                                                        ">
                                 </label>
                             </div>
                         `;
@@ -141,7 +175,7 @@ export class Serie extends Pelicula{
                 })
             }else {
                 this.containerFormTemp.innerHTML += `
-                    <h3>Maximo de Temporadas: 20 </h3>
+                    <h3 class="text-red-300 text-center">Maximo de Temporadas: 20 </h3>
                     `;
             }
 
@@ -150,5 +184,8 @@ export class Serie extends Pelicula{
 
         })
     }
-
+    
+    precio () {
+        this.inputPrecio.value = "2";
+    }
 }
