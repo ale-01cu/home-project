@@ -27,7 +27,9 @@ app.use(cors())
 //Rutas
 app.use(express.static(path.join(__dirname, "/public")));
 app.use(express.static(path.join(__dirname, "/uploads")));
-app.use("/", require("./Routes/inicio"));
+app.use("/", require("./routes/home"))
+app.use("/peliculas", require("./routes/catalogoPeliculas"));
+app.use("/series", require("./Routes/catalogoSeries"));
 app.use("/api/admin", require("./Routes/admin"));
 
 //Base de Datos

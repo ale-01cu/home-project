@@ -6,30 +6,30 @@ module.exports = {
       //'public/js/nav.js',
 
     // Vista Catalogo
-      //'views/index.ejs',
-      //'public/js/funcionesCatalogo/Catalogo.js',
-      //'helpers/catalogo.js',
+      'views/catalogoPeliculas.ejs',
+      'views/catalogoSeries.ejs',
+      'public/js/funcionesCatalogo/Catalogo.js',
 
     // Vista Form
-      'views/formPelicula.ejs',
-      'views/formSerie.ejs',
-      'views/partials/formCategorias/**.ejs',
-      'public/js/adminFormPelicula/**.js',
-      'public/js/adminFormSerie/**.js',
+      //'views/formPelicula.ejs',
+      //'views/formSerie.ejs',
+      //'views/partials/formCategorias/**.ejs',
+      //'public/js/adminFormPelicula/**.js',
+      //'public/js/adminFormSerie/**.js',
       
 
   ],
   theme: {
     extend: {
-      /*gridTemplateColumns: {
+      gridTemplateColumns: {
         // Simple 4 column grid
-        '1': 'repeat(1, minmax(0, 16rem))',
-        '2': 'repeat(2, minmax(0, 16rem))',
-        '3': 'repeat(3, minmax(0, 16rem))',
-        '4': 'repeat(4, minmax(0, 16rem))',
-        '5': 'repeat(5, minmax(0, 16rem))',
-        '6': 'repeat(6, minmax(0, 16rem))',
-      }*/
+        '1': 'repeat(1, minmax(14rem, 16rem))',
+        '2': 'repeat(2, minmax(14rem, 16rem))',
+        '3': 'repeat(3, minmax(14rem, 16rem))',
+        '4': 'repeat(4, minmax(14rem, 16rem))',
+        '5': 'repeat(5, minmax(14rem, 16rem))',
+        '6': 'repeat(6, minmax(14rem, 16rem))',
+      }
     },
     screens: {
       'tablet': '480px',
@@ -37,7 +37,7 @@ module.exports = {
       'md': '768px',
       'lg': '1024px',
       'xl': '1280px',
-      '2x': '1536px'
+      '2xl': '1536px'
     },
 
     fontFamily: {
@@ -47,6 +47,6 @@ module.exports = {
     }
   },
   plugins: [
-    require('@tailwindcss/forms'),
+    //require('@tailwindcss/forms'),
   ],
 }

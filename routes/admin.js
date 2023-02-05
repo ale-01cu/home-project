@@ -7,7 +7,7 @@ const upload = require("../middlewares/almacenarLaImagenEnCarpetas");
 // Validaciones
 const { validateCreate } = require("../validators/formCategorias")
 //Variables Globales
-const { PELICULA, SERIE } = require("../helpers/variablesGlobales")
+const { PELICULA, SERIE } = require("../utils/variablesGlobales")
 
 // Devuelve la vista
 router.get("/pelicula", pelicula);

@@ -19,7 +19,7 @@ const seriesSchema = Schema({
         required: [true, 'El tamaño es obligatorio']
     },
     generos: {
-        type: String,
+        type: Array,
         required: [true, 'Los generos son obligatorios']
     },
     actores: {
@@ -27,7 +27,7 @@ const seriesSchema = Schema({
         required: [true, 'El actores son obligatorios']
     },
     fechaDeEstreno: {
-        type: String,
+        type: Array,
         default: "Desconocido"
     },
     audio: {
@@ -63,8 +63,8 @@ const seriesSchema = Schema({
         required: [true, 'La imagen es obligatoria']
     },
     precio: {
-        type: Number,
-        default: 2.50,
+        type: String,
+        default: "2.50",
         required: [true, 'El precio es obligatoria']
     }
 

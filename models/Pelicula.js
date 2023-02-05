@@ -23,7 +23,7 @@ const peliculasSchema = Schema({
         required: [true, 'Los generos son obligatorios']
     },
     actores: {
-        type: String,
+        type: Array,
         required: [true, 'El actores son obligatorios']
     },
     fechaDeEstreno: {

@@ -2,7 +2,7 @@ const { check } = require('express-validator') //TODO <---
 const { validateResult } = require('../helpers/validateResult');
 const { Pelicula } = require("../models/Pelicula");
 const { Serie } = require("../models/Serie");
-const { PELICULA, SERIE } = require("../helpers/variablesGlobales")
+const { PELICULA, SERIE } = require("../utils/variablesGlobales")
 
 const validateCreate = ( categoria ) => {
     let validaciones = [ //TODO: nombre 
@@ -12,10 +12,11 @@ const validateCreate = ( categoria ) => {
             .not()
             .isEmpty()
             .withMessage("El campo nombre esta vacio")
-            .custom( async(value, {req}) => {
+            .custom( async (value, {req}) => {
                 if ( categoria === PELICULA ) {
                     const existeNombre = await Pelicula.findOne({nombre: value})
                     if ( existeNombre ) throw new Error(`El nombre ${value} ya esta registrado`);
+                    
                 }else if ( categoria === SERIE ) {
                     const existeNombre = await Serie.findOne({nombre: value})
                     if ( existeNombre ) throw new Error(`El nombre ${value} ya esta registrado`);

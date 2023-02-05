@@ -13,7 +13,7 @@ const serie = ( req, res = response ) => {
 const guardarPelicula = async ( req, res = response) => {
 
     req.body.generos = req.body.generos.split(" ");
-
+    console.log("Estoy guardando en pelicula...");
     const modelo = Object.assign(req.body, {imagen: req.file.path});
     const pelicula = new Pelicula( modelo );
     await pelicula.save();
@@ -22,7 +22,7 @@ const guardarPelicula = async ( req, res = response) => {
 }
 
 const guardarSerie = async ( req, res = response ) => {
-
+    console.log("Estoy guardando en serie...");
     const modelo = Object.assign(req.body, {imagen: req.file.path});
     const serie = new Serie( modelo );
     await serie.save();

@@ -3,7 +3,28 @@
 
 
 #card:hover img{
-    transform: scale(1.03);
+    transform: scale(1.05);
+}
+
+#details {
+    background: linear-gradient(
+     8deg, 
+     hsl(240 17% 14% / 70%) 14%, 
+     hsl(240 17% 14% / 1%) 44%
+
+     );
+ }
+
+ .swiper-button-prev,
+.swiper-button-next{
+    --swiper-navigation-size: 20px;
+    --swiper-navigation-top-offset: 50%;
+    --swiper-navigation-sides-offset: -0px;
+    --swiper-navigation-color: var(--swiper-theme-color);
+}
+
+.swiper-slide{
+    display: flex !important;
 }
 
 @media screen and (min-width: 1024px)

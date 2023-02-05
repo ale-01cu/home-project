@@ -304,5 +304,6 @@ export class Pelicula {
     precio () {
         this.inputPrecio.value = "2.50";
     }
+    
 
 }

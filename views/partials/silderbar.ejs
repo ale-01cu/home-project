@@ -1,4 +1,4 @@
-<nav class="fixed z-50 w-16 h-screen bg-gray-900 flex flex-col -translate-x-16 lg:translate-x-0 transition-all duration-300 ease-in-out">
+<nav class="fixed z-50 w-16 h-screen bg-gray-900 flex flex-col -translate-x-16 lg:translate-x-0 transition-all duration-300 ease-in-out top-0">
     <div class="item-1 relative flex justify-end items-center px-4 right-0 top-0 left-0 py-3 transition-all duration-300">
       <button class="btn-menu">
         <svg class="icon lg:fill-white hover:fill-slate-400 transition-all duration-300 ease-out" xmlns="http://www.w3.org/2000/svg" width="30 " height="30 " viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"></path></svg>
@@ -15,21 +15,21 @@
             <span class="tooltip absolute left-16 top-0 rounded-lg bg-white text-center w-20 shadow-md shadow-slate-500 line leading-8  font-medium opacity-0 transition duration-300  pointer-events-none">Inicio</span>
         </li>
         <li class="relative px-2">
-            <a href="/" class="flex justify-start items-center space-x-3 py-3 px-3 rounded-xl hover:bg-white transition duration-300 ease-out">
+            <a href="/peliculas" id="catalogoPeliculas" class="flex justify-start items-center space-x-3 py-3 px-3 rounded-xl hover:bg-white transition duration-300 ease-out">
                 <span class="icon"><svg class="fill-white transition duration-300 ease-out" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path d="M19 4v1h-2V3H7v2H5V3H3v18h2v-2h2v2h10v-2h2v2h2V3h-2v1zM5 7h2v2H5V7zm0 4h2v2H5v-2zm0 6v-2h2v2H5zm12 0v-2h2v2h-2zm2-4h-2v-2h2v2zm-2-4V7h2v2h-2z"></path></svg></span>
                 <span class="text text-white whitespace-nowrap transition duration-300 ease-out opacity-0 pointer-events-none">Peliculas</span>
             </a>
             <span class="tooltip absolute left-16 top-0 rounded-lg bg-white text-center w-20 shadow-md shadow-slate-500 line leading-8  font-medium opacity-0 transition duration-300 pointer-events-none">Peliculas</span>
         </li>
         <li class="relative px-2">
-            <a href="/" class="flex justify-start items-center space-x-3 px-3 py-3 rounded-xl hover:bg-white transition duration-300 ease-out">
+            <a href="/series" id="catalogoSeries" class="flex justify-start items-center space-x-3 px-3 py-3 rounded-xl hover:bg-white transition duration-300 ease-out">
                 <span class="icon"><svg class="fill-white transition duration-300 ease-out" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path d="M21 10a3.58 3.58 0 0 0-1.8-3 3.66 3.66 0 0 0-3.63-3.13 3.86 3.86 0 0 0-1 .13 3.7 3.7 0 0 0-5.11 0 3.86 3.86 0 0 0-1-.13A3.66 3.66 0 0 0 4.81 7 3.58 3.58 0 0 0 3 10a1 1 0 0 0-1 1 10 10 0 0 0 5 8.66V21a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1.34A10 10 0 0 0 22 11a1 1 0 0 0-1-1zM5 10a1.59 1.59 0 0 1 1.11-1.39l.83-.26-.16-.85a1.64 1.64 0 0 1 1.66-1.62 1.78 1.78 0 0 1 .83.2l.81.45.5-.77a1.71 1.71 0 0 1 2.84 0l.5.77.81-.45a1.78 1.78 0 0 1 .83-.2 1.65 1.65 0 0 1 1.67 1.6l-.16.85.82.28A1.59 1.59 0 0 1 19 10z"></path></svg></span>
                 <span class="text text-white whitespace-nowrap transition duration-300 ease-out opacity-0 pointer-events-none">Series</span>
             </a>
             <span class="tooltip absolute left-16 top-0 rounded-lg bg-white text-center w-20 shadow-md shadow-slate-500 line leading-8  font-medium opacity-0 transition duration-300 pointer-events-none">Series</span>
         </li>
         <li class="relative px-2">
-            <a href="/"class="flex justify-start items-center py-3 px-3 rounded-xl space-x-3 hover:bg-white transition duration-300 ease-out">
+            <a href="/" id="catalogoNovelas" class="flex justify-start items-center py-3 px-3 rounded-xl space-x-3 hover:bg-white transition duration-300 ease-out">
                 <span class="icon self-center"><svg class="fill-white transition duration-300 ease-out" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path d="M18 9c0-1.103-.897-2-2-2h-1.434l-2.418-4.029A2.008 2.008 0 0 0 10.434 2H5v2h5.434l1.8 3H4c-1.103 0-2 .897-2 2v9c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-3l4 2v-7l-4 2V9zm-1.998 9H4V9h12l.001 4H16v1l.001.001.001 3.999z"></path><path d="M6 14h6v2H6z"></path></svg></span>
                 <span class="text text-white whitespace-nowrap transition duration-300 ease-out opacity-0 pointer-events-none">Novelas</span>
             </a>
@@ -52,4 +52,4 @@
     
 </nav>
 
-<div class="cortina fixed z-40 top-0 left-0 bottom-0 right-0 m-auto bg-black opacity-50 hidden "></div>
+<div class="cortina fixed z-40 top-0 left-0 bottom-0 right-0 m-auto bg-black opacity-50 hidden min-h-screen"></div>

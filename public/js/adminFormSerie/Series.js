@@ -22,42 +22,6 @@ export class Serie extends Pelicula{
         })  
     }
 
-    modal ( res ) {
-        const modal = document.querySelector(".modal");
-        const modalInfo = document.querySelector(".modal .modal-info");
-        const ModalIcon = document.querySelector(".modal .icon");
-        modal.classList.add("active");
-
-        modalInfo.lastElementChild.innerHTML = "";
-        for ( let i in res ) {
-            if ( i === "errors" ) {
-                modal.classList.add("error");
-                modalInfo.firstElementChild.innerHTML = "Error";
-
-                res[i].forEach( e => {
-                    const li = document.createElement("LI");
-                    li.innerHTML = e.msg;
-                    this.fragment.appendChild(li);
-                })
-                modalInfo.lastElementChild.appendChild(this.fragment);   
-            }else if (i === "status") {
-                modal.classList.add("ok");
-                modalInfo.firstElementChild.innerHTML = "Guardado";
-                this.resetSerie();
-
-                setTimeout( () => {
-                    modal.classList.remove( "active", "ok" );
-                }, 3000)
-            }
-        }
-
-        ModalIcon.addEventListener("click", () => {
-            modal.classList.remove( "active", "error", "ok" );
-            modalInfo.lastElementChild.innerHTML = "";
-        })
-
-    }
-
     obtenerDatosSerie() {
         let tamañoAnterior = 0;
 
@@ -137,7 +101,6 @@ export class Serie extends Pelicula{
                 }
                 this.inputs = document.querySelectorAll(".formulario .grid-item .card-input input, textarea");
                 caps = Array.from(document.querySelectorAll(".formulario .grid-item .form-serie .container-temp input"));
-                this.efectosDeLaInterfaz();
     
                 caps.forEach( ( e ) => {
                     e.addEventListener("input", ()  => {
