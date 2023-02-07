@@ -6,9 +6,9 @@ module.exports = {
       //'public/js/nav.js',
 
     // Vista Catalogo
-      'views/catalogoPeliculas.ejs',
-      'views/catalogoSeries.ejs',
+      'views/catalogo.ejs',
       'public/js/funcionesCatalogo/Catalogo.js',
+      'public/js/funcionesCatalogo/mainCatalogo.js',
 
     // Vista Form
       //'views/formPelicula.ejs',

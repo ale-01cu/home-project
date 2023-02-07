@@ -66,11 +66,12 @@
 - Se cambiarion los estilos de los formularios de css a tailwindcss.
 
 
-### v0.1.0: todavia no se le ha hecho commit
+### v0.1.0:
 - Se agrego la paginacion.
 - Se cambio toda la UI a la parte del frontend con javascript.
 . Se agrego la api de Series en el backend y en el frontend.
 
+### v0.1.1:
+- Se cambiaron todas las vistas del catalogo a una sola la igual que los archivos js.
+- Se agrego bin al frontend la libreria swiper.
 
-
-npx tailwindcss -i ./src/configTailwindCatalogo.css -o ./public/css/tailwindCatalogo.css --watch

@@ -404,10 +404,11 @@ export class Catalogo {
 
     //autocompletado buscador
     async autocompletado ( input, lista ) {
-        const url = `autocompletado`;
+        const url = `autocompletado/` + location.pathname.split("/").pop();
         lista.innerHTML = "";  
     
         const res = await this.usarFetch( url, 'POST', input )
+        console.log(res);
         res.resultados.forEach( e => {
             const textoParaBuscar = input.toLowerCase();
             const textoDondeBuscar = e.toLowerCase();
