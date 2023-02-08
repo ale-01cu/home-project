@@ -281,6 +281,7 @@ export class Catalogo {
 
         generos.forEach( e => {
             e.addEventListener("click", event => {
+                this.limpiarBuscadores();
                 const resultadoBusqueda = this.buscarPorGenero( event.target.textContent )
                 const resultadoSeparado = this.getDocumentosSeparados( resultadoBusqueda )
                 this.cargarCards( 0, resultadoSeparado );
@@ -288,6 +289,16 @@ export class Catalogo {
                 this.subirAlTope();
             })
         })
+    }
+
+    limpiarGeneros = () => {
+        document.querySelectorAll("#genero").forEach( e =>  e.classList.remove( "bg-gray-300" ) )
+    }
+
+    limpiarBuscadores = () => {
+        this.btnBuscadorAnular.classList.add("hidden");
+        this.buscador.value = "";
+        this.buscadorMd.value = "";
     }
 
     
@@ -450,6 +461,7 @@ export class Catalogo {
 
     //Busquedas
     busquedas ( input ) {
+        this.limpiarGeneros();
         const busqueda = input.toLowerCase().split(" ");
         this.buscadorMd.value = input;
         this.resultadosBusquedasPantallasGrandes.innerHTML = "";

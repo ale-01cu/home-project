@@ -75,3 +75,7 @@
 - Se cambiaron todas las vistas del catalogo a una sola la igual que los archivos js.
 - Se agrego bin al frontend la libreria swiper.
 
+### v0.1.2:
+- Se adiciono la funcion de "estar solo uno" en la vista del catalogo en la parte del buscador y los generos.
+
+
