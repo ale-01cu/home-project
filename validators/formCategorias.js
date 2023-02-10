@@ -1,11 +1,9 @@
-const { check } = require('express-validator') //TODO <---
+const { check } = require('express-validator'); //TODO <---
+const { selectedDB } = require('../helpers/catalogo');
 const { validateResult } = require('../helpers/validateResult');
-const { Pelicula } = require("../models/Pelicula");
-const { Serie } = require("../models/Serie");
-const { PELICULA, SERIE } = require("../utils/variablesGlobales")
 
-const validateCreate = ( categoria ) => {
-    let validaciones = [ //TODO: nombre 
+const validateForm = ( req, res, next ) => {
+    return [ //TODO: nombre 
         check("nombre")
             .exists()
             .withMessage("No existe el campo nombre.")
@@ -13,14 +11,10 @@ const validateCreate = ( categoria ) => {
             .isEmpty()
             .withMessage("El campo nombre esta vacio")
             .custom( async (value, {req}) => {
-                if ( categoria === PELICULA ) {
-                    const existeNombre = await Pelicula.findOne({nombre: value})
-                    if ( existeNombre ) throw new Error(`El nombre ${value} ya esta registrado`);
-                    
-                }else if ( categoria === SERIE ) {
-                    const existeNombre = await Serie.findOne({nombre: value})
-                    if ( existeNombre ) throw new Error(`El nombre ${value} ya esta registrado`);
-                }
+                const { categoria } = req.params;
+                const db = selectedDB[ categoria ];
+                const existeNombre = await db.findOne( { nombre: value } );
+                if ( existeNombre ) throw new Error(`El nombre ${value} ya esta registrado`);
             }),
         check("ubicacion", "La ubicacion esta vacia")
             .not()
@@ -45,9 +39,9 @@ const validateCreate = ( categoria ) => {
             .not()
             .isEmpty()
             .custom( ( value, {req} ) => {
-                const generos = value.split(" ");
-                const generosFiltrados = generos.filter( e => e.length > 0 )
-                return generosFiltrados;
+                const a = value.split(" ");
+                const generos = a.filter( e => e.length > 0 )
+                return generos;
             }),
         check("actores", "Los actores estan vacios")
             .not()
@@ -68,30 +62,49 @@ const validateCreate = ( categoria ) => {
             }),
         check("precio")
             .not()
-            .isEmpty()
+            .isEmpty(),
+        check("temporadas")
+            .custom( ( value, {req} ) => {
+                const { categoria } = req.params;
+                if ( categoria !== 'peliculas' ) {
+                    if ( value ) {
+                        if ( value.length == 0 ) throw new Error("Las temporadas estan vacias")
+                    } else {
+                        throw new Error("Las temporadas son obligatorias")
+                    }
+                }
+                return true;
+            } ),
+        check("capsPorTemporadas")
+            .custom( ( value, {req} ) => {
+                const { categoria } = req.params;
+                if ( categoria !== 'peliculas' ) {
+                    if ( value ) {
+                        if ( value.length == 0 ) throw new Error("Los capitulos por temporadas estan vacios")
+                    } else {
+                        throw new Error("los capitulos por tenporadas son obligatorios")
+                    }
+                }
+                return true;
+            }),
+        check("totalDeCapitulos")
+            .custom( ( value, {req} ) => {
+                const { categoria } = req.params;
+                if ( categoria !== 'peliculas' ) {
+                    if ( value ) {
+                        if ( value.length == 0 ) throw new Error("El total de capitulos esta vacio")
+                    } else {
+                        throw new Error("El total de capitulos es obligatorio")
+                    }
+                }
+                return true;
+            }),
+        (req, res, next) => {
+            validateResult(req, res, next)
+        }
     ];
 
-    const validacionesSeries = [
-        check("temporadas", "Las temporadas estan vacias")
-            .not()
-            .isEmpty(),
-        check("capsPorTemporadas", "Los capitulos por temporadas estan vacios")
-            .not()
-            .isEmpty(),
-        check("totalDeCapitulos", "No hay total de capitulos por temporadas")
-            .not()
-            .isEmpty(),
-    ];
-
-    if ( categoria === SERIE ) validaciones = validaciones.concat(validacionesSeries);
-
-    validaciones.push((req, res, next) => {
-        validateResult(req, res, next)
-    })
-
-
-    return validaciones;
 } 
 
 
-module.exports = { validateCreate }
+module.exports = { validateForm }

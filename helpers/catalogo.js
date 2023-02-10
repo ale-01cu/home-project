@@ -2,16 +2,11 @@ const { Pelicula } = require("../models/Pelicula");
 const { Serie } = require("../models/Serie");
 
 const selectedDB = {
-    'peliculas': async () => {
-        return await Pelicula.find();
-    },
-    'series': async () => {
-        return await Serie.find()
-    }
+    'peliculas': Pelicula,
+    'series': Serie
 }
 
-const filtrarDocs = async ( categoria ) => {
-    const docs = await selectedDB[ categoria ]();
+const filtrarDocs = async ( docs ) => {
     const docsFiltrados = [];
     docs.forEach( e => {
         const imagen = e.imagen.split("uploads")[1];
@@ -21,8 +16,15 @@ const filtrarDocs = async ( categoria ) => {
     return docsFiltrados;
 }
 
+const docsFiltrados = async ( categoria ) => {
+    const docs = await selectedDB[ categoria ].find();
+    return filtrarDocs( docs );
 
+}
+
+ 
 module.exports = {
     selectedDB,
-    filtrarDocs
+    filtrarDocs,
+    docsFiltrados
 }

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('partials/inicio/head') %> 
+<body>
+    <%- include("partials/silderbar") %> 
+
+    <div>
+        <ul>
+            <li><%= doc[0].precio %> </li>
+            <li><%= doc[0].nombre %> </li>
+            <li><%= doc[0].formato %> </li>
+            <li><%= doc[0].size %> </li>
+            <li><%= doc[0].descripcion %> </li>
+            <li><%= doc[0].plataforma %> </li>
+            <li><%= doc[0].pais %> </li>
+            <li><img src=<%- doc[0].imagen %>  alt=""></li>
+            <% for ( let i of doc[0].generos ) {%> 
+                <li><%= i %> </li>
+            <% } %> 
+            <% for ( let i of doc[0].actores ) {%> 
+                <li><%= i %> </li>
+            <% } %> 
+            <% for ( let i of doc[0].fechaDeEstreno ) {%> 
+                <li><%= i %> </li>
+            <% } %> 
+            <% for ( let i of doc[0].audio ) {%> 
+                <li><%= i %> </li>
+            <% } %> 
+        </ul>
+    </div>
+</body>
+</html>

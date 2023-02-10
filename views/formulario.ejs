@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <%- include( 'partials/head' ) %> 
-    <link rel="stylesheet" href="/css/tailwindForm.css">
-    <title>Almacenar Serie</title>
+    <%- include( 'partials/inicio/head' ) %> 
+    <%- include('partials/formCategorias/head') %> 
 </head>
-<body>
+<body class="">
+
     <%- include('partials/silderbar'); %>
 
     <main id="main" class="lg:relative lg:left-16 font-Roboto">
@@ -34,9 +31,11 @@
             </button>
         </div>
         
+        
+        
         <%- include( 'partials/formCategorias/modal' ) %> 
 
-        <form id="form" class="
+        <form id="form" class=" 
                             p-5
                             lg:py-5
                             lg:px-16">
@@ -48,12 +47,12 @@
                 lg:grid-cols-4
                 lg:gap-3
                 lg:gap-y-7
-                ">
+            ">
                 
-                <%- include( 'partials/formCategorias/grid_item_unoSerie' ) %>
-                <%- include( 'partials/formCategorias/grid_item_dosSerie' ) %>
+                <%- include( 'partials/formCategorias/grid_item_uno' ) %>
+                <%- include( 'partials/formCategorias/grid_item_dos' ) %>
                 <%- include( 'partials/formCategorias/grid_item_tres' ) %>
-                <%- include( 'partials/formCategorias/grid_item_cuatroSerie' ) %>
+                <%- include( 'partials/formCategorias/grid_item_cuatro' ) %>
                 <%- include( 'partials/formCategorias/grid_item_cinco' ) %>
                 <%- include( 'partials/formCategorias/grid_item_seis' ) %>
                 <%- include( 'partials/formCategorias/grid_item_siete' ) %>
@@ -65,6 +64,6 @@
     </main>
 
     <script src="/js/nav.js"></script>
-    <script type="module" src="/js/adminFormSerie/form.js"></script>
+    <script type="module" src="/js/formulario/mainForm.js"></script>
 </body>
 </html>

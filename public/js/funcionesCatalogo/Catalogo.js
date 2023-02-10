@@ -110,7 +110,7 @@ export class Catalogo {
 
 
     getDocumentosSeparados ( documentos ) {
-        const CantidadDeTargetasPorPagina = 20;
+        const CantidadDeTargetasPorPagina = 3;
         const docsSeparedos = [];
         let docsAux = [];
         
@@ -138,7 +138,7 @@ export class Catalogo {
             const a = document.createElement("a");
             a.id = "card";
             a.classList.add("relative", "w-full", "h-max", "font-sans", "transition-transform", "duration-500", "shadow-lg", "shadow-slate-600");
-            a.href = "#";
+            a.href = `${location.pathname.split("/").pop()}/info?nombre=${e.nombre}`;
 
             a.innerHTML = 
             `
@@ -158,11 +158,11 @@ export class Catalogo {
             this.fragment.appendChild(a);
         })
         this.containerCards.appendChild(this.fragment);
-        this.construirPaginacion( documentos );
+        this.construirPaginacion( documentos, pos );
         this.paginacion( documentos );
     }
 
-    construirPaginacion( documentos ) {
+    construirPaginacion( documentos, pos ) {
         this.containerPaginacion.innerHTML = "";
 
 
@@ -174,10 +174,7 @@ export class Catalogo {
             const div = document.createElement("div");
             div.classList.add("swiper-slide", "w-max");
 
-            div.innerHTML = 
-            `
-                <button class=" m-auto h-max py-1 px-2 text-slate-600 hover:bg-slate-300 transition duration-200" id="indice" >${Number(i)+1}</button>
-            `
+            div.innerHTML = `<button class="rounded-xl m-auto h-max px-1 text-white bg-slate-600 hover:bg-slate-400 transition duration-200" id="indice" >${Number(i)+1}</button>`
             this.fragment.appendChild(div);
         }
         containerSlides.appendChild(this.fragment);
@@ -191,25 +188,27 @@ export class Catalogo {
     }
 
 
-
-    configSwiper ( documentos ) {
+    configSwiper () {
 
         const swiper = new Swiper('.swiper', {
             // Optional parameters
             direction: 'horizontal',
             loop: false,
-            initialSlide: 1,
             slidesPerView: 3,
-            centerInsufficientSlides: true,
-            centeredSlides: true,
             slidesPerGroup: 1,
             spaceBetween: -34,
+            centerInsufficientSlides: true,
+            centeredSlides: true,
+            initialSlide: 1,
+            
+
             // If we need pagination
             // pagination: {
             //     el: '.swiper-pagination',
             // },
 
             // Navigation arrows
+
             navigation: {
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',
@@ -234,18 +233,19 @@ export class Catalogo {
 
 
     efectoSeleccionarPagina( paginas, seleccionado ) {
-        paginas.forEach( e =>  {
-            e.classList.remove( "active" );
-        })
-        seleccionado.classList.add( "active" );
+        seleccionado.id = seleccionado.id.concat( " focus" )
+
+        console.log("Se TOCO EL BOTON: ");
+        console.log(seleccionado);
     }
 
 
     paginacion ( documentos  ) {
-        const paginas = document.querySelectorAll("#indice");
+        const btnsPaginas = document.querySelectorAll( "#indice" );
 
-        paginas.forEach( e => {
+        btnsPaginas.forEach( e => {
             e.addEventListener("click", event => {
+                this.efectoSeleccionarPagina( this.btnsPaginas, e );
                 this.cargarCards( Number(event.target.textContent) - 1, documentos );
                 this.subirAlTope();
             })

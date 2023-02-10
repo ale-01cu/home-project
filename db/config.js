@@ -20,7 +20,6 @@ const dbConnection = async () => {
         console.log("No se Pudo conectar con la Base de Datos".red);
     }
 
-
 }
 
 // Abrir la base de datos

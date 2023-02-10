@@ -1,5 +1,5 @@
 const { response, request } = require("express");
-const { selectedDB, filtrarDocs } = require("../helpers/catalogo");
+const { selectedDB, filtrarDocs, docsFiltrados } = require("../helpers/catalogo");
 
 const home = async (req, res = response) => {
     res.render("catalogo");
@@ -7,14 +7,14 @@ const home = async (req, res = response) => {
 
 const getDocumentos = async ( req = request, res = response ) => {
     const categoria = req.params.categoria;
-    const docs = await filtrarDocs( categoria );
+    const docs = await docsFiltrados( categoria );
     res.json(docs)
 }
 
 const autocompletadoBusqueda = async (req = request, res = response) => {
     const categoria = req.params.categoria;
     const busqueda = req.body.toLowerCase(); //Saca la busqueda, la pone en minuscula, la separa por espacios y la guarda en un array con todas las palabras.
-    const docs = await filtrarDocs( categoria );
+    const docs = await docsFiltrados( categoria );
 
     let resultadoUnico = new Set();
 
@@ -27,9 +27,18 @@ const autocompletadoBusqueda = async (req = request, res = response) => {
     res.status(202).json({resultados})
 }
 
+const infoCard = async ( req = request, res = response ) => {
+    const nombre = req.query.nombre;
+    const categoria = req.params.categoria;
+    const doc = await selectedDB[ categoria ].find( {nombre} );
+    res.render( "infoCard", { doc } )
+
+}
+
 module.exports = {
     home,
     autocompletadoBusqueda,
-    getDocumentos
+    getDocumentos,
+    infoCard
 
 }

@@ -3,7 +3,7 @@
 
 
 #card:hover img{
-    transform: scale(1.05);
+    transform: scale(1.03);
 }
 
 #details {
@@ -17,7 +17,7 @@
 
  .swiper-button-prev,
 .swiper-button-next{
-    --swiper-navigation-size: 20px;
+    --swiper-navigation-size: 12px;
     --swiper-navigation-top-offset: 50%;
     --swiper-navigation-sides-offset: -0px;
     --swiper-navigation-color: var(--swiper-theme-color);

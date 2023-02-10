@@ -18,8 +18,8 @@ app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'ejs');
 
 //Middleware
-app.use(express.json());
 app.use(express.text());
+app.use(express.json());
 
 //Cors
 app.use(cors())
@@ -31,7 +31,7 @@ app.use(express.static(path.join(__dirname, "/node_modules/swiper")));
 
 app.use("/", require("./routes/home"))
 app.use("/catalogo", require("./routes/catalogo"))
-app.use("/api/admin", require("./Routes/admin"));
+app.use("/formularios", require("./Routes/admin"));
 
 //Base de Datos
 const { dbConnection } = require("./db/config");

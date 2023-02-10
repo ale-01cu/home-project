@@ -78,4 +78,7 @@
 ### v0.1.2:
 - Se adiciono la funcion de "estar solo uno" en la vista del catalogo en la parte del buscador y los generos.
 
+## v0.1.3
+- Se se cambiaron todas las vistas de los formularios a una sola y se paso la logica al frontend.
+
 

@@ -1,21 +1,17 @@
 // Importando paquetes
 const { Router } = require("express");
 const router = Router();
-const { pelicula, serie, guardarPelicula, guardarSerie } = require("../controllers/formsAdmin");
+const { vista, guardarCategoria } = require("../controllers/formsAdmin");
 // Multer
 const upload = require("../middlewares/almacenarLaImagenEnCarpetas");
 // Validaciones
-const { validateCreate } = require("../validators/formCategorias")
+const { validateForm, validaciones } = require("../validators/formCategorias")
 //Variables Globales
-const { PELICULA, SERIE } = require("../utils/variablesGlobales")
+const { PELICULA, SERIE } = require("../utils/variablesGlobales");
 
-// Devuelve la vista
-router.get("/pelicula", pelicula);
-router.get("/serie", serie);
-
-// Recibe la informacion y la almacena en la base de datos
-router.post( "/pelicula/guardar", [upload(PELICULA), validateCreate(PELICULA)], guardarPelicula );
-router.post( "/serie/guardar", [upload(SERIE), validateCreate(SERIE)], guardarSerie );
+const { check,param } = require('express-validator')
+router.get("/", vista);
+router.post( "/:categoria/guardar", [ upload, validateForm() ] , guardarCategoria);
 
 
 module.exports = router;
