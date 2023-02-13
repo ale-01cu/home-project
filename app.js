@@ -35,6 +35,7 @@ app.use("/formularios", require("./Routes/admin"));
 
 //Base de Datos
 const { dbConnection } = require("./db/config");
+const Pelicula = require("./models/Pelicula");
 dbConnection();
 
 app.listen(port, "10.31.103.6", () => {

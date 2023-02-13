@@ -7,6 +7,7 @@ module.exports = {
 
     // Vista Catalogo
       'views/catalogo.ejs',
+      'views/catalogoResultadosBusqueda.ejs',
       'public/js/funcionesCatalogo/Catalogo.js',
       'public/js/funcionesCatalogo/mainCatalogo.js',
 
@@ -37,7 +38,8 @@ module.exports = {
       'md': '768px',
       'lg': '1024px',
       'xl': '1280px',
-      '2xl': '1536px'
+      '2xl': '1536px',
+      '3xl': '1920px'
     },
 
     fontFamily: {

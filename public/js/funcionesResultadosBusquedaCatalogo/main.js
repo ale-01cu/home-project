@@ -1,4 +1,4 @@
-import { Catalogo } from "./Catalogo.js";
+import { Catalogo } from "./resultadosBusqueda.js";
 
 const cargarDocumentos = async () => {
     const categoria = location.pathname.split("/").pop();
@@ -8,28 +8,21 @@ const cargarDocumentos = async () => {
 }
 
 const marcarNav = () => {
-    let cat = "";
     const menus = document.querySelectorAll("nav a");
-    menus.forEach( e => { 
-        if ( e.id == location.pathname.split("/")[2] ) {
-            e.classList.add( "active", "bg-white" )
-            cat = e.id; 
-        }
-    })
-    return cat;
+    menus.forEach( e => { if ( e.id == location.pathname.split("/")[2] ) e.classList.add( "active", "bg-white" ) })
+    
 }
 
 const main = async () => {
-    const categoria = marcarNav();
+    marcarNav();
     
     //const documentos = await cargarDocumentos();
 
-    const home = new Catalogo( categoria );
+    const home = new Catalogo();
     home.headerFuncionesMovil();
     home.headerFuncionesPantallasGrandes();
     home.funcionesBuscadores();
     home.esElFinal();
-    home.funcionesGeneros();
 
     //home.cargarTargetas();
     //home.esconderHeader();

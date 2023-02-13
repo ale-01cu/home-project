@@ -81,4 +81,8 @@
 ## v0.1.3
 - Se se cambiaron todas las vistas de los formularios a una sola y se paso la logica al frontend.
 
+### B0.1.5
+- Se cambio toda la UI del catalogo a las vistas y rutas como antes.
+- Cambios importantes en la UI.
+
 

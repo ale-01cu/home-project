@@ -14,31 +14,6 @@
         <%- include('partials/silderbar'); %>
         <!--nav-->
 
-        <div id="containerGeneros" class="flex flex-col fixed z-50 left-0 top-0 h-screen max-h-screen w-max bg-white items-center -translate-x-full transition duration-300">
-            <div class="flex flex-col overflow-y-auto mb-2">
-                <button id="quitarGeneros" class="self-end m-2">
-                    <svg class="icon fill-slate-800 hover:fill-slate-400" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"></path></svg>
-                </button>
-                <h2 class="text-lg font-medium text-slate-800 mb-5 border-b border-solid border-gray-300 text-center mx-5">Generos</h2>
-                
-                <form action="" method="post" id="formGeneros">
-                    <ul id="containerListaGeneros" class=" px-10 max-w-xs overflow-x-hidden flex flex-col items-start">
-                        <% for ( let i of generos ) {%>
-                            <li class="cursor-pointer w-full"><label for=<%- i %> class="text-slate-800 hover:text-black px-3 py-2 w-full flex justify-start items-center cursor-pointer"> <%= i %> <input class="ml-3" type="checkbox" name="" value="<%- i %>" id="<%- i %>" ></label></li>
-                        <% } %>
-                    </ul>
-                </form>
-
-            </div>
-
-            <div class="w-full flex justify-center my-2">
-                <button id="filtrarGeneros" type="submit" form="formGeneros" class=" font-medium text-xl hover:bg-green-500 transition duration-300 bg-green-300 px-2 py-1 rounded-md">Filtrar</button>
-            </div>
-            
-        </div>
-
-        <div id="cortinaGeneros" class="fixed z-40 top-0 left-0 bottom-0 right-0 m-auto bg-black opacity-50 hidden min-h-screen"></div>
-
         <main class="
                     relative
                     z-30
@@ -48,11 +23,11 @@
                     lg:left-16">
 
             <div id="header" class="
-                                    py-2
                                     bg-white
                                     fixed
                                     z-20
                                     flex
+                                    flex-col
                                     justify-between
                                     items-center
                                     px-4
@@ -80,10 +55,36 @@
                         </button>
                     </div>
 
-                    <div id="" class="flex lg:hidden space-x-5 justify-between items-center">
-                        <button id="btn-sacarGeneros" class=" flex justify-center items-center text-gray-400 hover:text-gray-900 transition duration-300 ml-2">Generos<span><svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="M12.025 21.15q-1 0-1.7-.7t-.7-1.675q0-1 .7-1.7t1.675-.7q1 0 1.688.7.687.7.687 1.7 0 .975-.687 1.675-.688.7-1.663.7Zm0-6.775q-1 0-1.7-.7T9.625 12q0-1 .7-1.688.7-.687 1.675-.687 1 0 1.688.687.687.688.687 1.663 0 1-.687 1.7-.688.7-1.663.7Zm0-6.75q-1 0-1.7-.713-.7-.712-.7-1.687 0-1 .7-1.688.7-.687 1.675-.687 1 0 1.688.687.687.688.687 1.688 0 .975-.687 1.687-.688.713-1.663.713Z"/></svg></span></button>
+                    <div id="search-after" class="
+                                    w-1/2
+                                    flex
+                                    justify-center
+                                    items-center
+                                    mx-2
+                                    lg:hidden
+                                    h-full "
+                                    >
+                            <div class="
+                                        flex
+                                        w-full
+                                        h-1/2
+                                        justify-center
+                                        border
+                                        border-solid
+                                        border-gray-900
+                                        rounded-2xl
+                                        px-2
+                                        py-1
+                                        space-x-2
+                                        "
+                                        >
+                                <input <%- mostrarEnElBuscador %> type="text" name="" id="" class="w-full outline-none cursor-pointer" placeholder="Buscar..." disabled>
+                                <span class="hidden flex justify-center items-center" id="anular"><svg class="icon fill-slate-500 cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"></path></svg></span>
+                            </div>
+                        </div>
 
-                        <button id="sacar-search">
+                    <div id="sacar-search" class="flex lg:hidden">
+                        <button>
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M19.023 16.977a35.13 35.13 0 0 1-1.367-1.384c-.372-.378-.596-.653-.596-.653l-2.8-1.337A6.962 6.962 0 0 0 16 9c0-3.859-3.14-7-7-7S2 5.141 2 9s3.14 7 7 7c1.763 0 3.37-.66 4.603-1.739l1.337 2.8s.275.224.653.596c.387.363.896.854 1.384 1.367l1.358 1.392.604.646 2.121-2.121-.646-.604c-.379-.372-.885-.866-1.391-1.36zM9 14c-2.757 0-5-2.243-5-5s2.243-5 5-5 5 2.243 5 5-2.243 5-5 5z"></path></svg>
                             </span>
@@ -120,14 +121,15 @@
                                 space-x-2
                                 mt-2">
                         <span class="flex items-center cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12.707 17.293 8.414 13H18v-2H8.414l4.293-4.293-1.414-1.414L4.586 12l6.707 6.707z"></path></svg></span>
-                        <input type="text" name="" id="" class="w-full outline-none" placeholder="Buscar...">
-                        <span class="hidden flex justify-center items-center" id="anular"><svg class="icon fill-slate-500 cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"></path></svg></span>
-                        <button id="btn-buscar">
-                            <span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M19.023 16.977a35.13 35.13 0 0 1-1.367-1.384c-.372-.378-.596-.653-.596-.653l-2.8-1.337A6.962 6.962 0 0 0 16 9c0-3.859-3.14-7-7-7S2 5.141 2 9s3.14 7 7 7c1.763 0 3.37-.66 4.603-1.739l1.337 2.8s.275.224.653.596c.387.363.896.854 1.384 1.367l1.358 1.392.604.646 2.121-2.121-.646-.604c-.379-.372-.885-.866-1.391-1.36zM9 14c-2.757 0-5-2.243-5-5s2.243-5 5-5 5 2.243 5 5-2.243 5-5 5z"></path></svg>
-                            </span>
+                        <input <%- mostrarEnElBuscador %> type="text" name="" id="" class="w-full outline-none" placeholder="Buscar...">
+                        <button class="hidden flex justify-center items-center" id="anular">
+                            <svg class="icon fill-slate-500 cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"></path></svg>
                         </button>
-                        
+                        <button id="btn-buscar">
+                            <button>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M19.023 16.977a35.13 35.13 0 0 1-1.367-1.384c-.372-.378-.596-.653-.596-.653l-2.8-1.337A6.962 6.962 0 0 0 16 9c0-3.859-3.14-7-7-7S2 5.141 2 9s3.14 7 7 7c1.763 0 3.37-.66 4.603-1.739l1.337 2.8s.275.224.653.596c.387.363.896.854 1.384 1.367l1.358 1.392.604.646 2.121-2.121-.646-.604c-.379-.372-.885-.866-1.391-1.36zM9 14c-2.757 0-5-2.243-5-5s2.243-5 5-5 5 2.243 5 5-2.243 5-5 5z"></path></svg>
+                            </button>
+                        </button>
                     </div>
 
                     <div id="resultado-busqueda" class="
@@ -141,11 +143,9 @@
                     </div>
                 </div>
 
-
-                <button id="btn-sacarGenerosMd" class="hidden lg:flex justify-center items-center text-gray-400 hover:text-gray-900 transition duration-300 ml-2">Generos<span><svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="M12.025 21.15q-1 0-1.7-.7t-.7-1.675q0-1 .7-1.7t1.675-.7q1 0 1.688.7.687.7.687 1.7 0 .975-.687 1.675-.688.7-1.663.7Zm0-6.775q-1 0-1.7-.7T9.625 12q0-1 .7-1.688.7-.687 1.675-.687 1 0 1.688.687.687.688.687 1.663 0 1-.687 1.7-.688.7-1.663.7Zm0-6.75q-1 0-1.7-.713-.7-.712-.7-1.687 0-1 .7-1.688.7-.687 1.675-.687 1 0 1.688.687.687.688.687 1.688 0 .975-.687 1.687-.688.713-1.663.713Z"/></svg></span></button>
                 <div id="container-search-md" class="
                                                     hidden
-                                                    lg:w-2/5
+                                                    lg:w-2/4
                                                     lg:flex
                                                     lg:flex-col
                                                     lg:relative
@@ -158,12 +158,12 @@
                                                 lg:p-2
                                                 lg:space-x-2
                                                 lg:rounded-3xl">
-                        <input type="text" name="" id="" placeholder="Buscar..." class="w-full outline-none appearance-none">
-                        <button class="hidden" id="anular">
-                            <svg class="icon fill-slate-500 cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"></path></svg>
-                        </button>
                         <button class="flex items-center" id="btn-buscar-md">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M19.023 16.977a35.13 35.13 0 0 1-1.367-1.384c-.372-.378-.596-.653-.596-.653l-2.8-1.337A6.962 6.962 0 0 0 16 9c0-3.859-3.14-7-7-7S2 5.141 2 9s3.14 7 7 7c1.763 0 3.37-.66 4.603-1.739l1.337 2.8s.275.224.653.596c.387.363.896.854 1.384 1.367l1.358 1.392.604.646 2.121-2.121-.646-.604c-.379-.372-.885-.866-1.391-1.36zM9 14c-2.757 0-5-2.243-5-5s2.243-5 5-5 5 2.243 5 5-2.243 5-5 5z"></path></svg>
+                        </button>
+                        <input <%- mostrarEnElBuscador %> type="text" name="" id="" placeholder="Buscar..." class="w-full outline-none appearance-none">
+                        <button class="" id="anular">
+                            <svg class="icon fill-slate-500 cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"></path></svg>
                         </button>
 
                     </div>
@@ -175,17 +175,17 @@
                                                             lg:top-full
                                                             lg:bg-white
                                                             rounded-xl">
-                        <ul id="res-search-list" class="lg:px-1 lg:pt-2 lg:w-full"></ul>
+                        <ul id="res-search-list" class="lg:px-1 lg:w-full"></ul>
                     </div>
                 </div>
-            
+
+
             </div>
 
-
+            <div class="mt-14 text-center"><h3 class="text-gray-500 font-semibold ">Se encontraron <strong class="text-green-500"><%= resultadosEncontrados %></strong> resultados</h3></div>
             <div id="cards" class="
                                     relative
                                     z-0
-                                    mt-14
                                     w-full
                                     h-full
                                     grid
@@ -204,8 +204,9 @@
                                     2xl:grid-cols-5
                                     3xl:grid-cols-6
                                     ">
+                
                 <% for ( let i of docs ) {%>
-                    <a href=<%- `${categoria}/info/${i.id}` %> id="card" class=" relative w-full h-max font-sans transition-transform duration-500 shadow-lg shadow-slate-600">
+                    <a href=<%- `info/${i.id}` %> id="card" class=" relative w-full h-max font-sans transition-transform duration-500 shadow-lg shadow-slate-600">
                         <div id="poster" class="overflow-hidden h-96 relative"><%- i.imagen %> </div>
                         <div id="details" class="h-full p-2 space-y-1 w-full absolute bottom-0 flex flex-col flex-wrap justify-end">
                             <div class="flex justify-between">
@@ -232,8 +233,7 @@
 
 
         <script src="/js/nav.js"></script>
-        <script type="module" src="/js/funcionesCatalogo/mainCatalogo.js"></script>
-
+        <script type="module" src="/js/funcionesResultadosBusquedaCatalogo/main.js"></script>
     </body>
 </html>
 
