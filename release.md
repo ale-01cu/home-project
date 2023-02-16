@@ -81,9 +81,13 @@
 ## v0.1.3
 - Se se cambiaron todas las vistas de los formularios a una sola y se paso la logica al frontend.
 
-### B0.1.5
+### v0.1.5
 - Se cambio toda la UI del catalogo a las vistas y rutas como antes.
 - Cambios importantes en la UI.
+
+### v0.2.0
+- Terminada toda la api del catalgo back y front.
+- Se cambiarion los estilos de las cards
 
 
 npx tailwindcss -i ./src/configTailwindCatalogo.css -o ./public/css/tailwindCatalogo.css --watch
