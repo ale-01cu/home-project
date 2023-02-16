@@ -20,6 +20,7 @@ app.set('view engine', 'ejs');
 //Middleware
 app.use(express.text());
 app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
 //Cors
 app.use(cors())

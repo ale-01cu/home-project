@@ -86,3 +86,4 @@
 - Cambios importantes en la UI.
 
 
+npx tailwindcss -i ./src/configTailwindCatalogo.css -o ./public/css/tailwindCatalogo.css --watch

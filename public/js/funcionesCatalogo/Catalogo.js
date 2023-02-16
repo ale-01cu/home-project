@@ -1,9 +1,16 @@
 import { DomUtils } from './DomUtils.js';
 
 export class Catalogo {
-    constructor( categoria ) {
-        this.paginaActual = 0;
+    constructor( categoria, urlAutocompletado, urlResultadosBusqueda, urlResultadosFiltradoGeneros, urlPaginacion ) {
+        this.cantidadDeDocumentosParaPedir = 0;
         this.categoria = categoria;
+
+        this.urlpaginacion = urlPaginacion;
+        this.urlAutocompletado = urlAutocompletado;
+        this.urlResultadosBusqueda = urlResultadosBusqueda;
+        this.urlResultadosFiltradoGeneros = urlResultadosFiltradoGeneros;
+        this.querys = '?';
+
         //TODO: Header
         this.header = document.getElementById("header");
             //MMovil
@@ -23,9 +30,9 @@ export class Catalogo {
         this.resultadosBusquedasPantallasGrandes = document.getElementById("res-search-list");
         this.btnBuscarMd = document.getElementById("btn-buscar-md");
 
-        //Generos 
+        //Generos
         this.btnSacarGeneros = document.getElementById("btn-sacarGeneros");
-        this.containerGeneros = document.getElementById("containerGeneros"); 
+        this.containerGeneros = document.getElementById("containerGeneros");
         this.btnQuitarGeneros = document.getElementById("quitarGeneros");
         this.btnSacarGenerosMD = document.getElementById("btn-sacarGenerosMd");
         this.cortina = document.getElementById("cortinaGeneros");
@@ -34,8 +41,7 @@ export class Catalogo {
         this.btnFiltrar = document.getElementById("filtrarGeneros");
         this.checkBoxesGeneros = document.querySelectorAll("[type=checkbox]")
 
-        // Pantallas Tactiles
-
+        this.btnVerMas = document.getElementById("verMas");
         this.fragment = document.createDocumentFragment();
     }
 
@@ -91,10 +97,8 @@ export class Catalogo {
 
     //autocompletado buscador
     async autocompletado ( input, lista ) {
-        const url = location.origin + "/catalogo/" + this.categoria + `/autocompletado`; 
-    
-        const res = await this.usarFetch( url, 'POST', input )
-        lista.innerHTML = ""; 
+        const res = await this.usarFetch( this.urlAutocompletado, 'POST', input )
+        lista.innerHTML = "";
         console.log(res);
         res.resultados.forEach( e => {
             const textoParaBuscar = input.toLowerCase();
@@ -110,7 +114,7 @@ export class Catalogo {
             li.classList.add("transition-all", "duration-500")
 
             li.innerHTML = `
-                <a href="resultadoBusqueda?busqueda=${textoDondeBuscar}" id="btnAutocompletado" class="break-words hover:bg-gray-300 p-2 w-full flex items-center justify-start transition-all duration-200 rounded-xl text-start">
+                <a href="${this.urlResultadosBusqueda + textoDondeBuscar}" id="btnAutocompletado" class="break-words hover:bg-gray-300 p-2 w-full flex items-center justify-start transition-all duration-200 rounded-xl text-start">
                     <span class="mr-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M19.023 16.977a35.13 35.13 0 0 1-1.367-1.384c-.372-.378-.596-.653-.596-.653l-2.8-1.337A6.962 6.962 0 0 0 16 9c0-3.859-3.14-7-7-7S2 5.141 2 9s3.14 7 7 7c1.763 0 3.37-.66 4.603-1.739l1.337 2.8s.275.224.653.596c.387.363.896.854 1.384 1.367l1.358 1.392.604.646 2.121-2.121-.646-.604c-.379-.372-.885-.866-1.391-1.36zM9 14c-2.757 0-5-2.243-5-5s2.243-5 5-5 5 2.243 5 5-2.243 5-5 5z"></path></svg></span>
                     <p class="break-words overflow-hidden">${output}</p>
                 </a>
@@ -122,18 +126,14 @@ export class Catalogo {
 
     //Busquedas
     busquedas ( input ) {
-        const categoria = location.pathname.split("/").pop();
-        console.log(categoria);
-        const url = `${categoria}/resultadoBusqueda?busqueda=${input.value}`;
-        window.location.href = url;
-
+        window.location.href = this.urlResultadosBusqueda + input.value;
     }
 
     comprobarSiElBuscadorEsValidoParaLaBusqueda ( input, campoResultadosBusqueda ) {
         if ( input.value.length > 0 ) {
             for ( let i of input.value ) {
                 if ( i !== " " && input.value.length > 0) return true;
-            }  
+            }
             return false;
         }else {
             campoResultadosBusqueda.innerHTML = "";
@@ -155,7 +155,7 @@ export class Catalogo {
         })
 
         this.buscador.addEventListener('keydown', async e => {
-            
+
             if ( e.key.toLowerCase() === 'enter' && this.buscador.value.length > 0 ) {
                 if ( this.comprobarSiElBuscadorEsValidoParaLaBusqueda( this.buscador, this.resultadosBusqueda ) ) this.busquedas( this.buscador );
             }
@@ -164,13 +164,13 @@ export class Catalogo {
         this.buscador.addEventListener("click", e => {
             if ( this.buscadorMd.value.length > 0 ) this.autocompletado( this.buscadorMd.value, this.resultadosBusquedasPantallasGrandes );
         })
-        
+
         if ( this.buscadorDespues ) {
             this.buscadorDespues.addEventListener("click", async e => {
                 this.divBuscador.classList.toggle("translate-x-full")
                 this.buscador.value = "";
                 this.buscador.focus();
-            
+
             })
         }
 
@@ -198,73 +198,68 @@ export class Catalogo {
 
     }
 
-    esconderHeader () {
-        let ubicacionPrincipal = window.scrollY;
-        window.onscroll = function(e) {
-            const desplazamientoActual = window.scrollY;
-            
-            if ( ubicacionPrincipal <= desplazamientoActual ) this.header.classList.add("-translate-y-full");
-            else this.header.classList.remove("-translate-y-full");
 
-            ubicacionPrincipal = desplazamientoActual;
-        }
-    }
-
-
-    esElFinal() {
+    esElFinal( tipo, body ) {
         let lleguueAlFinal = false;
-        const categoria = location.pathname.split("/").pop();
         let scrollAnterior = 0;
 
+        let query = (tipo === "busqueda")
+            ? `?busqueda=${this.buscador.value}`
+            : this.querys;
 
-        addEventListener('scroll', (e) => {
-            const scrollActual = scrollY;
-            const diferencia = scrollActual - scrollAnterior;
-            scrollAnterior = scrollActual
-
-            const body = document.body;
-            const html = document.documentElement;
-            let height = Math.max(body.scrollHeight, body.offsetHeight,
-                html.clientHeight, html.scrollHeight, html.offsetHeight);
-
-            if (  height == (scrollY + innerHeight ) ) {
-                this.paginaActual += 20;
-                const url = categoria + `/page/${this.paginaActual}`
-
-                this.usarFetch(url, "GET").then(res => {
-                    this.cargarCards(res.docs)
-                    
-                })
-
-                
-            }
-        });
+        if ( this.btnVerMas ) {
+            this.btnVerMas.addEventListener('click', (e) => {
+                const scrollActual = scrollY;
+                const diferencia = scrollActual - scrollAnterior;
+                scrollAnterior = scrollActual
     
+                this.cantidadDeDocumentosParaPedir += 20;
+                const url = this.urlpaginacion + this.cantidadDeDocumentosParaPedir + query;
+
+                if ( tipo === "genero" && body ) {
+                    this.usarFetch(url, "POST", body).then(res => {
+                        res.fin && this.btnVerMas.classList.add("hidden")
+                        this.cargarCards(res.docs)
+                    })
+                }else {
+                    this.usarFetch(url, "GET").then(res => {
+                        res.fin && this.btnVerMas.classList.add("hidden")
+                        this.cargarCards(res.docs)
+                    })
+                }
+
+
+            });
+        }
+
+        
+
     }
+
 
     cargarCards ( documentos ) {
         documentos.forEach( e => {
             // Sacando los generos de la targeta
             let generos = '';
-            e.generos.forEach( g => generos = generos.concat(`<span class='bg-red-600 rounded-lg align-middle text-sm font-medium px-2 py-1 mr-1 mb-1' id='generos-cards'>${g}</span>\n`));
+            e.generos.forEach( g => generos = generos.concat(`<span class='rounded-lg align-middle text-sm font-medium px-5px py-3px bg-slate-300 mb-1' id='generos-cards'>${g}</span>\n`));
 
             //Creando la targeta
             const a = document.createElement("a");
             a.id = "card";
-            a.classList.add("relative", "w-full", "h-max", "font-sans", "transition-transform", "duration-500", "shadow-lg", "shadow-slate-600");
-            a.href = `${location.pathname.split("/").pop()}/info/${e.id}`;
+            a.classList.add("relative", "w-full", "h-max", "font-sans", "transition-transform", "duration-500" );
+            a.href = `${this.categoria}/info/${e.id}`;
 
-            a.innerHTML = 
+            a.innerHTML =
             `
-            <div id="poster" class="overflow-hidden h-96 relative">${e.imagen}</div>
-            <div id="details" class="h-full p-2 space-y-1 w-full absolute bottom-0 flex flex-col flex-wrap justify-end">
+            <div id="poster" class="overflow-hidden h-120 mn:h-90 relative rounded-2xl">${e.imagen}</div>
+            <div id="details" class="h-full p-2 space-y-1 w-full relative bottom-0 flex flex-col flex-wrap justify-end">
                 <div class="flex justify-between">
-                    <h3 id="añoEstreno" class="text-white flex items-center rounded-lg font-normal text-md">${e.fechaDeEstreno[2]}</h3>
-                    <h3 id="precio" class="text-green-300 self-end font-normal text-md ">$${e.precio}</h3>
+                    <h3 id="añoEstreno" class="text-slate-800 flex items-center rounded-lg font-normal text-md">${e.fechaDeEstreno[2]}</h3>
+                    <h3 id="precio" class="self-end font-normal text-md text-green-600">$${e.precio}</h3>
                 </div>
 
-                <h2 id="nombre" class=" text-white  rounded-lg font-medium w-full break-words">${e.nombre} </h3>
-                <div id="generos" class="text-white rounded-lg flex flex-wrap">
+                <h2 id="nombre" class=" text-slate-800 rounded-lg font-medium w-full whitespace-nowrap text-ellipsis overflow-hidden">${e.nombre} </h3>
+                <div id="generos" class="text-slate-800 rounded-lg flex flex-wrap space-x-1">
                     ${generos}
                 </div>
             </div>
@@ -274,19 +269,17 @@ export class Catalogo {
         this.containerCards.appendChild(this.fragment);
     }
 
-    funcionesGeneros () {
-        const generosSeleccionados = [];
-        let querys = '?'
+    funcionesGeneros ( url ) {
+        if ( url ) this.formGeneros.action = url;
+        // this.checkBoxesGeneros.forEach( e => {
+        //     if ( e.checked ) {
+        //         this.querys = this.querys.length > 1
+        //             ? this.querys.concat("&genero=" + e.value)
+        //             : this.querys.concat("genero=" + e.value);
+        //         this.formGeneros.action = this.urlResultadosFiltradoGeneros + this.querys;
+        //     }
+        // })
 
-        this.checkBoxesGeneros.forEach( e => {
-            if ( e.checked ) {
-                querys = querys.length > 1 
-                    ? querys.concat("&genero=" + e.value)
-                    : querys.concat("genero=" + e.value);
-                this.formGeneros.action = "filtrarPorGeneros" + querys;
-            }
-
-        } )
 
         this.btnSacarGenerosMD.addEventListener("click", e => {
             this.containerGeneros.classList.toggle("-translate-x-full");
@@ -308,24 +301,25 @@ export class Catalogo {
             this.cortina.classList.toggle("hidden");
         })
 
-        this.listaGeneros.addEventListener("click", e => {
-            const elementoSeleccionado = e.target;
-            if ( elementoSeleccionado.type == "checkbox" && elementoSeleccionado.checked && elementoSeleccionado.value !== "" ) {
-                generosSeleccionados.push(elementoSeleccionado.value)
-                querys = querys.length > 1 
-                        ? querys.concat("&genero=" + elementoSeleccionado.value)
-                        : querys.concat("genero=" + elementoSeleccionado.value);
-                this.formGeneros.action = location.origin + "/catalogo/" + this.categoria + "/filtrarPorGeneros" + querys;
-                
-            }else if(elementoSeleccionado.type == "checkbox" && !elementoSeleccionado.checked && elementoSeleccionado.value !== "") {
-                querys = querys.replace("&genero=" + elementoSeleccionado.value, "")
-                querys = querys.replace("genero=" + elementoSeleccionado.value + "&", "")
-                querys = querys.replace("?genero=" + elementoSeleccionado.value , "?")
-                this.formGeneros.action = location.origin + "/catalogo/" + this.categoria + "/filtrarPorGeneros" + querys;
-            }
-        })
-    
+        // this.listaGeneros.addEventListener("click", e => {
+        //     const elementoSeleccionado = e.target;
 
+        //     if ( elementoSeleccionado.type == "checkbox" && elementoSeleccionado.checked && elementoSeleccionado.value !== "" ) {
+        //         this.querys = this.querys.length > 1
+        //                 ? this.querys.concat("&genero=" + elementoSeleccionado.value)
+        //                 : this.querys.concat("genero=" + elementoSeleccionado.value);
+        //         this.formGeneros.action = this.urlResultadosFiltradoGeneros + this.querys;
+
+
+        //     }else if(elementoSeleccionado.type == "checkbox" && !elementoSeleccionado.checked && elementoSeleccionado.value !== "") {
+        //         this.querys = this.querys.replace("&genero=" + elementoSeleccionado.value, "")
+        //         this.querys = this.querys.replace("genero=" + elementoSeleccionado.value + "&", "")
+        //         this.querys = this.querys.replace("?genero=" + elementoSeleccionado.value , "?")
+        //         this.formGeneros.action = this.urlResultadosFiltradoGeneros + this.querys;
+
+        //     }
+
+        // })
 
     }
 
@@ -336,21 +330,21 @@ export class Catalogo {
 //         this.docsAux = this.docs;
 //         this.docsSeparados = this.getDocumentosSeparados( this.docs );
 //         this.posActual = 0;
-        
+
 //         // this.blobs = [];
 //         // const reader = new FileReader();
-//         // // Prueba 
+//         // // Prueba
 //         // this.docs.forEach( async e => {
 //         //     const res = await fetch(e.imagen);
 //         //     const resDec = await res.blob();
-            
+
 //         //     reader.readAsDataURL( resDec );
 
 //         //     reader.addEventListener("loadend", event => {
 //         //         console.log("Se cargo la imagen");
 //         //     })
 //         // })
-        
+
 
 //         this.resolucionesDePantalla = {
 //             "movil": 320,
@@ -365,7 +359,7 @@ export class Catalogo {
 
 
 //         //TODO: componentes de la UI
-//             //Header    
+//             //Header
 //             this.header = document.getElementById("header");
 //             //MMovil
 //             this.btnSacarBuscador = document.querySelector("main #header #sacar-search");
@@ -389,7 +383,7 @@ export class Catalogo {
 //             //Carrucel
 //             this.over = document.getElementById("overflow");
 //             this.containerCarrucel = document.getElementById("overflow");
-    
+
 //             // Cards
 //             this.containerCards = document.getElementById("cards");
 
@@ -404,7 +398,7 @@ export class Catalogo {
 //             this.cargarCards( 0, this.docsSeparados);
 //             this.construirPaginacion( this.docsSeparados );
 //             this.carrucel( this.docs );
-    
+
 //     }
 
 /*
@@ -419,7 +413,7 @@ export class Catalogo {
             const li = document.createElement("LI");
             li.classList.add("transition-all", "duration-100", "select-none");
 
-            li.innerHTML = 
+            li.innerHTML =
             `
             <button class="
                         rounded-xl
@@ -449,7 +443,7 @@ export class Catalogo {
         const CantidadDeTargetasPorPagina = 5;
         const docsSeparedos = [];
         let docsAux = [];
-        
+
         for ( let i in documentos ) {
             docsAux.push(documentos[i])
 
@@ -458,7 +452,7 @@ export class Catalogo {
                 docsAux = [];
             }
         }
-        if ( docsAux.length > 0 ) docsSeparedos.push(docsAux); 
+        if ( docsAux.length > 0 ) docsSeparedos.push(docsAux);
         return docsSeparedos;
     }
 
@@ -476,7 +470,7 @@ export class Catalogo {
             a.classList.add("relative", "w-full", "h-max", "font-sans", "transition-transform", "duration-500", "shadow-lg", "shadow-slate-600");
             a.href = `${location.pathname.split("/").pop()}/info?nombre=${e.nombre}`;
 
-            a.innerHTML = 
+            a.innerHTML =
             `
             <div id="poster" class="overflow-hidden h-96 relative"><img class=" h-full w-full transition-transform duration-500" src="${e.imagen}" alt=""></div>
             <div id="details" class="h-full p-2 space-y-1 w-full absolute bottom-0 flex flex-col flex-wrap justify-end">
@@ -501,35 +495,35 @@ export class Catalogo {
         console.log(documentos.length);
 
         if ( this.posActual === 0 ) {
-            this.containerPaginacion.innerHTML = 
+            this.containerPaginacion.innerHTML =
             `
             <button disabled="true" class=" text-gray-400 hover:border-gray-400 border border-solid border-gray-400 px-3 py-1 transition duration-500 cursor-default">Anterior</button>
             <span class="text-lg border border-solid border-slate-500 py-1 px-3 rounded-full hover:scale-110 transition duration-300 cursor-default">${this.posActual + 1}</span>
             <button class=" text-blue-500 hover:text-blue-800 hover:border-blue-800 border border-solid border-blue-300 px-3 py-1 transition duration-500 hover:shadow-md hover:shadow-blue-300 cursor-pointer">Siguiente</button>
             `
         } else if ( this.posActual > 0 && this.posActual < documentos.length ) {
-            this.containerPaginacion.innerHTML = 
+            this.containerPaginacion.innerHTML =
             `
             <button class=" text-blue-500 hover:text-blue-800 hover:border-blue-800 border border-solid border-blue-300 px-3 py-1 transition duration-500 hover:shadow-md hover:shadow-blue-300 cursor-pointer">Anterior</button>
             <span class=" text-lg border border-solid border-slate-500 py-1 px-3 rounded-full hover:scale-110 transition duration-300 cursor-default">${this.posActual + 1}</span>
             <button class=" text-blue-500 hover:text-blue-800 hover:border-blue-800 border border-solid border-blue-300 px-3 py-1 transition duration-500 hover:shadow-md hover:shadow-blue-300 cursor-pointer">Siguiente</button>
             `
         }else if ( this.posActual === documentos.length - 1 ) {
-            
-            this.containerPaginacion.innerHTML = 
+
+            this.containerPaginacion.innerHTML =
             `
             <button class=" text-blue-500 hover:text-blue-800 hover:border-blue-800 border border-solid border-blue-300 px-3 py-1 transition duration-500 hover:shadow-md hover:shadow-blue-300 cursor-pointer">Anterior</button>
             <span class=" text-lg border border-solid border-slate-500 py-1 px-3 rounded-full hover:scale-110 transition duration-300 cursor-default">${this.posActual + 1}</span>
             <button disabled="true" class=" text-gray-400 hover:border-gray-400 border border-solid border-gray-400 px-3 py-1 transition duration-500 cursor-default">Siguiente</button>
             `
         } else {
-            this.containerPaginacion.innerHTML = 
+            this.containerPaginacion.innerHTML =
             `
             <button disabled="true" class=" text-gray-400 hover:border-gray-400 border border-solid border-gray-400 px-3 py-1 transition duration-500 cursor-default">Anterior</button>
             <span class="text-lg border border-solid border-slate-500 py-1 px-3 rounded-full hover:scale-110 transition duration-300 cursor-default">${this.posActual + 1}</span>
             <button disabled="true" class="text-gray-400 hover:border-gray-400 border border-solid border-gray-400 px-3 py-1 transition duration-500 cursor-default">Siguiente</button>
             `
-        } 
+        }
 
         this.paginacion();
 
@@ -616,7 +610,7 @@ export class Catalogo {
                 this.limpiarBuscadores();
                 const resultadoBusqueda = this.buscarPorGenero( event.target.textContent )
                 this.docsSeparados =  this.getDocumentosSeparados( resultadoBusqueda )
-                
+
                 this.cargarCards( 0, this.docsSeparados );
                 this.construirPaginacion( this.docsSeparados );
                 this.efectoSeleccionarGenero( generos, event.target );
@@ -635,7 +629,7 @@ export class Catalogo {
         this.buscadorMd.value = "";
     }
 
-    
+
     headerFuncionesMovil() {
         this.btnSacarBuscador.addEventListener("click", () => {
             this.divBuscador.classList.toggle("translate-x-full")
@@ -646,7 +640,7 @@ export class Catalogo {
                 this.buscador.focus();
                 DomUtils.disableScroll();
             }
-            
+
         })
 
         this.quitarBuscador.addEventListener("click", () => {
@@ -721,10 +715,10 @@ export class Catalogo {
             let desplazamiento = 0;
 
             // Se desplaza hacia la izquierda
-            
+
             if ( ultimoTouch < desplazamientoEnX) desplazamiento = -200;
             else desplazamiento = 200;       //Se desplaza hacia la derecha
-        
+
             this.over.scrollLeft += desplazamiento;
             ultimoTouch = e.touches[0].clientX;
         })
@@ -749,10 +743,10 @@ export class Catalogo {
 
     //autocompletado buscador
     async autocompletado ( input, lista ) {
-        const url = `autocompletado/` + location.pathname.split("/").pop(); 
-    
+        const url = `autocompletado/` + location.pathname.split("/").pop();
+
         const res = await this.usarFetch( url, 'POST', input )
-        lista.innerHTML = ""; 
+        lista.innerHTML = "";
         console.log(res);
         res.resultados.forEach( e => {
             const textoParaBuscar = input.toLowerCase();
@@ -805,27 +799,27 @@ export class Catalogo {
         this.docs.find( e => {
             let conincidencias = 0;
 
-            const { 
-                nombre, 
-                ubicacion, 
-                formato, 
-                size, 
-                generos, 
-                actores, 
-                fechaDeEstreno, 
-                audio, 
-                descripcion, 
-                plataforma, 
+            const {
+                nombre,
+                ubicacion,
+                formato,
+                size,
+                generos,
+                actores,
+                fechaDeEstreno,
+                audio,
+                descripcion,
+                plataforma,
                 precio,
-                pais, 
-                imagen 
+                pais,
+                imagen
             } = e;
             const todo = `${nombre} ${ubicacion} ${formato} ${size} ${generos} ${actores} ${fechaDeEstreno} ${audio} ${descripcion} ${plataforma} ${pais} ${imagen}`;
 
             busqueda.forEach(i => {if ( todo.toLowerCase().indexOf(i) !== -1 ) conincidencias++;});
-            if ( max < conincidencias ) max = conincidencias; 
+            if ( max < conincidencias ) max = conincidencias;
             if ( conincidencias > 0 ) { resultados.push({precio, nombre, fechaDeEstreno, generos, imagen, conincidencias}) }
-    
+
         })
         let aux = []
         resultados.forEach( e => {
@@ -836,7 +830,7 @@ export class Catalogo {
         const docs = this.getDocumentosSeparados( aux );
         this.cargarCards(0, docs);
         this.sacarBuscadorAfter( input );
-    
+
     }
 
 
@@ -851,7 +845,7 @@ export class Catalogo {
         if ( input.value.length > 0 ) {
             for ( let i of input.value ) {
                 if ( i !== " " && input.value.length > 0) return true;
-            }  
+            }
             return false;
         }else {
             campoResultadosBusqueda.innerHTML = "";
@@ -870,7 +864,7 @@ export class Catalogo {
 
         // Buscar por teclado Movil...
         this.buscador.addEventListener('keydown', async e => {
-            
+
             if ( e.key.toLowerCase() === 'enter' && this.buscador.value.length > 0 ) {
                 if ( this.comprobarSiElBuscadorEsValidoParaLaBusqueda( this.buscador, this.resultadosBusqueda ) ) this.busquedas( this.buscador.value );
             }
@@ -909,7 +903,7 @@ export class Catalogo {
         let ubicacionPrincipal = window.scrollY;
         window.onscroll = function(e) {
             const desplazamientoActual = window.scrollY;
-           
+
             if ( ubicacionPrincipal <= desplazamientoActual ) this.header.classList.add("-translate-y-full");
             else this.header.classList.remove("-translate-y-full");
 
@@ -928,7 +922,7 @@ export class Catalogo {
 
             }
         });
-      
+
 
     }*/
 

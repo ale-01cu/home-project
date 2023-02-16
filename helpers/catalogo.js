@@ -6,11 +6,17 @@ const selectedDB = {
     'series': Serie
 }
 
+const separarDocs = ( docs, desde, hasta ) => {
+    let fin = false;
+    if ( docs.length <= hasta ) fin = true;
+    return {docs: docs.slice(desde, hasta), fin};
+} 
 
-const filtrarDocs = ( docs ) => {
+
+const filtrarDocs = ( documents, desde, hasta ) => {
     const docsFiltrados = [];
-    docs.forEach( e => {
-        const imagen = `<img class=" h-full w-full transition-transform duration-500" src="${ e.imagen.split("uploads")[1] }" alt="">`;
+    documents.forEach( e => {
+        const imagen = `<img class=" h-full w-full transition-transform duration-500 object-contain" src="${ e.imagen.split("uploads")[1] }" alt="">`;
         const { _id, precio, nombre, generos, fechaDeEstreno } = e;
         const id = _id.toString();
         docsFiltrados.push({ id, precio, nombre, generos, fechaDeEstreno, imagen });
@@ -20,17 +26,20 @@ const filtrarDocs = ( docs ) => {
 
 
 const TodosdocsFiltrados = async ( categoria, desde, hasta ) => {
-    const docs = await selectedDB[ categoria ].find()
-    const docsSep = docs.slice(desde, hasta);
-    return filtrarDocs( docsSep );
+    const documents = await selectedDB[ categoria ].find()
+    const { docs, fin } = docsFiltradosYseparados(documents, desde, hasta);
+
+    return {docs, fin};
 }
 
-const docsSeparados = async ( docs, desde, hasta ) => {
-    const docsFiltrados = await filtrarDocs(docs);
-    const docsSep = docsFiltrados.slice(desde, hasta);
-    return docsSep;
+
+const docsFiltradosYseparados = ( documents, desde, hasta ) => {
+    const docsFiltrados = filtrarDocs(documents);
+    const {docs, fin} = separarDocs(docsFiltrados, desde, hasta);
+    return {docs, fin};
     
 }
+
 
 const getTodosLosGeneros = async ( categoria ) => {
     // set para que no se repitan los generos
@@ -41,6 +50,7 @@ const getTodosLosGeneros = async ( categoria ) => {
     return generos;
 
 }
+
 
 const buscar = async ( categoria, input, desde, hasta ) => {
     const busqueda = input.toLowerCase().split(" ");
@@ -79,8 +89,8 @@ const buscar = async ( categoria, input, desde, hasta ) => {
         if ( e.conincidencias === max ) aux.push(e)
     })
     const resultadosEncontrados = aux.length;
-    const docs = await docsSeparados( aux, desde, hasta )
-    return {docs, resultadosEncontrados};
+    const { docs, fin } = await docsFiltradosYseparados( aux, desde, hasta )
+    return {docs, resultadosEncontrados, fin};
 }
  
 module.exports = {
@@ -89,4 +99,5 @@ module.exports = {
     TodosdocsFiltrados,
     getTodosLosGeneros,
     buscar,
+    docsFiltradosYseparados,
 }

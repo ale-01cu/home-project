@@ -1,18 +1,27 @@
 const { response, request } = require("express");
-const { selectedDB, filtrarDocs, docsFiltrados, getTodosLosGeneros, buscar, TodosdocsFiltrados } = require("../helpers/catalogo");
+const { selectedDB, filtrarDocs, getTodosLosGeneros, buscar, TodosdocsFiltrados, docsFiltradosYseparados } = require("../helpers/catalogo");
 const totalDeTargetasParaMandar = 20;
+
 
 const home = async (req, res = response) => {
     const { categoria } = req.params;
-    const docs = await TodosdocsFiltrados( categoria, 0, totalDeTargetasParaMandar )
+    const { docs, fin } = await TodosdocsFiltrados( categoria, 0, totalDeTargetasParaMandar )
     const generos = await getTodosLosGeneros( categoria );
-    res.render( 'catalogo', { docs, generos, categoria } )
+    res.render( 'catalogo', { docs, generos, categoria, fin } )
 };
+
+
+const paginacion = async (req, res) => {
+    const { categoria, page } = req.params;
+    const {docs, fin} = await TodosdocsFiltrados(categoria, parseInt(page), parseInt(page)+totalDeTargetasParaMandar );
+    res.json({docs, fin})
+}
+
 
 const autocompletadoBusqueda = async (req = request, res = response) => {
     const categoria = req.params.categoria;
     const busqueda = req.body.toLowerCase(); //Saca la busqueda, la pone en minuscula, la separa por espacios y la guarda en un array con todas las palabras.
-    const docs = await TodosdocsFiltrados( categoria );
+    const {docs} = await TodosdocsFiltrados( categoria );
 
     let resultadoUnico = new Set();
 
@@ -25,6 +34,7 @@ const autocompletadoBusqueda = async (req = request, res = response) => {
     res.status(202).json({resultados})
 }
 
+
 const infoCard = async ( req = request, res = response ) => {
     const { id } = req.params;
     const categoria = req.params.categoria;
@@ -33,41 +43,51 @@ const infoCard = async ( req = request, res = response ) => {
 
 }
 
+
 const resultadoBusqueda = async (req, res) => {
     const { categoria } = req.params;
     const { busqueda } = req.query;
     const mostrarEnElBuscador = `value="${busqueda}"`
-    const { docs, resultadosEncontrados } = await buscar( categoria, busqueda, 0, totalDeTargetasParaMandar );
-    res.render("catalogoResultadosBusqueda", {docs, categoria, mostrarEnElBuscador, resultadosEncontrados});
+    const { docs, resultadosEncontrados, fin } = await buscar( categoria, busqueda, 0, totalDeTargetasParaMandar );
+    res.render("catalogoResultadosBusqueda", {docs, categoria, mostrarEnElBuscador, resultadosEncontrados, fin});
 }
 
-
-const paginacion = async (req, res) => {
-    const { categoria, page } = req.params;
-    const docs = await TodosdocsFiltrados(categoria, parseInt(page), parseInt(page)+totalDeTargetasParaMandar );
-    res.json({docs})
-}
 
 const paginacionResultadosBusqueda = async (req, res) => {
     const { categoria, page } = req.params;
     const { busqueda } = req.query;
-    const { docs } = await buscar( categoria, busqueda, parseInt(page), parseInt(page)+totalDeTargetasParaMandar );
-    res.json(docs)
+    const { docs, fin } = await buscar( categoria, busqueda, parseInt(page), parseInt(page)+totalDeTargetasParaMandar );
+    res.json({docs, fin})
 }
 
 
 const filtrarPorGeneros = async (req, res) => {
-    const asd = [];
-    asd.includes("asd", )
     const { categoria } = req.params;
-    const { genero } = req.query
+    const { genero } = req.body;
     const resultado = await selectedDB[ categoria ].find({
         generos: { $all: genero }
     })
-    const docs = filtrarDocs(resultado);
+    const { docs, fin } = docsFiltradosYseparados(resultado, 0, totalDeTargetasParaMandar);
     const generos = await getTodosLosGeneros(categoria);
 
-    res.render('catalogoResultadoFiltroGeneros', {docs, generos, categoria, genero})
+    res.render('catalogoResultadoFiltroGeneros', {docs, generos, categoria, genero, fin})
+}
+
+
+const paginacionFiltrarPorGeneros = async (req, res) => {
+    const { categoria, page } = req.params;
+    console.log(page);
+    const genero = req.body;
+    console.log(genero);
+    const desde = parseInt(page);
+    const hasta = desde + totalDeTargetasParaMandar;
+
+    const resultado = await selectedDB[ categoria ].find({
+        generos: { $all: genero }
+    })
+    const {docs, fin} = docsFiltradosYseparados(resultado, desde, hasta);
+    res.json({docs, fin});
+
 }
 
 module.exports = {
@@ -77,5 +97,6 @@ module.exports = {
     resultadoBusqueda,
     paginacion,
     paginacionResultadosBusqueda,
-    filtrarPorGeneros
+    filtrarPorGeneros,
+    paginacionFiltrarPorGeneros
 }

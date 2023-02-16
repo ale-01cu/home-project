@@ -17,6 +17,10 @@
         <main class="
                     relative
                     z-30
+                    flex
+                    flex-col
+                    justify-center
+                    items-center
                     transition-all
                     duration-300
                     ease-in-out
@@ -189,8 +193,7 @@
                                     w-full
                                     h-full
                                     grid
-                                    gap-y-3
-                                    gap-x-2
+                                    gap-3
                                     p-8
                                     sm:p-5
                                     lg:p-8
@@ -204,36 +207,36 @@
                                     2xl:grid-cols-5
                                     3xl:grid-cols-6
                                     ">
-                
-                <% for ( let i of docs ) {%>
-                    <a href=<%- `info/${i.id}` %> id="card" class=" relative w-full h-max font-sans transition-transform duration-500 shadow-lg shadow-slate-600">
-                        <div id="poster" class="overflow-hidden h-96 relative"><%- i.imagen %> </div>
-                        <div id="details" class="h-full p-2 space-y-1 w-full absolute bottom-0 flex flex-col flex-wrap justify-end">
-                            <div class="flex justify-between">
-                                <h3 id="añoEstreno" class="text-white flex items-center rounded-lg font-normal text-md"><%= i.fechaDeEstreno[2] %> </h3>
-                                <h3 id="precio" class="text-green-300 self-end font-normal text-md ">$<%= i.precio %> </h3>
-                            </div>
+                        <% for ( let i of docs ) {%>
+                            <a href=<%- `${categoria}/info/${i.id}` %> id="card" class=" relative w-full h-max font-sans transition-transform duration-500">
+                                <div id="poster" class="overflow-hidden h-120 mn:h-90 relative rounded-2xl"><%- i.imagen %> </div>
+                                <div id="details" class="h-full p-2 space-y-1 w-full relative bottom-0 flex flex-col flex-wrap justify-end">
+                                    <div class="flex justify-between">
+                                        <h3 id="añoEstreno" class="text-slate-800 flex items-center rounded-lg font-normal text-md"><%= i.fechaDeEstreno[2] %> </h3>
+                                        <h3 id="precio" class=" self-end font-normal text-md text-green-600">$<%= i.precio %> </h3>
+                                    </div>
+                                    <h2 id="nombre" class=" text-slate-800 rounded-lg font-medium w-full whitespace-nowrap text-ellipsis overflow-hidden"><%= i.nombre %> </h3>
 
-                            <h2 id="nombre" class=" text-white  rounded-lg font-medium w-full break-words"><%= i.nombre %> </h3>
-                            <div id="generos" class="text-white rounded-lg flex flex-wrap">
-                                <% i.generos.forEach( e => { %>
-                                    <span class=" bg-red-600 rounded-lg align-middle text-sm font-medium px-2 py-1 mr-1 mb-1" id="generos-cards"><%= e %> </span>
-                                <% }) %>
-                            </div>
-                        </div>
-                    </a>
-                <% } %>
+                                    <div id="generos" class="text-slate-800 rounded-lg flex flex-wrap space-x-1">
+                                        <% i.generos.forEach( e => { %>
+                                            <span class="rounded-lg align-middle text-sm font-medium px-5px py-3px bg-slate-300 mb-1" id="generos-cards"><%= e %></span>
+                                        <% }) %>
+                                    </div>
+                                </div>
+                            </a>
+                        <% } %>
 
-            </div>
+                </div>
 
-            <div id="containerPaginacion" class=" w-full justify-between flex items-center px-3 lg:px-20 py-3">
-            </div>
+            <% if ( !fin )  {%> 
+                <button id="verMas" class="p-3 bg-yellow-200 w-max m-3 rounded-lg hover:bg-yellow-500 transition duration-300 font-medium">Ver Mas</button>
+            <% } %>
 
         </main>
 
 
         <script src="/js/nav.js"></script>
-        <script type="module" src="/js/funcionesResultadosBusquedaCatalogo/main.js"></script>
+        <script type="module" src="/js/funcionesCatalogo/mainResultadosBusqueda.js"></script>
     </body>
 </html>
 

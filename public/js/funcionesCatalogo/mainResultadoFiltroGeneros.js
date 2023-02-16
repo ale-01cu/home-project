@@ -12,20 +12,28 @@ const marcarNav = () => {
     return cat;
 }
 
+const obtenerGeneros = () => {
+    const generos = [];
+    document.querySelectorAll("[type=checkbox]").forEach(e => {
+        e.checked && generos.push(e.value);
+    })
+    return generos;
+}
+
 const main = async () => {
     const categoria = marcarNav();
 
     const urlAutocompletado = `${location.origin}/catalogo/${categoria}/autocompletado`;
     const urlResultadosBusqueda = `${location.origin}/catalogo/${categoria}/resultadoBusqueda?busqueda=`;
     const urlResultadosFiltradoGeneros = `${location.origin}/catalogo/${categoria}/filtrarPorGeneros`;
-    const urlpaginacion = `${location.origin}/catalogo/${categoria}/page/`;
+    const urlpaginacion = `${location.origin}/catalogo/${categoria}/filtrarPorGeneros/page/`;
 
     const home = new Catalogo( categoria, urlAutocompletado, urlResultadosBusqueda, urlResultadosFiltradoGeneros, urlpaginacion );
     home.headerFuncionesMovil();
     home.headerFuncionesPantallasGrandes();
     home.funcionesBuscadores();
-    home.esElFinal();
-    home.funcionesGeneros( `${categoria}/filtrarPorGeneros` );
+    home.esElFinal("genero", obtenerGeneros());
+    home.funcionesGeneros();
 
 }
 

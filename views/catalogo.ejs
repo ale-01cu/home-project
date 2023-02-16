@@ -15,16 +15,19 @@
         <!--nav-->
 
         <div id="containerGeneros" class="flex flex-col fixed z-50 left-0 top-0 h-screen max-h-screen w-max bg-white items-center -translate-x-full transition duration-300">
-            <div class="flex flex-col overflow-y-auto mb-2">
+            <div class="flex flex-col w-full">
                 <button id="quitarGeneros" class="self-end m-2">
                     <svg class="icon fill-slate-800 hover:fill-slate-400" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"></path></svg>
                 </button>
-                <h2 class="text-lg font-medium text-slate-800 mb-5 border-b border-solid border-gray-300 text-center mx-5">Generos</h2>
-                
+                <h2 class=" text-lg font-medium text-slate-800 mb-5 border-b border-solid border-gray-300 text-center mx-5">Generos</h2>
+            </div>
+            
+            <div class="flex flex-col overflow-y-auto mb-2">
+    
                 <form action="" method="post" id="formGeneros">
                     <ul id="containerListaGeneros" class=" px-10 max-w-xs overflow-x-hidden flex flex-col items-start">
                         <% for ( let i of generos ) {%>
-                            <li class="cursor-pointer w-full"><label for=<%- i %> class="text-slate-800 hover:text-black px-3 py-2 w-full flex justify-start items-center cursor-pointer"> <%= i %> <input class="ml-3" type="checkbox" name="" value="<%- i %>" id="<%- i %>" ></label></li>
+                            <li class="cursor-pointer w-full"><label for=<%- i %> class="text-slate-800 hover:text-black px-3 py-2 w-full flex justify-start items-center cursor-pointer"> <%= i %> <input class="ml-3" type="checkbox" name="genero" value="<%- i %>" id="<%- i %>" ></label></li>
                         <% } %>
                     </ul>
                 </form>
@@ -42,6 +45,10 @@
         <main class="
                     relative
                     z-30
+                    flex
+                    flex-col
+                    justify-center
+                    items-center
                     transition-all
                     duration-300
                     ease-in-out
@@ -142,7 +149,8 @@
                 </div>
 
 
-                <button id="btn-sacarGenerosMd" class="hidden lg:flex justify-center items-center text-gray-400 hover:text-gray-900 transition duration-300 ml-2">Generos<span><svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="M12.025 21.15q-1 0-1.7-.7t-.7-1.675q0-1 .7-1.7t1.675-.7q1 0 1.688.7.687.7.687 1.7 0 .975-.687 1.675-.688.7-1.663.7Zm0-6.775q-1 0-1.7-.7T9.625 12q0-1 .7-1.688.7-.687 1.675-.687 1 0 1.688.687.687.688.687 1.663 0 1-.687 1.7-.688.7-1.663.7Zm0-6.75q-1 0-1.7-.713-.7-.712-.7-1.687 0-1 .7-1.688.7-.687 1.675-.687 1 0 1.688.687.687.688.687 1.688 0 .975-.687 1.687-.688.713-1.663.713Z"/></svg></span></button>
+                <button id="btn-sacarGenerosMd" class="hidden lg:flex justify-center items-center text-gray-400 hover:text-gray-900 transition duration-300 ml-2">Generos<span class=""><svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="M12.025 21.15q-1 0-1.7-.7t-.7-1.675q0-1 .7-1.7t1.675-.7q1 0 1.688.7.687.7.687 1.7 0 .975-.687 1.675-.688.7-1.663.7Zm0-6.775q-1 0-1.7-.7T9.625 12q0-1 .7-1.688.7-.687 1.675-.687 1 0 1.688.687.687.688.687 1.663 0 1-.687 1.7-.688.7-1.663.7Zm0-6.75q-1 0-1.7-.713-.7-.712-.7-1.687 0-1 .7-1.688.7-.687 1.675-.687 1 0 1.688.687.687.688.687 1.688 0 .975-.687 1.687-.688.713-1.663.713Z"/></svg></span></button>
+                
                 <div id="container-search-md" class="
                                                     hidden
                                                     lg:w-2/5
@@ -189,8 +197,7 @@
                                     w-full
                                     h-full
                                     grid
-                                    gap-y-3
-                                    gap-x-2
+                                    gap-3
                                     p-8
                                     sm:p-5
                                     lg:p-8
@@ -205,18 +212,18 @@
                                     3xl:grid-cols-6
                                     ">
                 <% for ( let i of docs ) {%>
-                    <a href=<%- `${categoria}/info/${i.id}` %> id="card" class=" relative w-full h-max font-sans transition-transform duration-500 shadow-lg shadow-slate-600">
-                        <div id="poster" class="overflow-hidden h-96 relative"><%- i.imagen %> </div>
-                        <div id="details" class="h-full p-2 space-y-1 w-full absolute bottom-0 flex flex-col flex-wrap justify-end">
+                    <a href=<%- `${categoria}/info/${i.id}` %> id="card" class=" relative w-full h-max font-sans transition-transform duration-500">
+                        <div id="poster" class="overflow-hidden h-120 mn:h-90 relative rounded-2xl"><%- i.imagen %> </div>
+                        <div id="details" class="h-full p-2 space-y-1 w-full relative bottom-0 flex flex-col flex-wrap justify-end">
                             <div class="flex justify-between">
-                                <h3 id="añoEstreno" class="text-white flex items-center rounded-lg font-normal text-md"><%= i.fechaDeEstreno[2] %> </h3>
-                                <h3 id="precio" class="text-green-300 self-end font-normal text-md ">$<%= i.precio %> </h3>
+                                <h3 id="añoEstreno" class="text-slate-800 flex items-center rounded-lg font-normal text-md"><%= i.fechaDeEstreno[2] %> </h3>
+                                <h3 id="precio" class=" self-end font-normal text-md text-green-600">$<%= i.precio %> </h3>
                             </div>
+                            <h2 id="nombre" class=" text-slate-800 rounded-lg font-medium w-full whitespace-nowrap text-ellipsis overflow-hidden"><%= i.nombre %> </h3>
 
-                            <h2 id="nombre" class=" text-white  rounded-lg font-medium w-full break-words"><%= i.nombre %> </h3>
-                            <div id="generos" class="text-white rounded-lg flex flex-wrap">
+                            <div id="generos" class="text-slate-800 rounded-lg flex flex-wrap space-x-1">
                                 <% i.generos.forEach( e => { %>
-                                    <span class=" bg-red-600 rounded-lg align-middle text-sm font-medium px-2 py-1 mr-1 mb-1" id="generos-cards"><%= e %> </span>
+                                    <span class="rounded-lg align-middle text-sm font-medium px-5px py-3px bg-slate-300 mb-1" id="generos-cards"><%= e %></span>
                                 <% }) %>
                             </div>
                         </div>
@@ -225,9 +232,9 @@
 
             </div>
 
-            <div id="containerPaginacion" class=" w-full justify-between flex items-center px-3 lg:px-20 py-3">
-            </div>
-
+            <% if ( !fin )  {%> 
+                <button id="verMas" class="p-3 bg-yellow-200 w-max m-3 rounded-lg hover:bg-yellow-500 transition duration-300 font-medium">Ver Mas</button>
+            <% } %>
         </main>
 
 
