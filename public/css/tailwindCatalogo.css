@@ -648,12 +648,12 @@ video {
   margin-bottom: 0.25rem;
 }
 
-.mr-3 {
-  margin-right: 0.75rem;
-}
-
 .mr-1 {
   margin-right: 0.25rem;
+}
+
+.mr-3 {
+  margin-right: 0.75rem;
 }
 
 .flex {
@@ -801,8 +801,8 @@ video {
   justify-content: space-between;
 }
 
-.gap-3 {
-  gap: 0.75rem;
+.gap-2 {
+  gap: 0.5rem;
 }
 
 .space-x-5 > :not([hidden]) ~ :not([hidden]) {
@@ -1245,9 +1245,23 @@ video {
   .mn\:h-90 {
     height: 23rem;
   }
+
+  .mn\:px-10 {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+
+  .mn\:px-20 {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
 }
 
 @media (min-width: 480px) {
+  .tablet\:h-90 {
+    height: 23rem;
+  }
+
   .tablet\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(14rem, 15rem));
   }

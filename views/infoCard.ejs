@@ -6,24 +6,24 @@
 
     <div>
         <ul>
-            <li><%= doc[0].precio %> </li>
-            <li><%= doc[0].nombre %> </li>
-            <li><%= doc[0].formato %> </li>
-            <li><%= doc[0].size %> </li>
-            <li><%= doc[0].descripcion %> </li>
-            <li><%= doc[0].plataforma %> </li>
-            <li><%= doc[0].pais %> </li>
-            <li><img src=<%- doc[0].imagen %>  alt=""></li>
-            <% for ( let i of doc[0].generos ) {%> 
+            <li><%= doc.precio %> </li>
+            <li><%= doc.nombre %> </li>
+            <li><%= doc.formato %> </li>
+            <li><%= doc.size %> </li>
+            <li><%= doc.descripcion %> </li>
+            <li><%= doc.plataforma %> </li>
+            <li><%= doc.pais %> </li>
+            <li><img src=<%- doc.imagen %>  alt=""></li>
+            <% for ( let i of doc.generos ) {%> 
                 <li><%= i %> </li>
             <% } %> 
-            <% for ( let i of doc[0].actores ) {%> 
+            <% for ( let i of doc.actores ) {%> 
                 <li><%= i %> </li>
             <% } %> 
-            <% for ( let i of doc[0].fechaDeEstreno ) {%> 
+            <% for ( let i of doc.fechaDeEstreno ) {%> 
                 <li><%= i %> </li>
             <% } %> 
-            <% for ( let i of doc[0].audio ) {%> 
+            <% for ( let i of doc.audio ) {%> 
                 <li><%= i %> </li>
             <% } %> 
         </ul>

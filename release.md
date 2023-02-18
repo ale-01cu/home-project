@@ -89,5 +89,7 @@
 - Terminada toda la api del catalgo back y front.
 - Se cambiarion los estilos de las cards
 
+### v0.2.1
+- Se aplicaron los estilos de standar (eslinter) en todo el proyecto
 
 npx tailwindcss -i ./src/configTailwindCatalogo.css -o ./public/css/tailwindCatalogo.css --watch
