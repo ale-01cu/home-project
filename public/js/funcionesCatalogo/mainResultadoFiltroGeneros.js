@@ -36,6 +36,7 @@ const main = async () => {
   home.funcionesBuscadores()
   home.esElFinal('genero', obtenerGeneros())
   home.funcionesGeneros()
+  home.reseziveSearch()
 }
 
 main()

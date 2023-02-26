@@ -33,6 +33,9 @@ app.use(express.static(path.join(__dirname, '/node_modules/swiper')))
 app.use('/', require('./routes/home'))
 app.use('/catalogo', require('./routes/catalogo'))
 app.use('/formularios', require('./Routes/admin'))
+app.use('/api/user', require('./Routes/user'))
+app.use('/api/rol', require('./Routes/roles'))
+app.use('/api/login', require('./routes/login'))
 
 // Base de Datos
 const { dbConnection } = require('./db/config')

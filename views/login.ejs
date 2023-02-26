@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include("partials/inicio/head") %> 
+    <link rel="stylesheet" href="/css/tailwindLogin.css">
+</head>
+<body>
+  <%- include('partials/silderbar'); %>
+  <main class="
+              relative
+              z-30
+              h-screen        
+              flex
+              flex-col
+              items-center
+              lg:justify-center
+              w-full
+              lg:left-16">
+
+    <div id="nav" class="lg:hidden px-3 pt-3 self-start">
+      <button>
+        <span>
+          <svg class="icon fill-black transition-all duration-300 ease-out" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M106.999 837.479V731.478h746.002v106.001H106.999Zm0-208.478V522.999h746.002v106.002H106.999Zm0-208.479V314.521h746.002v106.001H106.999Z"/></svg>
+        </span>
+      </button>
+    </div>
+
+
+
+    <div id="login" class="bg-white w-full p-5 sm:w-96 h-max lg:shadow-md lg:shadow-slate-700 rounded-2xl lg:border-2 lg:border-solid lg:border-slate-600">
+      <div class="flex flex-col space-y-10 justify-center items-center">
+        
+        <div class="">
+          <span><svg class="" xmlns="http://www.w3.org/2000/svg" height="60" viewBox="0 96 960 960" width="60"><path d="M228 790q60-41 121.545-63.5Q411.091 704 480.48 704q69.39 0 131.874 23.268Q674.838 750.536 734 790q41-54 58.5-104.457Q810 635.086 810 576q0-140.247-94.826-235.123Q620.349 246 480.174 246 340 246 245 340.877 150 435.753 150 576q0 60 17.527 109.717T228 790Zm251.854-180q-59.011 0-99.433-40.646-40.421-40.645-40.421-99Q340 412 380.567 371t99.579-41q59.011 0 99.433 41.146Q620 412.291 620 470.646 620 529 579.433 569.5T479.854 610Zm.031 387Q393 997 317.077 964.446q-75.924-32.555-134.196-91.077-58.272-58.521-91.077-134.228Q59 663.434 59 575.151 59 491 92.21 414.087q33.211-76.914 90.965-135.237 57.754-58.324 133.545-91.587Q392.511 154 480.849 154q84.151 0 161.064 33.711 76.914 33.71 135 91.5Q835 337 868.5 414.035q33.5 77.034 33.5 162.08 0 86.885-33.263 162.92-33.263 76.036-91.587 133.79-58.323 57.754-135.271 90.964Q564.931 997 479.885 997Zm.115-91q54 0 100.5-13.5T679 840q-51.586-35.967-99.293-51.983Q532 772 480 772q-52 0-99 16t-98 52.303q51 38.304 97 52Q426 906 480 906Zm0-365q30.867 0 50.933-19.5Q551 502 551 470.5T530.933 419Q510.867 399 480 399t-50.933 20Q409 439 409 470.5t20.067 51Q449.133 541 480 541Zm0-71Zm1 369Z"/></svg></span>
+        </div>
+    
+        <div class="flex justify-center items-center flex-wrap">
+          <button id="sesion" type="button" class="
+                                      font-medium
+                                      py-3
+                                      px-8
+                                      border-b
+                                      border-solid
+                                      border-gray-300
+                                      relative
+                                      before:content-[''] 
+                                      before:block
+                                      before:w-full
+                                      before:h-1
+                                      before:bg-green-300
+                                      before:absolute
+                                      before:right-0
+                                      before:bottom-0
+                                      before:transition-all
+                                      before:duration-300 ">Iniciar Sesion</button>
+          <button id="registro" type="button" class="
+                                      font-medium
+                                      py-3
+                                      px-8
+                                      border-b
+                                      border-solid
+                                      border-gray-300
+                                      relative
+                                      before:content-[''] 
+                                      before:block
+                                      before:w-0
+                                      before:h-1
+                                      before:bg-green-300
+                                      before:absolute
+                                      before:left-0
+                                      before:bottom-0
+                                      before:transition-all
+                                      before:duration-300
+          
+          
+          ">Registrarse</button>
+        </div>
+    
+        <form action="http://10.31.103.6:3000/api/login" method="post" id="formLogin" class="w-full space-y-7">
+          <div class="flex flex-col w-full">
+            <h3 class="font-medium text-gray-500">Nombre</h3>
+            <input type="text" name="name" id="name" class="
+                                                      p-2
+                                                      bg-slate-200 
+                                                      rounded-lg
+                                                      outline-2
+      
+                                                      ">
+          </div>
+      
+          <div class="flex flex-col w-full">
+            <h3 class="font-medium text-gray-500">Contraseña</h3>
+            <input type="password" name="password" id="pass" class="
+                                                              p-2
+                                                            bg-slate-200 
+                                                            rounded-lg
+                                                            outline-2
+      
+                                                              ">
+          </div>
+          
+        </form>
+    
+        <button form="formLogin" type="submit" class="bg-green-300 p-3 w-3/4 rounded-lg hover:bg-green-600 hover:text-black font-bold transition duration-300">Iniciar Sesion</button>
+      </div>
+    </div>
+  </main>
+  
+  <script src="/js/nav.js"></script>
+  <script src="/js/funcionesLogin/login.js"></script>
+</body>
+</html>

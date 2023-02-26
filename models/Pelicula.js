@@ -58,9 +58,7 @@ const peliculasSchema = Schema({
 
 })
 
-peliculasSchema.index({ nombre: 'text' })
-
 module.exports = {
-  Pelicula: model('Peliculas', peliculasSchema),
-  peliculasSchema
+  Pelicula: model('Peliculas', peliculasSchema)
+
 }

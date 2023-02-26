@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+
+@media screen and (min-width: 1024px)
+{
+    main
+    {
+        width: calc(100% - 4rem) !important;
+    }
+
+}
+
+
+@tailwind utilities;

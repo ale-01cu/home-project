@@ -3,11 +3,13 @@ const { Schema, model } = require('mongoose')
 const categoria = Schema({
   Peliculas: [{
     type: Schema.Types.ObjectId,
-    ref: 'Peliculas'
+    ref: 'Peliculas',
+    required: true
   }],
   Series: [{
     type: Schema.Types.ObjectId,
-    ref: 'Series'
+    ref: 'Series',
+    required: true
   }]
 })
 

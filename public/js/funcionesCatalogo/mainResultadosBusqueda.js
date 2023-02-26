@@ -27,6 +27,7 @@ const main = async () => {
   home.headerFuncionesPantallasGrandes()
   home.funcionesBuscadores()
   home.esElFinal('busqueda')
+  home.reseziveSearch()
 }
 
 main()

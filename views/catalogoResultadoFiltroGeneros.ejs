@@ -24,7 +24,7 @@
             
             <div class="flex flex-col overflow-y-auto mb-2">
     
-                <form action="" method="post" id="formGeneros">
+                <form action="http://10.31.103.6:3000/catalogo/<%- categoria %>/filtrarPorGeneros" method="get" id="formGeneros">
                     <ul id="containerListaGeneros" class=" px-10 max-w-xs overflow-x-hidden flex flex-col items-start">
                         <% for ( let i of generos ) {%>
                             <% if ( genero.includes(i) ) {%>
@@ -103,94 +103,97 @@
                     </div>
                 </div>
 
-
-                <div id="search" class="
-                                        fixed
-                                        top-0
-                                        left-0
-                                        h-screen
-                                        w-full
-                                        flex
-                                        flex-col
-                                        items-center
-                                        justify-start
-                                        bg-white
-                                        translate-x-full
-                                        transition-transform
-                                        duration-200
-                                        lg:hidden z-30
-                                        overflow-auto" >
-                    <div class="
-                                flex
-                                w-3/4
-                                justify-center
-                                border
-                                border-solid
-                                border-gray-900
-                                rounded-lg
-                                p-2
-                                space-x-2
-                                mt-2">
-                        <span class="flex items-center cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12.707 17.293 8.414 13H18v-2H8.414l4.293-4.293-1.414-1.414L4.586 12l6.707 6.707z"></path></svg></span>
-                        <input type="text" name="" id="" class="w-full outline-none" placeholder="Buscar...">
-                        <span class="hidden flex justify-center items-center" id="anular"><svg class="icon fill-slate-500 cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"></path></svg></span>
-                        <button id="btn-buscar">
-                            <span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M19.023 16.977a35.13 35.13 0 0 1-1.367-1.384c-.372-.378-.596-.653-.596-.653l-2.8-1.337A6.962 6.962 0 0 0 16 9c0-3.859-3.14-7-7-7S2 5.141 2 9s3.14 7 7 7c1.763 0 3.37-.66 4.603-1.739l1.337 2.8s.275.224.653.596c.387.363.896.854 1.384 1.367l1.358 1.392.604.646 2.121-2.121-.646-.604c-.379-.372-.885-.866-1.391-1.36zM9 14c-2.757 0-5-2.243-5-5s2.243-5 5-5 5 2.243 5 5-2.243 5-5 5z"></path></svg>
-                            </span>
-                        </button>
-                        
-                    </div>
-
-                    <div id="resultado-busqueda" class="
-                                                        bg-white
-                                                        w-4/5
-                                                        p-3
-                                                        rounded-b-lg
-                                                        transition-all
-                                                        duration-300" >
-                        <ul class="space-y-3" id="resultado-busqueda-list"></ul>
-                    </div>
-                </div>
-
-
                 <button id="btn-sacarGenerosMd" class="hidden lg:flex justify-center items-center text-gray-400 hover:text-gray-900 transition duration-300 ml-2">Generos<span class=""><svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="M12.025 21.15q-1 0-1.7-.7t-.7-1.675q0-1 .7-1.7t1.675-.7q1 0 1.688.7.687.7.687 1.7 0 .975-.687 1.675-.688.7-1.663.7Zm0-6.775q-1 0-1.7-.7T9.625 12q0-1 .7-1.688.7-.687 1.675-.687 1 0 1.688.687.687.688.687 1.663 0 1-.687 1.7-.688.7-1.663.7Zm0-6.75q-1 0-1.7-.713-.7-.712-.7-1.687 0-1 .7-1.688.7-.687 1.675-.687 1 0 1.688.687.687.688.687 1.688 0 .975-.687 1.687-.688.713-1.663.713Z"/></svg></span></button>
-                
-                <div id="container-search-md" class="
-                                                    hidden
-                                                    lg:w-2/5
+
+                <form action="http://10.31.103.6:3000/catalogo/<%- categoria %>/resultadoBusqueda" method="get" class="lg:w-2/5">
+
+                    <div id="search" class="
+                                            fixed
+                                            top-0
+                                            left-0
+                                            h-screen
+                                            w-full
+                                            flex
+                                            flex-col
+                                            items-center
+                                            justify-start
+                                            bg-white
+                                            translate-x-full
+                                            transition-transform
+                                            duration-200
+                                            z-30
+                                            overflow-auto">
+                        <div class="
+                                    flex
+                                    w-3/4
+                                    justify-center
+                                    border
+                                    border-solid
+                                    border-gray-900
+                                    rounded-lg
+                                    p-2
+                                    space-x-2
+                                    mt-2">
+                            <span class="flex items-center cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12.707 17.293 8.414 13H18v-2H8.414l4.293-4.293-1.414-1.414L4.586 12l6.707 6.707z"></path></svg></span>
+                            <input type="text" name="" id="" class="w-full outline-none lg:hidden" placeholder="Buscar...">
+                            <span class="hidden flex justify-center items-center" id="anular"><svg class="icon fill-slate-500 cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"></path></svg></span>
+                            <button id="btn-buscar">
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M19.023 16.977a35.13 35.13 0 0 1-1.367-1.384c-.372-.378-.596-.653-.596-.653l-2.8-1.337A6.962 6.962 0 0 0 16 9c0-3.859-3.14-7-7-7S2 5.141 2 9s3.14 7 7 7c1.763 0 3.37-.66 4.603-1.739l1.337 2.8s.275.224.653.596c.387.363.896.854 1.384 1.367l1.358 1.392.604.646 2.121-2.121-.646-.604c-.379-.372-.885-.866-1.391-1.36zM9 14c-2.757 0-5-2.243-5-5s2.243-5 5-5 5 2.243 5 5-2.243 5-5 5z"></path></svg>
+                                </span>
+                            </button>
+                            
+                        </div>
+
+                        <div id="resultado-busqueda" class="
+                                                            bg-white
+                                                            w-4/5
+                                                            p-3
+                                                            rounded-b-lg
+                                                            transition-all
+                                                            duration-300" >
+                            <ul class="space-y-3" id="resultado-busqueda-list"></ul>
+                        </div>
+                    </div>
+
+                    <div id="container-search-md" class="
+                                                        hidden
+                                                        lg:w-full
+                                                        lg:flex
+                                                        lg:flex-col
+                                                        lg:relative
+                                                        lg:z-30">
+
+                        <div id="search-md" class="
+                                                    h-11
                                                     lg:flex
-                                                    lg:flex-col
-                                                    lg:relative
-                                                    lg:z-30">
-                    <div id="search-md" class="
-                                                h-11
-                                                lg:flex
-                                                lg:justify-center
-                                                lg:w-full
-                                                lg:p-2
-                                                lg:space-x-2
-                                                lg:rounded-3xl">
-                        <input type="text" name="" id="" placeholder="Buscar..." class="w-full outline-none appearance-none">
-                        <button class="hidden" id="anular">
-                            <svg class="icon fill-slate-500 cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"></path></svg>
-                        </button>
-                        <button class="flex items-center" id="btn-buscar-md">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M19.023 16.977a35.13 35.13 0 0 1-1.367-1.384c-.372-.378-.596-.653-.596-.653l-2.8-1.337A6.962 6.962 0 0 0 16 9c0-3.859-3.14-7-7-7S2 5.141 2 9s3.14 7 7 7c1.763 0 3.37-.66 4.603-1.739l1.337 2.8s.275.224.653.596c.387.363.896.854 1.384 1.367l1.358 1.392.604.646 2.121-2.121-.646-.604c-.379-.372-.885-.866-1.391-1.36zM9 14c-2.757 0-5-2.243-5-5s2.243-5 5-5 5 2.243 5 5-2.243 5-5 5z"></path></svg>
-                        </button>
+                                                    lg:justify-center
+                                                    lg:w-full
+                                                    lg:p-2
+                                                    lg:space-x-2
+                                                    lg:rounded-3xl">
+                            <input type="text" name="" id="" placeholder="Buscar..." class="w-full outline-none appearance-none hidden lg:flex">
+                            <button type="button" class="hidden" id="anular">
+                                <svg class="icon fill-slate-500 cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"></path></svg>
+                            </button>
+                            <button type="submit" class="flex items-center" id="btn-buscar-md">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M19.023 16.977a35.13 35.13 0 0 1-1.367-1.384c-.372-.378-.596-.653-.596-.653l-2.8-1.337A6.962 6.962 0 0 0 16 9c0-3.859-3.14-7-7-7S2 5.141 2 9s3.14 7 7 7c1.763 0 3.37-.66 4.603-1.739l1.337 2.8s.275.224.653.596c.387.363.896.854 1.384 1.367l1.358 1.392.604.646 2.121-2.121-.646-.604c-.379-.372-.885-.866-1.391-1.36zM9 14c-2.757 0-5-2.243-5-5s2.243-5 5-5 5 2.243 5 5-2.243 5-5 5z"></path></svg>
+                            </button>
 
+                        </div>
+
+                        <div id="res-search-container-md" class="
+                                                                lg:flex
+                                                                lg:w-full
+                                                                lg:absolute
+                                                                lg:top-full
+                                                                lg:bg-white
+                                                                rounded-xl">
+                            <ul id="res-search-list" class="lg:px-1 lg:pt-2 lg:w-full"></ul>
+                        </div>
                     </div>
 
-                    <div id="res-search-container-md" class="
-                                                            lg:flex
-                                                            lg:w-full
-                                                            lg:absolute
-                                                            lg:top-full
-                                                            lg:bg-white
-                                                            rounded-xl">
-                        <ul id="res-search-list" class="lg:px-1 lg:pt-2 lg:w-full"></ul>
-                    </div>
-                </div>
+                </form>
 
             </div>
 
@@ -202,7 +205,8 @@
                                     w-full
                                     h-full
                                     grid
-                                    gap-2
+                                    gap-x-1
+                                    gap-y-3
                                     p-8
                                     mn:px-10
                                     sm:p-5
@@ -218,8 +222,8 @@
                                     3xl:grid-cols-6
                                     ">
                 <% for ( let i of docs ) {%>
-                    <a href=<%- `info/${i.id}` %> id="card" class=" relative w-full h-max font-sans transition-transform duration-500">
-                        <div id="poster" class="overflow-hidden h-120 tablet:h-90 relative rounded-2xl"><%- i.imagen %> </div>
+                    <a href=<%- `http://10.31.103.6:3000/catalogo/${categoria}/info/${i.id}` %> id="card" class=" relative w-full h-max font-sans transition-transform duration-500">
+                        <div id="poster" class="overflow-hidden h-120 tablet:h-89 rounded-2xl relative"><%- i.imagen %> </div>
                         <div id="details" class="h-full p-2 space-y-1 w-full relative bottom-0 flex flex-col flex-wrap justify-end">
                             <div class="flex justify-between">
                                 <h3 id="añoEstreno" class="text-slate-800 flex items-center rounded-lg font-normal text-md"><%= i.fechaDeEstreno[2] %> </h3>

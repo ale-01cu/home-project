@@ -70,9 +70,6 @@ const seriesSchema = Schema({
 
 })
 
-seriesSchema.index({ nombre: 'text' })
-
 module.exports = {
-  Serie: model('Series', seriesSchema),
-  seriesSchema
+  Serie: model('Series', seriesSchema)
 }

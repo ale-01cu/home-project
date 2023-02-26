@@ -92,4 +92,7 @@
 ### v0.2.1
 - Se aplicaron los estilos de standar (eslinter) en todo el proyecto
 
-npx tailwindcss -i ./src/configTailwindCatalogo.css -o ./public/css/tailwindCatalogo.css --watch
+### v0.3.1
+- Login y registro de cuentas en el backend y el front (Falta comunicarlos).
+- Cambios en el menu.
+

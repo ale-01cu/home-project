@@ -1,31 +1,42 @@
 @tailwind base;
 @tailwind components;
 
-nav div ul li a:hover .icon svg
+nav div a:hover .icon svg
 {
     @apply fill-black;
 }
 
-nav div ul li a:hover span:last-child
+nav div a:hover span:last-child
 {
     @apply text-black;
 }
 
-nav div ul li a.active .icon svg
+nav button:hover span svg{
+    @apply fill-black;
+}
+
+nav div a.active .icon svg
 {
     @apply fill-black;
 }
 
-nav div ul li a.active span:last-child
+nav div a.active span:last-child
 {
     @apply text-black;
 }
 
-nav div ul a:hover + .tooltip
+nav div ul li a:hover + .tooltip
 {
     @apply opacity-100;
     @apply translate-y-6;
 }
+
+nav .login a:hover + .tooltip{
+    @apply opacity-100;
+    @apply translate-y-1;
+}
+
+
 
 @media screen and (min-width: 1024px)
 {

@@ -15,18 +15,6 @@
      );
  } */
 
- .swiper-button-prev,
-.swiper-button-next{
-    --swiper-navigation-size: 12px;
-    --swiper-navigation-top-offset: 50%;
-    --swiper-navigation-sides-offset: -0px;
-    --swiper-navigation-color: var(--swiper-theme-color);
-}
-
-.swiper-slide{
-    display: flex !important;
-}
-
 @media screen and (min-width: 1024px)
 {
     #header{

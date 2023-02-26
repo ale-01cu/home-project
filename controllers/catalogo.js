@@ -56,9 +56,8 @@ const resultadoBusqueda = async (req, res) => {
   try {
     const { categoria } = req.params
     const { busqueda = '' } = req.query
-    const mostrarEnElBuscador = `value="${busqueda}"`
     const { docs, resultadosEncontrados, fin } = await buscar(categoria, busqueda, 1, peer)
-    res.render('catalogoResultadosBusqueda', { docs, categoria, mostrarEnElBuscador, resultadosEncontrados, fin })
+    res.render('catalogoResultadosBusqueda', { docs, categoria, busqueda, resultadosEncontrados, fin })
   } catch (error) {
     console.log(error)
   }
@@ -78,7 +77,7 @@ const paginacionResultadosBusqueda = async (req, res) => {
 const filtrarPorGeneros = async (req, res) => {
   try {
     const { categoria } = req.params
-    const { genero } = req.body
+    const { genero } = req.query
     const resultado = await selectedDB[categoria].find({
       generos: { $all: genero }
     })

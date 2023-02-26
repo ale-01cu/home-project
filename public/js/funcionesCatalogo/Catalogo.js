@@ -123,11 +123,6 @@ export class Catalogo {
     lista.appendChild(this.fragment)
   }
 
-  // Busquedas
-  busquedas (input) {
-    window.location.href = this.urlResultadosBusqueda + input.value
-  }
-
   comprobarSiElBuscadorEsValidoParaLaBusqueda (input, campoResultadosBusqueda) {
     if (input.value.length > 0) {
       for (const i of input.value) {
@@ -141,20 +136,8 @@ export class Catalogo {
   }
 
   funcionesBuscadores () {
-    this.btnBuscar.addEventListener('click', e => {
-      if (this.buscador.value.length > 0) {
-        this.busquedas(this.buscador)
-      }
-    })
-
     this.buscador.addEventListener('input', e => {
       if (this.comprobarSiElBuscadorEsValidoParaLaBusqueda(this.buscador, this.resultadosBusqueda)) this.autocompletado(this.buscador.value, this.resultadosBusqueda)
-    })
-
-    this.buscador.addEventListener('keydown', async e => {
-      if (e.key.toLowerCase() === 'enter' && this.buscador.value.length > 0) {
-        if (this.comprobarSiElBuscadorEsValidoParaLaBusqueda(this.buscador, this.resultadosBusqueda)) this.busquedas(this.buscador)
-      }
     })
 
     this.buscador.addEventListener('click', e => {
@@ -169,20 +152,8 @@ export class Catalogo {
       })
     }
 
-    this.btnBuscarMd.addEventListener('click', e => {
-      if (this.buscadorMd.value.length > 0) {
-        this.busquedas(this.buscadorMd)
-      }
-    })
-
     this.buscadorMd.addEventListener('input', e => {
       if (this.comprobarSiElBuscadorEsValidoParaLaBusqueda(this.buscadorMd, this.resultadosBusquedasPantallasGrandes)) this.autocompletado(this.buscadorMd.value, this.resultadosBusquedasPantallasGrandes)
-    })
-
-    this.buscadorMd.addEventListener('keydown', e => {
-      if (e.key.toLowerCase() === 'enter' && this.buscadorMd.value.length > 0) {
-        if (this.comprobarSiElBuscadorEsValidoParaLaBusqueda(this.buscadorMd, this.resultadosBusquedasPantallasGrandes)) this.busquedas(this.buscadorMd)
-      }
     })
 
     this.buscadorMd.addEventListener('click', e => {
@@ -246,7 +217,7 @@ export class Catalogo {
 
       a.innerHTML =
             `
-            <div id="poster" class="overflow-hidden h-120 mn:h-90 relative rounded-2xl">${e.imagen}</div>
+            <div id="poster" class="overflow-hidden h-120 tablet:h-89 relative rounded-2xl">${e.imagen}</div>
             <div id="details" class="h-full p-2 space-y-1 w-full relative bottom-0 flex flex-col flex-wrap justify-end">
                 <div class="flex justify-between">
                     <h3 id="añoEstreno" class="text-slate-800 flex items-center rounded-lg font-normal text-md">${e.fechaDeEstreno[2]}</h3>
@@ -265,8 +236,6 @@ export class Catalogo {
   }
 
   funcionesGeneros (url) {
-    if (url) this.formGeneros.action = url
-
     this.btnSacarGenerosMD.addEventListener('click', e => {
       this.containerGeneros.classList.toggle('-translate-x-full')
       this.cortina.classList.toggle('hidden')
@@ -285,6 +254,23 @@ export class Catalogo {
     this.btnSacarGeneros.addEventListener('click', e => {
       this.containerGeneros.classList.toggle('-translate-x-full')
       this.cortina.classList.toggle('hidden')
+    })
+  }
+
+  reseziveSearch () {
+    if (window.innerWidth >= 1024) this.buscadorMd.name = 'busqueda'
+    else this.buscador.name = 'busqueda'
+
+    window.addEventListener('resize', e => {
+      if (window.innerWidth >= 1024) {
+        console.log(this.buscadorMd)
+        this.buscadorMd.name = 'busqueda'
+        this.buscador.name = ''
+      } else {
+        console.log(this.buscadorMd)
+        this.buscador.name = 'busqueda'
+        this.buscadorMd.name = ''
+      }
     })
   }
 }
