@@ -42,6 +42,8 @@ export class Catalogo {
     this.checkBoxesGeneros = document.querySelectorAll('[type=checkbox]')
 
     this.btnVerMas = document.getElementById('verMas')
+    this.formBuscador = document.querySelector('form#buscador')
+
     this.fragment = document.createDocumentFragment()
   }
 
@@ -255,6 +257,14 @@ export class Catalogo {
       this.containerGeneros.classList.toggle('-translate-x-full')
       this.cortina.classList.toggle('hidden')
     })
+
+    this.formGeneros.addEventListener('submit', e => {
+      let vacio = true
+      for (let i = 0; i < e.target.length; i++) {
+        if (e.target[i].checked) vacio = false
+      }
+      if (vacio) e.preventDefault()
+    })
   }
 
   reseziveSearch () {
@@ -263,13 +273,19 @@ export class Catalogo {
 
     window.addEventListener('resize', e => {
       if (window.innerWidth >= 1024) {
-        console.log(this.buscadorMd)
         this.buscadorMd.name = 'busqueda'
         this.buscador.name = ''
       } else {
-        console.log(this.buscadorMd)
         this.buscador.name = 'busqueda'
         this.buscadorMd.name = ''
+      }
+    })
+  }
+
+  funcionesBuscador () {
+    this.formBuscador.addEventListener('submit', e => {
+      if (!(this.buscador.value || this.buscadorMd.value)) {
+        e.preventDefault()
       }
     })
   }

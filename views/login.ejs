@@ -77,7 +77,7 @@
         </div>
     
         <form action="http://10.31.103.6:3000/api/login" method="post" id="formLogin" class="w-full space-y-7">
-          <div class="flex flex-col w-full">
+          <div class="flex flex-col w-full relative">
             <h3 class="font-medium text-gray-500">Nombre</h3>
             <input type="text" name="name" id="name" class="
                                                       p-2
@@ -86,6 +86,12 @@
                                                       outline-2
       
                                                       ">
+            <button id="visibility" type="button" class="
+                        off
+                        absolute
+                        right-0
+                        "><svg class="" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 96 960 960" width="20"><path d="M766.461 936.767 642.616 812.152q-33.769 12.385-75.192 22.116Q526 843.999 480 843.999q-132.999 0-246.114-71.538Q120.771 700.922 69.54 576q18.154-52 61.231-101.885 43.077-49.884 89.231-85.576l-100.769-100 37.153-37.153 647.228 648.228-37.153 37.153ZM480 727.076q15.539 0 33.193-4.154 17.654-4.154 30.885-9.308L342.386 511.922q-4.154 14-8.808 31.462T328.924 576q0 63.076 44 107.076 44 44 107.076 44Zm276.153 22.308L624.691 617.922q2.693-8.769 4.539-19.884 1.846-11.115 1.846-22.038 0-63.076-44-107.076-44-44-107.076-44-10.923 0-21.153 1.539-10.231 1.538-20.384 4.615L337.386 330.386q34.923-13.077 70.961-17.731 36.038-4.654 71.653-4.654 132.615 0 246.114 71.538Q839.614 451.078 890.46 576q-21.231 51.615-55.423 94.076-34.192 42.461-78.884 79.308ZM575.385 569 487 480q18.461-2 34.461 3.923t30 19.538q12.385 11.616 18.962 29.308T575.385 569Z"/></svg>
+            </button>
           </div>
       
           <div class="flex flex-col w-full">
@@ -95,7 +101,19 @@
                                                             bg-slate-200 
                                                             rounded-lg
                                                             outline-2
-      
+                                                            pass
+                                                              ">
+          </div>
+
+          <div id="confPass" class="hidden">
+            <h3 class="font-medium text-gray-500">Confirmar Contraseña</h3>
+            <input type="password" name="confPassword" id="inputConfPass" class="
+                                                            w-full
+                                                            p-2
+                                                            bg-slate-200 
+                                                            rounded-lg
+                                                            outline-2
+                                                            pass
                                                               ">
           </div>
           

@@ -6,6 +6,7 @@ const generarJWT = require('../helpers/generar-JWT')
 const viewLogin = (req, res) => {
   res.render('login')
 }
+
 const login = async (req = request, res = response) => {
   const { name, password } = req.body
 

@@ -36,12 +36,12 @@ module.exports = {
       },
       gridTemplateColumns: {
         // Simple 4 column grid
-        1: 'repeat(1, minmax(14rem, 1fr))',
-        2: 'repeat(2, minmax(14rem, 14rem))',
-        3: 'repeat(3, minmax(14rem, 14rem))',
-        4: 'repeat(4, minmax(14rem, 14rem))',
-        5: 'repeat(5, minmax(14rem, 14rem))',
-        6: 'repeat(6, minmax(14rem, 14rem))'
+        1: 'repeat(1, minmax(0, 1fr))',
+        2: 'repeat(2, minmax(12rem, 14rem))',
+        3: 'repeat(3, minmax(12rem, 14rem))',
+        4: 'repeat(4, minmax(12rem, 14rem))',
+        5: 'repeat(5, minmax(12rem, 14rem))',
+        6: 'repeat(6, minmax(12rem, 14rem))'
       }
     },
     screens: {
