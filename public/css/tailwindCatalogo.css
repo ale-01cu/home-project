@@ -735,11 +735,7 @@ video {
 }
 
 .grid-cols-1 {
-  grid-template-columns: repeat(1, minmax(14rem, 1fr));
-}
-
-.grid-cols-2 {
-  grid-template-columns: repeat(2, minmax(14rem, 14rem));
+  grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 
 .flex-col {
@@ -772,18 +768,6 @@ video {
 
 .justify-between {
   justify-content: space-between;
-}
-
-.gap-2 {
-  gap: 0.5rem;
-}
-
-.gap-1 {
-  gap: 0.25rem;
-}
-
-.gap-5 {
-  gap: 1.25rem;
 }
 
 .gap-x-1 {
@@ -1136,10 +1120,6 @@ video {
 }
 
 @media (min-width: 380px) {
-  .mn\:h-90 {
-    height: 23rem;
-  }
-
   .mn\:px-10 {
     padding-left: 2.5rem;
     padding-right: 2.5rem;
@@ -1151,18 +1131,14 @@ video {
     height: 22rem;
   }
 
-  .tablet\:h-90 {
-    height: 23rem;
-  }
-
   .tablet\:grid-cols-2 {
-    grid-template-columns: repeat(2, minmax(14rem, 14rem));
+    grid-template-columns: repeat(2, minmax(12rem, 14rem));
   }
 }
 
 @media (min-width: 640px) {
   .sm\:grid-cols-2 {
-    grid-template-columns: repeat(2, minmax(14rem, 14rem));
+    grid-template-columns: repeat(2, minmax(12rem, 14rem));
   }
 
   .sm\:p-5 {
@@ -1172,7 +1148,7 @@ video {
 
 @media (min-width: 768px) {
   .md\:grid-cols-3 {
-    grid-template-columns: repeat(3, minmax(14rem, 14rem));
+    grid-template-columns: repeat(3, minmax(12rem, 14rem));
   }
 }
 
@@ -1214,11 +1190,7 @@ video {
   }
 
   .lg\:grid-cols-3 {
-    grid-template-columns: repeat(3, minmax(14rem, 14rem));
-  }
-
-  .lg\:grid-cols-4 {
-    grid-template-columns: repeat(4, minmax(14rem, 14rem));
+    grid-template-columns: repeat(3, minmax(12rem, 14rem));
   }
 
   .lg\:flex-col {
@@ -1264,30 +1236,18 @@ video {
 
 @media (min-width: 1280px) {
   .xl\:grid-cols-4 {
-    grid-template-columns: repeat(4, minmax(14rem, 14rem));
-  }
-
-  .xl\:grid-cols-5 {
-    grid-template-columns: repeat(5, minmax(14rem, 14rem));
+    grid-template-columns: repeat(4, minmax(12rem, 14rem));
   }
 }
 
 @media (min-width: 1536px) {
   .\32xl\:grid-cols-5 {
-    grid-template-columns: repeat(5, minmax(14rem, 14rem));
-  }
-
-  .\32xl\:grid-cols-6 {
-    grid-template-columns: repeat(6, minmax(14rem, 14rem));
+    grid-template-columns: repeat(5, minmax(12rem, 14rem));
   }
 }
 
 @media (min-width: 1920px) {
   .\33xl\:grid-cols-6 {
-    grid-template-columns: repeat(6, minmax(14rem, 14rem));
-  }
-
-  .\33xl\:grid-cols-7 {
-    grid-template-columns: repeat(7, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(12rem, 14rem));
   }
 }

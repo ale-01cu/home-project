@@ -28,6 +28,7 @@ const main = async () => {
   home.funcionesBuscadores()
   home.esElFinal('busqueda')
   home.reseziveSearch()
+  home.funcionesBuscador()
 }
 
 main()

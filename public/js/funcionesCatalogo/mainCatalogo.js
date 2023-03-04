@@ -29,6 +29,7 @@ const main = async () => {
   home.esElFinal()
   home.funcionesGeneros(`${categoria}/filtrarPorGeneros`)
   home.reseziveSearch()
+  home.funcionesBuscador()
 }
 
 main()

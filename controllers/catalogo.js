@@ -1,9 +1,11 @@
 const { response, request } = require('express')
-const { selectedDB, getTodosLosGeneros, buscar, TodosdocsFiltrados, docsFiltradosYseparados } = require('../helpers/catalogo')
+const { selectedDB, getTodosLosGeneros, TodosdocsFiltrados, docsFiltradosYseparados } = require('../helpers/catalogo')
+const { buscar } = require('../helpers/MotorBusqueda')
 
 const peer = 20
 
 const home = async (req, res = response) => {
+  console.log(req)
   try {
     const { categoria } = req.params
     const generos = await getTodosLosGeneros(categoria)
