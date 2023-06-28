@@ -1,6 +1,10 @@
-const mongoose = require('mongoose')
-require('colors')
-const { spawn } = require('child_process')
+// const mongoose = require('mongoose')
+// require('colors')
+// const { spawn } = require('child_process')
+
+import mongoose from 'mongoose'
+import 'colors'
+import { spawn } from 'child_process'
 
 // Conectarse con la base de datos
 const dbConnection = async () => {
@@ -12,7 +16,7 @@ const dbConnection = async () => {
       useNewUrlParser: true,
       useUnifiedTopology: true
     })
-    console.log('Conexion establecida con la base de datos.')
+    console.log('Conexion establecida con la base de datos.'.green)
   } catch (error) {
     console.log(error)
     console.log('No se Pudo conectar con la Base de Datos'.red)
@@ -37,7 +41,4 @@ const dbOpen = async () => {
   })
 }
 
-module.exports = {
-  dbConnection,
-  dbOpen
-}
+export { dbConnection, dbOpen }
