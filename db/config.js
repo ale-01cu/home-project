@@ -16,10 +16,10 @@ const dbConnection = async () => {
       useNewUrlParser: true,
       useUnifiedTopology: true
     })
-    console.log('Conexion establecida con la base de datos.'.green)
+    console.log('Connected to the Database.'.green)
   } catch (error) {
     console.log(error)
-    console.log('No se Pudo conectar con la Base de Datos'.red)
+    console.log('Failed to connect to database'.red)
   }
 }
 

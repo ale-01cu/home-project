@@ -59,14 +59,10 @@
 import AdminJS from 'adminjs'
 import AdminJSExpress from '@adminjs/express'
 import express from 'express'
-import Connect from 'connect-pg-simple'
-import session from 'express-session'
-import mongoose from 'mongoose'
 import * as AdminJSMongoose from '@adminjs/mongoose'
 import { dark, light, noSidebar } from '@adminjs/themes'
 import { dbConnection } from './db/config.js'
 import { Category } from './models/category.js'
-import { User } from './models/User.js'
 import dotenv from 'dotenv'
 dotenv.config()
 
@@ -136,6 +132,7 @@ const start = async () => {
 
   app.listen(PORT, () => {
     console.log(`AdminJS started on http://localhost:${PORT}${admin.options.rootPath}`)
+    console.log('Server Started on port ' + PORT)
   })
 }
 
