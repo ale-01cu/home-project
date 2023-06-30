@@ -1,6 +1,5 @@
 import { Schema, model } from 'mongoose'
 import countries from '../utils/countries.js'
-import { PhotoField } from '@adminjs/upload'
 
 const contentSchema = Schema({
   name: {

@@ -59,6 +59,7 @@ import { Category } from './models/category.js'
 import { Actor } from './models/actor.js'
 import { Gender } from './models/gender.js'
 import { Content } from './models/content.js'
+import { Price } from './models/price.js'
 
 import AdminJS from 'adminjs'
 import AdminJSExpress from '@adminjs/express'
@@ -93,7 +94,7 @@ const start = async () => {
 
   const adminOptions = {
     // We pass Category to `resources`
-    resources: [Category, Content],
+    resources: [Category, Content, Price],
     defaultTheme: dark.id,
     availableThemes: [dark, light, noSidebar]
   }
