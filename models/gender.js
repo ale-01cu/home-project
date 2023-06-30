@@ -4,12 +4,13 @@ const genderSchema = Schema({
   name: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
+    trim: true,
+    alias: 'Nombre'
   }
 }, {
   timestamps: true,
-  collection: 'gender'
+  collection: 'Generos'
 })
-const gender = model('Generos', genderSchema)
 
-module.exports = gender
+export const Gender = model('Generos', genderSchema)

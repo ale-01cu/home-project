@@ -17,6 +17,7 @@
     "@adminjs/express": "^6.0.0",
     "@adminjs/mongoose": "^4.0.0",
     "@adminjs/themes": "^1.0.0",
+    "@adminjs/upload": "^4.0.0",
     "adminjs": "^7.0.7",
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",

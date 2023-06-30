@@ -55,6 +55,10 @@
 // app.listen(port, () => {
 //   console.log(`Server escuchando en el puerto: ${colors.green(port)}`)
 // })
+import { Category } from './models/category.js'
+import { Actor } from './models/actor.js'
+import { Gender } from './models/gender.js'
+import { Content } from './models/content.js'
 
 import AdminJS from 'adminjs'
 import AdminJSExpress from '@adminjs/express'
@@ -62,7 +66,6 @@ import express from 'express'
 import * as AdminJSMongoose from '@adminjs/mongoose'
 import { dark, light, noSidebar } from '@adminjs/themes'
 import { dbConnection } from './db/config.js'
-import { Category } from './models/category.js'
 import dotenv from 'dotenv'
 dotenv.config()
 
@@ -90,7 +93,7 @@ const start = async () => {
 
   const adminOptions = {
     // We pass Category to `resources`
-    resources: [Category],
+    resources: [Category, Content],
     defaultTheme: dark.id,
     availableThemes: [dark, light, noSidebar]
   }
