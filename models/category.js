@@ -9,8 +9,7 @@ const categorySchema = Schema({
     alias: 'Nombre'
   }
 }, {
-  timestamps: true,
   collection: 'Categorias'
 })
 
-export const Category = model('Categoria', categorySchema)
+export const Category = model('Category', categorySchema)

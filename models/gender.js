@@ -9,8 +9,7 @@ const genderSchema = Schema({
     alias: 'Nombre'
   }
 }, {
-  timestamps: true,
   collection: 'Generos'
 })
 
-export const Gender = model('Generos', genderSchema)
+export const Gender = model('Gender', genderSchema)

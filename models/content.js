@@ -64,9 +64,9 @@ const contentSchema = Schema({
     type: String,
     alias: 'Foto de Portada'
   },
-  genres: [{
+  genders: [{
     type: Schema.Types.ObjectId,
-    ref: 'Genre',
+    ref: 'Gender',
     alias: 'Generos'
   }],
   actors: [{
@@ -85,11 +85,24 @@ const contentSchema = Schema({
     alias: 'Eliminado'
   }
 }, {
+  timestamps: true,
   collection: 'Contenido'
+}, { discriminatorKey: 'content' })
+
+const movieSchema = Schema(
+  {},
+  { collection: 'Contenido' },
+  { discriminatorKey: 'content' }
+)
+
+movieSchema.virtual('category').get(function () {
+  return 'Movie'
 })
 
-contentSchema.virtual('category').get(function () {
-  return this.name
-})
+const Content = model('Content', contentSchema)
+const Movie = Content.discriminator('Movie', movieSchema)
 
-export const Content = model('Content', contentSchema)
+export {
+  Content,
+  Movie
+}

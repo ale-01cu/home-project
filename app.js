@@ -58,8 +58,9 @@
 import { Category } from './models/category.js'
 import { Actor } from './models/actor.js'
 import { Gender } from './models/gender.js'
-import { Content } from './models/content.js'
+import { Content, Movie } from './models/content.js'
 import { Price } from './models/price.js'
+import { Image } from './models/image.js'
 
 import AdminJS from 'adminjs'
 import AdminJSExpress from '@adminjs/express'
@@ -94,12 +95,18 @@ const start = async () => {
 
   const adminOptions = {
     // We pass Category to `resources`
-    resources: [Category, Content, Price],
+    resources: [
+      Category,
+      Content,
+      Movie,
+      Price,
+      Gender,
+      Actor
+    ],
     defaultTheme: dark.id,
     availableThemes: [dark, light, noSidebar]
   }
   const app = express()
-
   const admin = new AdminJS(adminOptions)
 
   // const ConnectSession = Connect(session)

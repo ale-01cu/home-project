@@ -8,7 +8,7 @@ const PriceSchema = new Schema({
   },
   category: {
     type: Schema.Types.ObjectId,
-    ref: 'Categoria',
+    ref: 'Category',
     required: true,
     alias: 'Categoria'
   }
@@ -17,4 +17,4 @@ const PriceSchema = new Schema({
   collection: 'Precios'
 })
 
-export const Price = model('Precio', PriceSchema)
+export const Price = model('Price', PriceSchema)
