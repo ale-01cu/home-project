@@ -10,6 +10,7 @@ apps/**/?.pyc
 *.egg-info/
 dist/
 build/
+media/
 *.egg
 *.log
 *.sqlite3
