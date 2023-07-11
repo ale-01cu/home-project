@@ -25,15 +25,14 @@ export const ContentList = () => {
     }, [category])
 
     return (
-      <ul>
+      <ul className='min-h-screen'>
         {content.results.map(content => (
-          <li key={content.id}>
-            <Link to={CATALOGUEURL + content.id + '/'}>
+          <li key={content.id} className=''>
+            <Link to={CATALOGUEURL + content.id + '/'} className='px-10 py-20 border border-gray-500 border-solid block'>
               {content.name}
             </Link>
           </li>
         ))}
-        
       </ul>
     )
 }

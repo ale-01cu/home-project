@@ -3,18 +3,18 @@ import {
   Routes,
   Route
 } from "react-router-dom";
-import {ContentList} from './components/ContentList.jsx'
+import {Catalogue} from './pages/Catalogue.jsx'
+import './assets/App.css'
 
 function App() {
-
   return (
-    <>
+    <div className='min-h-screen' id='subRoot'>
       <NavBar/>
       <Routes>
-        <Route path='/' element={<ContentList/>}/>
-        <Route path='/:category' element={<ContentList/>}/>
+        <Route path='/' element={<Catalogue/>}/>
+        <Route path='/:category' element={<Catalogue/>}/>
       </Routes>
-    </>
+    </div>
   )
 }
 

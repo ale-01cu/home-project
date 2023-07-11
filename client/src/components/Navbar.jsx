@@ -3,7 +3,6 @@ import {CATEGORYURL} from '../utils/urls.js'
 import {addCategorys} from '../redux/categorySlice.js'
 import {useSelector, useDispatch} from 'react-redux'
 import {Link} from 'react-router-dom'
-//import '../assets/App.css'
 
 export default function NavBar(){
     const dispatch = useDispatch()
