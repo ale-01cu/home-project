@@ -12,6 +12,9 @@ export const contentSlice = createSlice({
     initialState,
     reducers: {
         addContent: (state, action) => {
+            return action.payload
+        },
+        updateContent: (state, action) => {
             const {
                 count,
                 next,
@@ -27,5 +30,5 @@ export const contentSlice = createSlice({
     }
 })
 
-export const { addContent } = contentSlice.actions
+export const { addContent, updateContent } = contentSlice.actions
 export default contentSlice.reducer

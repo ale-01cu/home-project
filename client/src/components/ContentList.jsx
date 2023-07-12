@@ -1,7 +1,7 @@
 import {useEffect, useMemo} from 'react'
 import {CATALOGUEURL} from '../utils/urls.js'
 import {useSelector, useDispatch} from 'react-redux'
-import {addContent} from '../redux/contentSlice.js'
+import {addContent, updateContent} from '../redux/contentSlice.js'
 import {useParams, Link} from 'react-router-dom'
 import { InfiniteScroll } from 'react-simple-infinite-scroll'
 
@@ -32,7 +32,7 @@ export const ContentList = () => {
         .then(res => res.json())
         .then(data => {
           console.log(data);
-          dispatch(addContent(data))
+          dispatch(updateContent(data))
         })
         .catch(e => console.log(e))
     }
@@ -41,6 +41,7 @@ export const ContentList = () => {
       <ul className='min-h-screen'>
         <InfiniteScroll
           throttle={100}
+          isLoading={false}
           threshold={100}
           hasMore={content.next ? true : false}
           onLoadMore={loadMore}
