@@ -51,27 +51,40 @@ export const ContentList = () => {
               w-full
               h-full
               grid
-              gap-x-1
+              gap-x-2
               gap-y-3
               p-8
               mn:px-10
               sm:p-5
               lg:p-8
               justify-center
-              grid-cols-1
-              sm:grid-cols-2
-              md:grid-cols-3
-              lg:grid-cols-3
-              xl:grid-cols-4
-              2xl:grid-cols-5
-              3xl:grid-cols-6'
+              grid-cols-2
+              sm:grid-cols-3
+              md:grid-cols-4
+              lg:grid-cols-5
+              xl:grid-cols-6
+              2xl:grid-cols-7
+              3xl:grid-cols-8'
           >
 
           {content.results.map(content => {
               console.log(content.name);
               return <li key={content.id} className=''>
-                <Link to={CATALOGUEURL + content.id + '/'} className='px-10 py-20 border border-gray-500 border-solid block'>
-                  {content.name}
+                <Link to={CATALOGUEURL + content.id + '/'} className='relative flex flex-col h-full'>
+                  <div id="poster" className="h-4/5"><img src={content.photo} alt="" className='h-full object-cover'/></div>
+                  <div id="detail" className="h-1/5 relative p-1">
+                      <div className="flex justify-between">
+                          <h3 id="release-year" className="text-slate-800">{content.release_year}</h3>
+                          <h3 id="price" className="text-green-400">${content.category.price}</h3>
+                      </div>
+                      <h2 id="name" className="text-slate-800 rounded-lg font-medium w-full whitespace-nowrap text-ellipsis overflow-hidden">{content.name}</h2>
+
+                      <div id="genders" className="text-slate-800 rounded-lg whitespace-nowrap text-ellipsis overflow-hidden space-x-1">
+                          {content.genders.map(gender => (
+                            <span key={gender.id} className="rounded-lg align-middle text-sm font-medium px-1 bg-slate-300" id="genders-cards">{gender.name} </span>
+                          ))}
+                      </div>
+                  </div>
                 </Link>
               </li>
           })}

@@ -28,9 +28,16 @@ class ContentDetailSerializer(serializers.ModelSerializer):
         fields = '__all__'
         
 class ContentListSerializer(serializers.ModelSerializer):
-    category = serializers.StringRelatedField()
+    category = CategorySerializer()
     genders = GenderSerializer(many=True)
     
     class Meta:
         model = Content
-        fields = ('id', 'photo', 'name', 'category', 'genders')
+        fields = (
+            'id', 
+            'photo', 
+            'name', 
+            'category', 
+            'genders', 
+            'release_year'
+        )
