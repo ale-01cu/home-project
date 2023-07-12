@@ -8,7 +8,7 @@ import './assets/App.css'
 
 function App() {
   return (
-    <div className='min-h-screen' id='subRoot'>
+    <div className='min-h-screen flex' id='subRoot'>
       <NavBar/>
       <Routes>
         <Route path='/' element={<Catalogue/>}/>
