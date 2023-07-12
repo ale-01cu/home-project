@@ -12,7 +12,17 @@ export const contentSlice = createSlice({
     initialState,
     reducers: {
         addContent: (state, action) => {
-            return action.payload
+            const {
+                count,
+                next,
+                previous,
+                results
+            } = action.payload
+
+            state.count = count
+            state.next = next
+            state.previous = previous
+            state.results.push(...results)
         }
     }
 })
