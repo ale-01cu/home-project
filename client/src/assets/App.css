@@ -2,7 +2,7 @@
 @tailwind components;
 
 .szh-menu{
-    background-color: #343434
+    @apply bg-slate-800;
 }
 
 @tailwind utilities;

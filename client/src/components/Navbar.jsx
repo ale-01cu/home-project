@@ -24,15 +24,16 @@ export default function NavBar(){
           .catch(e => console.log(e))
     }, [])
 
-    const menuItemClassName = ({ hover }) => hover ? 'bg-slate-700 text-white' : 'text-white bg-slate-800';
+    const menuItemClassNameList = ({ hover }) => hover ? 'bg-slate-700 text-white' : 'text-white bg-slate-800';
+    const menuItemClassName = ({ hover }) => hover ? 'bg-slate-800 text-white' : 'text-white bg-slate-800';
 
     return (
       <nav className="basis-1/12 flex justify-center relative">
         <div id='nav-fix' className='fixed min-h-screen flex flex-col space-y-2 justify-center z-50'>      
-          <Link to="/" className=''>
+          <Link to="/" className='hover:scale-105 transition-transform duration-200'>
             <img src={LogoHome} alt="" width={35} height={35}/>
           </Link>
-          <Link ref={ref} {...anchorProps} to="/" className=''>
+          <Link ref={ref} {...anchorProps} to="/" className='hover:scale-105 transition-transform duration-200'>
             <img src={LogoContent} alt="" width={35} height={35}/>
           </Link>
 
@@ -43,8 +44,9 @@ export default function NavBar(){
             onClose={() => toggle(false)}
             direction='right'
           >
+            <MenuItem className={menuItemClassName}>Contenido: </MenuItem>
             {categorys.map(category => (
-              <MenuItem key={category.id} className={menuItemClassName}>
+              <MenuItem key={category.id} className={menuItemClassNameList}>
                 <Link to={'/' + category.name} className='w-full'>{category.name}</Link>
               </MenuItem>
             ))}

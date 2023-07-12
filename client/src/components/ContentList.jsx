@@ -55,8 +55,8 @@ export const ContentList = () => {
               gap-y-3
               p-8
               mn:px-10
-              sm:p-5
-              lg:p-8
+              sm:py-8
+              sm:pl-0
               justify-center
               grid-cols-2
               sm:grid-cols-3
