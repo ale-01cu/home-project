@@ -3,17 +3,17 @@ import {addCategorys} from '../redux/categorySlice.js'
 import {useEffect} from 'react'
 import {CATEGORYURL} from '../utils/urls.js'
 import {Link} from 'react-router-dom'
+import {fetching} from '../services/fetching.js'
 
 export const CategorysList = () => {
   const dispatch = useDispatch()
   const categorys = useSelector(state => state.categorys)
-
+  
   useEffect(() => {
-    fetch(CATEGORYURL)
-      .then(res => res.json())
+    fetching(CATEGORYURL)
       .then(data => dispatch(addCategorys(data)))
-      .catch(e => console.log(e))
-  }, [])
+    
+  }, [dispatch])
 
   return (
     <ul className='grid grid-cols-1 p-5 gap-y-4 pb-16 justify-items-center'>

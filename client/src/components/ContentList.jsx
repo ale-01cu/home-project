@@ -25,7 +25,7 @@ export const ContentList = () => {
         })
         .catch(e => console.log(e))
 
-    }, [category])
+    }, [dispatch, category])
 
     const loadMore = () => {
       const url = content.next
@@ -108,10 +108,9 @@ export const ContentList = () => {
               3xl:grid-cols-8'
           >
 
-          {content.results.map(content => {
-              console.log(content.name);
-              return <li key={content.id} className=''>
-                <Link to={CATALOGUEURL + content.id + '/'} className='relative flex flex-col h-full'>
+          {content.results.map(content => (
+              <li key={content.id} className=''>
+                <Link to={'/detalle/' + content.id} className='relative flex flex-col h-full'>
                   <div id="poster" className="h-4/5"><img src={content.photo} alt="" className='h-full object-cover'/></div>
                   <div id="detail" className="h-1/5 relative p-1">
                       <div className="flex justify-between">
@@ -128,7 +127,7 @@ export const ContentList = () => {
                   </div>
                 </Link>
               </li>
-          })}
+          ))}
           <div id='viewfinder' ref={refViewFinder}></div>
         </ul>
     </InfiniteScroll>

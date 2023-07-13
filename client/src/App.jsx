@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 import {ContentList} from './components/ContentList'
 import {CategorysList} from './components/CategoryList'
+import {ContentDetail} from './pages/ContentDetail.jsx'
 import './assets/App.css'
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route path='/' element={<ContentList/>}/>
           <Route path='/:category' element={<ContentList/>}/>
+          <Route path='/detalle/:id' element={<ContentDetail/>}/>
           <Route path='/categorias' element={<CategorysList/>}/>
         </Routes>
       </main>
