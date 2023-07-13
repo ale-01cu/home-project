@@ -28,19 +28,27 @@ export default function NavBar(){
 
   return (
     <nav className="basis-1/12 flex justify-center relative">
-      <div id='nav-fix' className='bg-slate-300 sm:bg-white items-center sm:items-start space-x-2 sm:space-x-0 fixed w-full h-max bottom-0 py-2 sm:py-0 sm:w-max sm:min-h-screen flex sm:flex-col sm:space-y-2 justify-center z-50'>      
+      <div 
+        id='nav-fix'
+        className='
+          bg-white sm:bg-white items-center 
+          sm:items-start space-x-2 sm:space-x-0 
+          fixed w-full h-max bottom-0 py-2 sm:py-0 
+          sm:w-max sm:min-h-screen flex sm:flex-col 
+          sm:space-y-3 justify-center z-50'
+        >      
         
         <Link to="/" className='hover:scale-105 transition-transform duration-200'>
-          <img src={LogoHome} alt="" width={35} height={35}/>
+          <img src={LogoHome} alt="" width={30} height={30}/>
         </Link>
         <Link to="/search" className='hover:scale-105 transition-transform duration-200'>
-          <img src={LogoSearch} alt="" width={35} height={35}/>
+          <img src={LogoSearch} alt="" width={30} height={30}/>
         </Link>
         <Link ref={ref} {...anchorProps} to="/" className='hover:scale-105 transition-transform duration-200 hidden sm:block'>
-          <img src={LogoContent} alt="" width={35} height={35}/>
+          <img src={LogoContent} alt="" width={30} height={30}/>
         </Link>
         <Link to="/categorys" className='hover:scale-105 transition-transform duration-200 sm:hidden'>
-          <img src={LogoContent} alt="" width={35} height={35}/>
+          <img src={LogoContent} alt="" width={30} height={30}/>
         </Link>
 
         <ControlledMenu

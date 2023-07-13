@@ -28,7 +28,7 @@ export const Search = () => {
 
   return (
     <form action="" className='sm:w-1/2' onSubmit={handleSubmit}>
-      <div className='flex relative border border-solid border-slate-700 w-full justify-between rounded-2xl'>
+      <div className='flex relative border-2 border-solid border-slate-800 w-full justify-between rounded-2xl'>
         <div className='rounded-2xl outline-none basis-5/6 lg:basis-11/12 min-w-0 relative flex justify-end items-center'>
           <input 
             type="text" 
@@ -36,7 +36,7 @@ export const Search = () => {
             id="search" 
             onChange={handleChange} 
             value={search} 
-            className='rounded-2xl w-full outline-none min-w-0  py-2 pl-2'
+            className='rounded-2xl w-full outline-none min-w-0 py-2 pl-2'
             placeholder='Buscar'
           />
           {search && <button type='button' className='absolute z-10 bg-white' onClick={handleClick}>

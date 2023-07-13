@@ -1,32 +1,33 @@
 import {Search} from '../components/SearchForm'
 import {ContentList} from '../components/ContentList'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import { useEffect } from "react"
 import {addContent} from '../redux/contentSlice'
-import { addSearch } from '../redux/searchSlice'
+import {CATALOGUEURL} from '../utils/urls.js'
+import {fetching} from '../services/fetching.js'
 
 export const SearchPage = () => {
     const dispatch = useDispatch()
+    const search = useSelector(state => state.search)
 
     useEffect(() => {
-        dispatch(addContent({
-            count: 0,
-            next: '',
-            previous: '',
-            results: []
-        }))
+      const url = CATALOGUEURL + '?search=' + search
 
-        return () => {
-          dispatch(addSearch(''))
-        };
+      fetching(url)
+        .then(data => dispatch(addContent(data)))
+
+
+        // return () => {
+        //   dispatch(addSearch(''))
+        // };
     
-      }, [dispatch])
+      }, [dispatch, search])
 
 
     return (
         <div className='flex flex-col items-center py-8'>
             <Search/>
-            <ContentList/>
+            {search && <ContentList/>}
         </div>
     )
 }
