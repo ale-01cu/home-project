@@ -10,7 +10,11 @@ class ContentListAPIView(generics.ListAPIView):
     pagination_class = ContentPagination
     
     def get_queryset(self):
-        return self.get_serializer_class().Meta.model.objects.filter(status=True)
+        return self.get_serializer_class().Meta.model.objects.filter(
+            status=True).order_by(
+                '-release_year',
+                '-release_date'
+            ).order_by('-create_date')
     
 class ContentDetailAPIView(generics.RetrieveAPIView):
     serializer_class = ContentDetailSerializer

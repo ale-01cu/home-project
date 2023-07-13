@@ -55,7 +55,7 @@ class Actor(models.Model):
     )
     
     def __str__(self) -> str:
-        return self.first_name
+        return self.full_name
     
     
 # class GenderItem(models.Model):

@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useRef, useState} from 'react'
+import {useEffect, useRef, useState} from 'react'
 import {CATALOGUEURL} from '../utils/urls.js'
 import {useSelector, useDispatch} from 'react-redux'
 import {addContent, updateContent} from '../redux/contentSlice.js'
@@ -13,7 +13,6 @@ export const ContentList = () => {
     const [isViewFinder, setIsViewFinder] = useState(false)
 
     useEffect(() => {
-      console.log("primer use effect");
       const url = category 
       ? CATALOGUEURL + '?category__name=' + category 
       : CATALOGUEURL
@@ -29,8 +28,6 @@ export const ContentList = () => {
     }, [category])
 
     const loadMore = () => {
-      console.log("pididendo mas datos");
-      console.log("en load more " + content.next);
       const url = content.next
       fetch(url)
         .then(res => res.json())
@@ -50,7 +47,6 @@ export const ContentList = () => {
         const el = entries[0]
         if (el.isIntersecting) {
           const url = content.next
-          console.log("url " + url)
           fetch(url)
             .then(res => res.json())
             .then(data => {
