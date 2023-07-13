@@ -6,9 +6,9 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display_links = ('name', 'price')
 
 class ActorAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name')
-    list_display_links = ('first_name', 'last_name')
-    search_fields = ('first_name', 'last_name')
+    list_display = ('full_name',)
+    list_display_links = ('full_name',)
+    search_fields = ('full_name',)
     list_per_page = 25
     
 class GenderAdmin(admin.ModelAdmin):

@@ -1,4 +1,5 @@
 from django.db import models
+from .actions import generate_category_photo_path
 
 class Category(models.Model):
     class Meta:
@@ -8,6 +9,13 @@ class Category(models.Model):
     name = models.CharField(
         max_length=255,
         verbose_name='Nombre de la Categoria'
+    )
+    
+    photo = models.ImageField(
+        upload_to=generate_category_photo_path,
+        verbose_name='Foto de la Categoria',
+        null=True,
+        blank=True
     )
     
     price = models.FloatField(
@@ -41,13 +49,9 @@ class Actor(models.Model):
         verbose_name = 'Actor/Actriz'
         verbose_name_plural = 'Actores'
         
-    first_name = models.CharField(
+    full_name = models.CharField(
         max_length=255,
         verbose_name='Nombre'
-    )
-    last_name = models.CharField(
-        max_length=255,
-        verbose_name='Apellidos'
     )
     
     def __str__(self) -> str:

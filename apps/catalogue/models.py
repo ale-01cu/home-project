@@ -3,6 +3,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from .helpers import generate_content_photo_path
 from .countries import Countries
 from apps.category.models import Gender, Actor, Category
+from django.core.exceptions import ValidationError
 
 class Content(models.Model):
     class Meta:
@@ -13,6 +14,11 @@ class Content(models.Model):
         max_length=100, 
         unique=True,
         verbose_name='Nombre'
+    )
+    
+    photo = models.ImageField(
+        upload_to=generate_content_photo_path,
+        verbose_name='Foto de Portada'
     )
     
     category = models.ForeignKey(
@@ -44,12 +50,21 @@ class Content(models.Model):
         verbose_name='Tamaño'
     )
     
+    release_date = models.DateField(
+        verbose_name='Fecha completa de Estreno',
+        null=True,
+        blank=True,
+    )
+    
     release_year = models.IntegerField(
-            validators=[
-                MaxValueValidator(2100),
-                MinValueValidator(1900)
-            ]
-        )
+        validators=[
+            MaxValueValidator(2100),
+            MinValueValidator(1900)
+        ],
+        verbose_name='Año de Estreno',
+        null=True,
+        blank=True,
+    )
     
     subtitles = models.BooleanField(
         default=False,
@@ -78,11 +93,6 @@ class Content(models.Model):
         verbose_name='Pais'
     )
     
-    photo = models.ImageField(
-        upload_to=generate_content_photo_path,
-        verbose_name='Foto de Portada'
-    )
-    
     genders = models.ManyToManyField(
         Gender,
         related_name='genders_content',
@@ -102,6 +112,10 @@ class Content(models.Model):
     
     def __str__(self) -> str:
         return self.name
+    
+    def clean(self):
+        if not self.release_date and not self.release_year:
+            raise ValidationError('Debes proporcionar al menos una fecha de lanzamiento.')
     
     
 class Image(models.Model):
