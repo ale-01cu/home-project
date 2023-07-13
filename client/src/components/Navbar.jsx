@@ -4,11 +4,12 @@ import {addCategorys} from '../redux/categorySlice.js'
 import {useSelector, useDispatch} from 'react-redux'
 import {Link} from 'react-router-dom'
 import { ControlledMenu, MenuItem, useHover, useMenuState } from '@szhsin/react-menu';
-import '@szhsin/react-menu/dist/index.css';
-import '@szhsin/react-menu/dist/transitions/slide.css';
 import LogoHome from '../assets/home_FILL0_wght400_GRAD0_opsz24.svg'
 import LogoContent from '../assets/live_tv_FILL0_wght400_GRAD0_opsz24.svg'
+import LogoSearch from '../assets/search_FILL0_wght400_GRAD0_opsz24.svg'
 import {fetching} from '../services/fetching.js'
+import '@szhsin/react-menu/dist/index.css';
+import '@szhsin/react-menu/dist/transitions/slide.css';
 
 export default function NavBar(){
   const dispatch = useDispatch()
@@ -32,10 +33,13 @@ export default function NavBar(){
         <Link to="/" className='hover:scale-105 transition-transform duration-200'>
           <img src={LogoHome} alt="" width={35} height={35}/>
         </Link>
+        <Link to="/search" className='hover:scale-105 transition-transform duration-200'>
+          <img src={LogoSearch} alt="" width={35} height={35}/>
+        </Link>
         <Link ref={ref} {...anchorProps} to="/" className='hover:scale-105 transition-transform duration-200 hidden sm:block'>
           <img src={LogoContent} alt="" width={35} height={35}/>
         </Link>
-        <Link to="/categorias" className='hover:scale-105 transition-transform duration-200 sm:hidden'>
+        <Link to="/categorys" className='hover:scale-105 transition-transform duration-200 sm:hidden'>
           <img src={LogoContent} alt="" width={35} height={35}/>
         </Link>
 

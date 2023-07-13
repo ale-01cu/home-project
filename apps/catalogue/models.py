@@ -35,7 +35,9 @@ class Content(models.Model):
     
     path = models.CharField(
         max_length=255,
-        verbose_name='Ruta en disco duro'
+        verbose_name='Ruta en disco duro',
+        null=True,
+        blank=True
     )
     
     format = models.CharField(

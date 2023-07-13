@@ -1,31 +1,30 @@
 import {useEffect, useRef, useState} from 'react'
-import {CATALOGUEURL} from '../utils/urls.js'
 import {useSelector, useDispatch} from 'react-redux'
-import {addContent, updateContent} from '../redux/contentSlice.js'
-import {useParams, Link} from 'react-router-dom'
+import {updateContent} from '../redux/contentSlice.js'
+import {Link} from 'react-router-dom'
 import { InfiniteScroll } from 'react-simple-infinite-scroll'
 
 export const ContentList = () => {
-    const { category } = useParams()
+    // const { category } = useParams()
     const dispatch = useDispatch()
     const content = useSelector(state => state.content)
     const refViewFinder = useRef()
     const [isViewFinder, setIsViewFinder] = useState(false)
 
-    useEffect(() => {
-      const url = category 
-      ? CATALOGUEURL + '?category__name=' + category 
-      : CATALOGUEURL
+    // useEffect(() => {
+    //   const url = category 
+    //   ? CATALOGUEURL + '?category__name=' + category 
+    //   : CATALOGUEURL
 
-      fetch(url)
-        .then(res => res.json())
-        .then(data => {
-          console.log(data);
-          dispatch(addContent(data))
-        })
-        .catch(e => console.log(e))
+    //   fetch(url)
+    //     .then(res => res.json())
+    //     .then(data => {
+    //       console.log(data);
+    //       dispatch(addContent(data))
+    //     })
+    //     .catch(e => console.log(e))
 
-    }, [dispatch, category])
+    // }, [dispatch, category])
 
     const loadMore = () => {
       const url = content.next
@@ -90,11 +89,12 @@ export const ContentList = () => {
         <ul className='
               relative
               w-full
-              h-full
+              h-max
               grid
               gap-x-2
-              gap-y-3
-              p-8
+              gap-y-12
+              sm:gap-y-5
+              p-5
               mn:px-10
               sm:py-8
               sm:pl-0
@@ -110,9 +110,9 @@ export const ContentList = () => {
 
           {content.results.map(content => (
               <li key={content.id} className=''>
-                <Link to={'/detalle/' + content.id} className='relative flex flex-col h-full'>
+                <Link to={'/detail/' + content.id} className='relative flex flex-col h-full'>
                   <div id="poster" className="h-4/5"><img src={content.photo} alt="" className='h-full object-cover'/></div>
-                  <div id="detail" className="h-1/5 relative p-1">
+                  <div id="detail" className="h-1/5 p-1">
                       <div className="flex justify-between">
                           <h3 id="release-year" className="text-slate-800">{content.release_year}</h3>
                           <h3 id="price" className="text-green-400">${content.category.price}</h3>
