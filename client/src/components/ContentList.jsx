@@ -1,4 +1,4 @@
-import {useEffect, useMemo} from 'react'
+import {useEffect, useMemo, useRef, useState} from 'react'
 import {CATALOGUEURL} from '../utils/urls.js'
 import {useSelector, useDispatch} from 'react-redux'
 import {addContent, updateContent} from '../redux/contentSlice.js'
@@ -9,24 +9,28 @@ export const ContentList = () => {
     const { category } = useParams()
     const dispatch = useDispatch()
     const content = useSelector(state => state.content)
+    const refViewFinder = useRef()
+    const [isViewFinder, setIsViewFinder] = useState(false)
 
     useEffect(() => {
-        const url = category 
-        ? CATALOGUEURL + '?category__name=' + category 
-        : CATALOGUEURL
+      console.log("primer use effect");
+      const url = category 
+      ? CATALOGUEURL + '?category__name=' + category 
+      : CATALOGUEURL
 
-        fetch(url)
-          .then(res => res.json())
-          .then(data => {
-            console.log(data);
-            dispatch(addContent(data))
-          })
-          .catch(e => console.log(e))
+      fetch(url)
+        .then(res => res.json())
+        .then(data => {
+          console.log(data);
+          dispatch(addContent(data))
+        })
+        .catch(e => console.log(e))
 
     }, [category])
 
     const loadMore = () => {
       console.log("pididendo mas datos");
+      console.log("en load more " + content.next);
       const url = content.next
       fetch(url)
         .then(res => res.json())
@@ -36,6 +40,47 @@ export const ContentList = () => {
         })
         .catch(e => console.log(e))
     }
+
+    
+    useEffect(() => {
+      let observer
+      const element = refViewFinder.current
+  
+      const onChange = (entries, observer) => {
+        const el = entries[0]
+        if (el.isIntersecting) {
+          const url = content.next
+          console.log("url " + url)
+          fetch(url)
+            .then(res => res.json())
+            .then(data => {
+              console.log(data);
+              dispatch(updateContent(data))
+            })
+            .catch(e => console.log(e))
+          observer.disconnect()
+        } else{
+          setIsViewFinder(true)
+          observer.disconnect()
+        }
+      }
+      
+      if (!isViewFinder && content.next) {
+        Promise.resolve(
+          typeof IntersectionObserver !== 'undefined'
+            ? IntersectionObserver
+            : import('intersection-observer')
+    
+        ).then(() => {
+          observer = new IntersectionObserver(onChange, {
+            rootMargin: '0px'
+          })
+      
+          if (element) observer.observe(element)
+        })
+      }
+
+    }, [content.next, isViewFinder, dispatch])
 
     return (
       <InfiniteScroll
@@ -88,6 +133,7 @@ export const ContentList = () => {
                 </Link>
               </li>
           })}
+          <div id='viewfinder' ref={refViewFinder}></div>
         </ul>
     </InfiniteScroll>
       
