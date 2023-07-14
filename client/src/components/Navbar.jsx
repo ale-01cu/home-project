@@ -38,16 +38,16 @@ export default function NavBar(){
           sm:space-y-3 justify-center z-50'
         >      
         
-        <Link to="/" className='hover:scale-105 transition-transform duration-200'>
+        <Link to="/" className='hover:scale-110 transition-transform duration-200'>
           <img src={LogoHome} alt="" width={30} height={30}/>
         </Link>
-        <Link to="/search" className='hover:scale-105 transition-transform duration-200'>
+        <Link to="/search" className='hover:scale-110 transition-transform duration-200'>
           <img src={LogoSearch} alt="" width={30} height={30}/>
         </Link>
-        <Link ref={ref} {...anchorProps} to="/" className='hover:scale-105 transition-transform duration-200 hidden sm:block'>
+        <Link ref={ref} {...anchorProps} to="/" className='hover:scale-110 transition-transform duration-200 hidden sm:block'>
           <img src={LogoContent} alt="" width={30} height={30}/>
         </Link>
-        <Link to="/categorys" className='hover:scale-105 transition-transform duration-200 sm:hidden'>
+        <Link to="/categorys" className='hover:scale-110 transition-transform duration-200 sm:hidden'>
           <img src={LogoContent} alt="" width={30} height={30}/>
         </Link>
 
