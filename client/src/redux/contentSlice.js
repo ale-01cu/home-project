@@ -11,22 +11,11 @@ export const contentSlice = createSlice({
     name: 'content',
     initialState,
     reducers: {
-        addContent: (state, action) => {
-            console.log(action.payload);
-            const {
-                count,
-                next,
-                previous,
-                results
-            } = action.payload
-
-            state.count = count
-            state.next = next
-            state.previous = previous
-            state.results = results
+        addContent: ( state, action ) => {
+            return action.payload
 
         },
-        updateContent: (state, action) => {
+        updateContent: ( state, action ) => {
             const {
                 count,
                 next,
@@ -34,10 +23,15 @@ export const contentSlice = createSlice({
                 results
             } = action.payload
 
+            const newMovies = results.filter((movie) => {
+                return !state.results.some((existingMovie) => existingMovie.id === movie.id)
+            })
+
             state.count = count
             state.next = next
             state.previous = previous
-            state.results.push(...results)
+            state.results = state.results.concat(newMovies)
+
         },
         clearContent: ( state ) => {
             state.count = 0

@@ -9,7 +9,6 @@ import {fetching} from '../services/fetching.js'
 export const SearchPage = () => {
     const dispatch = useDispatch()
     const search = useSelector(state => state.search)
-    const content = useSelector(state => state.content)
 
     useEffect(() => {
 
