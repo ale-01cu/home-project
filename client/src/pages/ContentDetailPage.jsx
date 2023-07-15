@@ -18,16 +18,17 @@ export const ContentDetail = () => {
   console.log(content);
   return (
     <div className="flex justify-center items-center min-h-screen">
-      <div className="flex flex-col sm:flex-row p-10">
-        <div className=""><img src={content.photo} alt="" className="lg:h-5/6 rounded-lg object-fill"/></div>
-        <div className="flex flex-col p-5 space-y-3">
-          <span>{content.name}</span>
-          <span>Categoria: {content.category}</span>
+      <div className="flex flex-col sm:flex-row p-5 sm:p-10 w-4/5 justify-between items-center sm:items-start">
+        <div className="lg:basis-1/5 max-w-max sm:max-w-none"><img src={content.photo} alt="" className="rounded-lg object-fill lg:max-w-sm"/></div>
+        <div className="flex flex-col p-5 basis-4/5">
+          <span className="text-3xl font-semibold">{content.name}</span>
+          <span>Categoria: {content.category.name}</span>
           <span>Formato: {content.format}</span>
           <span>Tanaño: {content.size}</span>
           <span>Pais: {content.countrie}</span>
           <span>Subtitulada: {content.subtitles ? 'Si' : 'No'}</span>
           <span>En Español: {content.spanish ? 'Si' : 'No'}</span>
+          <span>Plataforma: {content.platform ? 'Si' : 'No'}</span>
           {
             content.release_date 
               ? <span>Fecha de Estreno: {content.release_date}</span>
@@ -35,14 +36,14 @@ export const ContentDetail = () => {
           }
           
           <span>Descripcion: <br />{content.description}</span>
-          <span>${content.price}</span>
-          <div>
+          <span>${content.category.price}</span>
+          <div className="">
             Actores: <br />
             {content.actors.map(actor => (
-              <span key={actor.id} className="rounded-lg align-middle text-sm font-medium py-1 px-2 bg-slate-300" id="genders-cards">{actor.name} </span>
+              <span key={actor.id} className="rounded-lg align-middle text-sm font-medium py-1 px-2 bg-slate-300" id="genders-cards">{actor.full_name} </span>
             ))}
           </div>
-          <div id="genders" className="text-slate-800 rounded-lg whitespace-nowrap text-ellipsis overflow-hidden space-x-1">
+          <div id="genders" className="text-slate-800 rounded-lg space-x-1">
               Generos: <br />
               {content.genders.map(gender => (
                 <span key={gender.id} className="rounded-lg align-middle text-sm font-medium py-1 px-2 bg-slate-300" id="genders-cards">{gender.name} </span>

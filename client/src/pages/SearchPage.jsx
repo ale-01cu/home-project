@@ -2,24 +2,42 @@ import {Search} from '../components/SearchForm'
 import {ContentList} from '../components/ContentList'
 import {useDispatch, useSelector} from 'react-redux'
 import { useEffect } from "react"
-import {addContent} from '../redux/contentSlice'
+import {addContent, clearContent} from '../redux/contentSlice'
 import {CATALOGUEURL} from '../utils/urls.js'
 import {fetching} from '../services/fetching.js'
 
 export const SearchPage = () => {
     const dispatch = useDispatch()
     const search = useSelector(state => state.search)
+    const content = useSelector(state => state.content)
 
     useEffect(() => {
-      const url = CATALOGUEURL + '?search=' + search
 
-      fetching(url)
-        .then(data => dispatch(addContent(data)))
+      dispatch(clearContent())
 
+      if (search) {
+        const url = CATALOGUEURL + '?search=' + search
 
-        // return () => {
-        //   dispatch(addSearch(''))
-        // };
+        fetching(url)
+          .then(data => {
+            console.log(data);
+            const uniqueResults = data.results.filter((result, index, self) =>
+              index === self.findIndex(r => r.id === result.id)
+            );
+            dispatch(addContent({
+              count: data.count,
+              next: data.next,
+              previous: data.previous,
+              results: uniqueResults
+            }))
+          })
+  
+  
+          // return () => {
+          //   dispatch(addSearch(''))
+          // };
+      }
+
     
       }, [dispatch, search])
 

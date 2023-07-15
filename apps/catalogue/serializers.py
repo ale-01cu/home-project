@@ -19,7 +19,7 @@ class ContentDetailSerializer(serializers.ModelSerializer):
         many=True, 
         read_only=True
     )
-    category = serializers.StringRelatedField()
+    category = CategorySerializer()
     genders = GenderSerializer(many=True)
     actors = ActorSerializer(many=True)
     

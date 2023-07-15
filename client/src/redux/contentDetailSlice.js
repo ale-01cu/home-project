@@ -3,7 +3,10 @@ import {createSlice} from '@reduxjs/toolkit'
 const initialState = {
   name: '',
   photo: '',
-  category: '',
+  category: {
+    name: '',
+    price: null
+  },
   format: '',
   size: '',
   release_date: '',
