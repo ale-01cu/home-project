@@ -19,7 +19,9 @@ export const ContentDetail = () => {
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="flex flex-col sm:flex-row p-5 sm:p-10 w-4/5 justify-between items-center sm:items-start">
-        <div className="lg:basis-1/5 max-w-max sm:max-w-none"><img src={content.photo} alt="" className="rounded-lg object-fill lg:max-w-sm"/></div>
+        <div className="lg:basis-1/5 grid ">
+          <img src={content.photo} alt="" className="rounded-lg object-fill lg:max-w-sm"/>
+        </div>
         <div className="flex flex-col p-5 basis-4/5">
           <span className="text-3xl font-semibold">{content.name}</span>
           <span>Categoria: {content.category.name}</span>

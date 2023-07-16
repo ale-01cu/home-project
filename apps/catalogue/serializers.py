@@ -38,6 +38,7 @@ class ContentListSerializer(serializers.ModelSerializer):
             'photo', 
             'name', 
             'category', 
-            'genders', 
+            'genders',
+            'release_date', 
             'release_year'
         )

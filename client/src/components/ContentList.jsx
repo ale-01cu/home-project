@@ -5,27 +5,12 @@ import {Link} from 'react-router-dom'
 import { InfiniteScroll } from 'react-simple-infinite-scroll'
 
 export const ContentList = () => {
-    // const { category } = useParams()
     const dispatch = useDispatch()
     const content = useSelector(state => state.content)
     const refViewFinder = useRef()
     const [isViewFinder, setIsViewFinder] = useState(false)
 
-    // useEffect(() => {
-    //   const url = category 
-    //   ? CATALOGUEURL + '?category__name=' + category 
-    //   : CATALOGUEURL
-
-    //   fetch(url)
-    //     .then(res => res.json())
-    //     .then(data => {
-    //       console.log(data);
-    //       dispatch(addContent(data))
-    //     })
-    //     .catch(e => console.log(e))
-
-    // }, [dispatch, category])
-
+  
     const loadMore = useCallback(() => {
       const url = content.next
 
@@ -42,37 +27,30 @@ export const ContentList = () => {
 
     }, [dispatch, content.next])
 
+
+    const onChange = useCallback((entries, observer) => {
+      const el = entries[0]
+      if (el.isIntersecting) {
+        const url = content.next
+        fetch(url)
+          .then(res => res.json())
+          .then(data => {
+            dispatch(updateContent(data))
+          })
+          .catch(e => console.log(e))
+      } else{
+        setIsViewFinder(true)
+      }
+      observer.disconnect()
+
+    }, [dispatch, content.next])
+
     
     useEffect(() => {
       let observer
       const element = refViewFinder.current
-  
-      const onChange = (entries, observer) => {
-        const el = entries[0]
-        if (el.isIntersecting) {
-          console.log("Se esta viendo el visor");
-          const url = content.next
-          console.log("url de fetchhhhhh: " + url);
-          fetch(url)
-            .then(res => res.json())
-            .then(data => {
-              console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-              dispatch(updateContent(data))
-            })
-            .catch(e => console.log(e))
-        } else{
-          console.log("Ya no se esta viendo el visor");
-          setIsViewFinder(true)
-        }
-
-        observer.disconnect()
-      }
-
-      let cont = 0
       
       if (!isViewFinder && content.next) {
-        console.log("nexttttttt: " + content.next);
-        console.log("Esta talla se ejecuta: " + cont++);
         Promise.resolve(
           typeof IntersectionObserver !== 'undefined'
             ? IntersectionObserver
@@ -87,7 +65,7 @@ export const ContentList = () => {
         })
       }
 
-    }, [content.next, isViewFinder, dispatch])
+    }, [content.next, isViewFinder, dispatch, onChange])
 
     return (
       <InfiniteScroll
@@ -106,13 +84,17 @@ export const ContentList = () => {
         >
 
           {content.results.map(content => {
-            console.log(content.name);
+            console.log(content);
             return <li key={content.id} className=''>
               <Link to={'/detail/' + content.id} className='relative flex flex-col h-full'>
                 <div id="poster" className="h-4/5"><img src={content.photo} alt="" className='h-full object-cover'/></div>
                 <div id="detail" className="h-1/5 p-1">
                     <div className="flex justify-between">
-                        <h3 id="release-year" className="text-slate-800">{content.release_year}</h3>
+                        {
+                          content.release_year
+                            ? <h3 id="release-year" className="text-slate-800">{content.release_year}</h3>
+                            : <h3 id="release-year" className="text-slate-800">{content.release_date}</h3>
+                        }
                         <h3 id="price" className="text-green-400">${content.category.price}</h3>
                     </div>
                     <h2 id="name" className="text-slate-800 rounded-lg font-medium w-full whitespace-nowrap text-ellipsis overflow-hidden">{content.name}</h2>

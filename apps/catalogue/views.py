@@ -26,7 +26,7 @@ class ContentListAPIView(generics.ListAPIView):
             status=True).order_by(
                 '-release_year',
                 '-release_date'
-            ).order_by('-create_date')
+            )
     
 class ContentDetailAPIView(generics.RetrieveAPIView):
     serializer_class = ContentDetailSerializer
