@@ -9,16 +9,12 @@ class UserCreateSerializer(UserCreateSerializer):
         model = User
         fields = (
             'id',
-            'nick_name',
-            'first_name',
-            'last_name',
-            'get_full_name',
-            'get_short_name'
+            'username',
         )
         
 # Serializer para mostrar el usuario en los comentarios
 class UserCommentSerializer(UserCreateSerializer):
     class Meta(UserCreateSerializer.Meta):
         model = User
-        fields = ('get_full_name', )
+        fields = '__all__'
         

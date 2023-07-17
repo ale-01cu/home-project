@@ -5,9 +5,9 @@ from simple_history.models import HistoricalRecords
 
 class UserAccountManager(BaseUserManager):
     # Metodo que registra el usuario
-    def create_user(self, nick_name, password=None, **extra_fields):
+    def create_user(self, username, password=None, **extra_fields):
         
-        user = self.model(nick_name=nick_name, **extra_fields)
+        user = self.model(username=username, **extra_fields)
         
         user.set_password(password)
         user.save()
@@ -15,8 +15,8 @@ class UserAccountManager(BaseUserManager):
         return user
     
     # Metodo que registra el usuario administrador
-    def create_superuser(self, nick_name, password=None, **extra_fields):
-        user = self.create_user(nick_name, password, **extra_fields)
+    def create_superuser(self, username, password=None, **extra_fields):
+        user = self.create_user(username, password, **extra_fields)
         
         user.is_superuser = True
         user.is_staff = True
@@ -30,20 +30,10 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
         verbose_name = 'Cuenta de Usuario'
         verbose_name_plural = 'Cuentas de Usuarios'
     
-    nick_name = models.CharField(
+    username = models.CharField(
         unique=True,
         max_length=255,
-        verbose_name='Alias'
-    )
-    
-    first_name = models.CharField(
-        max_length=255,
-        verbose_name='Nombre'
-    )
-    
-    last_name = models.CharField(
-        max_length=255,
-        verbose_name='Apellidos'
+        verbose_name='Nombre de Usuario'
     )
     
     is_active = models.BooleanField(
@@ -63,17 +53,8 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     history = HistoricalRecords()
     objects = UserAccountManager()
     
-    USERNAME_FIELD = 'nick_name'
-    REQUIRED_FIELDS = [
-        'first_name', 
-        'last_name', 
-    ]
-
-    def get_full_name(self):
-        return self.first_name + " " + self.last_name
-    
-    def get_short_name(self):
-        return self.first_name
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = []
     
     def __str__(self):
-        return self.nick_name
+        return self.username

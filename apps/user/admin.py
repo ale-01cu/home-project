@@ -6,7 +6,7 @@ from apps.user.models import UserAccount
 class UserAdmin(admin.ModelAdmin):
     list_display = (
         'id', 
-        'nick_name', 
+        'username', 
         'is_staff', 
         'is_superuser', 
         'is_active', 
@@ -15,12 +15,10 @@ class UserAdmin(admin.ModelAdmin):
     )
     list_display_links = (
         'id', 
-        'nick_name',
+        'username',
     )
     search_fields = (
-        'first_name', 
-        'last_name', 
-        'nick_name', 
+        'username', 
         'create_date'
     )
     readonly_fields = ('create_date',)

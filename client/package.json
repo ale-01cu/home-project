@@ -20,7 +20,8 @@
     "react-redux": "^8.1.1",
     "react-router-dom": "^6.14.1",
     "react-select": "^5.7.3",
-    "react-simple-infinite-scroll": "^0.0.1"
+    "react-simple-infinite-scroll": "^0.0.1",
+    "yup": "^1.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.14",

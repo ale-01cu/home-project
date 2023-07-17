@@ -31,7 +31,7 @@ export const BtnMenu = ({ logo, path='', menuItemClassName='', text='', isList=f
               <MenuItem className={menuItemClassName}>{titleList}</MenuItem>
               {list.map(e => (
                 <MenuItem key={e.id} className={menuItemClassNameList}>
-                  <Link to={'/' + e.name} className='w-full'>
+                  <Link to={e.url ? e.url :  '/' + e.name} className='w-full'>
                     {e.name}
                   </Link>
                 </MenuItem>

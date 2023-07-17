@@ -6,7 +6,8 @@ import LogoHome from '../assets/home_FILL0_wght400_GRAD0_opsz24.svg'
 import LogoContent from '../assets/live_tv_FILL0_wght400_GRAD0_opsz24.svg'
 import LogoSearch from '../assets/search_FILL0_wght400_GRAD0_opsz24.svg'
 import {fetching} from '../services/fetching.js'
-import {BtnMenu} from './btnMenu.jsx'
+import {BtnMenu} from './BtnMenu.jsx'
+import LogoLoggedOut from '../assets/account_circle_FILL0_wght400_GRAD0_opsz24.svg'
 import '@szhsin/react-menu/dist/index.css';
 import '@szhsin/react-menu/dist/transitions/slide.css';
 
@@ -28,8 +29,8 @@ export default function NavBar(){
         id='nav-fix'
         className='
           bg-white sm:bg-white items-center 
-          sm:items-start space-x-2 sm:space-x-0 
-          fixed w-full h-max bottom-0 py-2 sm:py-0 
+          sm:items-start space-x-3 sm:space-x-0 
+          fixed w-full h-max bottom-0 py-4 sm:py-0 
           sm:w-max sm:min-h-screen flex sm:flex-col 
           sm:space-y-3 justify-center z-50'
         >      
@@ -52,9 +53,8 @@ export default function NavBar(){
 
         <BtnMenu 
           logo={LogoContent} 
-          path='/' 
+          path='#' 
           menuItemClassName={menuItemClassName} 
-          text='Buscador'
           BtnClassName='hover:scale-110 transition-transform duration-200 hidden sm:block'
           isList={true}
           list={categorys}
@@ -69,6 +69,43 @@ export default function NavBar(){
           text='Buscador'
           BtnClassName='hover:scale-110 transition-transform duration-200 sm:hidden'
         />
+
+        <BtnMenu 
+          logo={LogoLoggedOut} 
+          path='#' 
+          menuItemClassName={menuItemClassName} 
+          BtnClassName='hover:scale-110 transition-transform duration-200 hidden sm:block'
+          isList={true}
+          list={[
+            {
+              id: 1,
+              name: 'Loguearme',
+              url: '/login'
+            },
+            {
+              id:2,
+              name: 'Registrarme',
+              url: '/register'
+            }
+          ]}
+          menuItemClassNameList={menuItemClassNameList}
+          titleList='Cuenta: '
+        />
+
+        <BtnMenu 
+          logo={LogoLoggedOut} 
+          path='/acounts' 
+          menuItemClassName={menuItemClassName} 
+          BtnClassName='hover:scale-110 transition-transform duration-200 sm:hidden'
+        />
+
+        {/* <BtnMenu 
+          logo={LogoContent} 
+          path='/categorys' 
+          menuItemClassName={menuItemClassName} 
+          text='Buscador'
+          BtnClassName='hover:scale-110 transition-transform duration-200'
+        /> */}
 
       </div>
     </nav>
