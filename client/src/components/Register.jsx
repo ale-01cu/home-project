@@ -131,44 +131,49 @@ const Register = () => {
   
   return (
     <div className="min-h-screen flex justify-center items-center">
-      <form action="" onSubmit={handleSubmit} className="p-10 flex flex-col items-center">
+      <form action="" onSubmit={handleSubmit} className="p-10 flex flex-col items-center w-full">
         <div><h1 className="text-center text-4xl p-3">Registro</h1></div>
         
-        <div className="flex flex-col space-y-2 p-5 max-w-min">
+        <div className="flex flex-col space-y-6 p-5 min-w-min w-1/2 max-w-md">
           <input 
             type='text' 
             name="username" 
-            className="p-2 px-5 border border-solid border-slate-300 rounded-xl" 
+            className="p-2 px-5 border border-solid border-slate-300 rounded-xl min-w-min" 
             placeholder="Escriba su Nombre"
             onChange={handleChangeUserName}
             value={userRegister.username}
           />
-          {validationErrors.username && <span className="text-red-500 w-fit">{validationErrors.username}</span>}
+          {validationErrors.username && userRegister.username && <span className="text-red-500 w-fit">{validationErrors.username}</span>}
           
           <input 
             type={isPasswordVisible ? 'text' : 'password'} 
             name="password" 
-            className="p-2 px-5 border border-solid border-slate-300 rounded-xl" 
+            className="p-2 px-5 border border-solid border-slate-300 rounded-xl min-w-min" 
             placeholder="Contraseña"
             onChange={handleChangePassword}
             value={userRegister.password}
           />
-          {validationErrors.password && <span className="text-red-500 w-fit">{validationErrors.password}</span>}
+          {validationErrors.password && userRegister.password && <span className="text-red-500 w-fit">{validationErrors.password}</span>}
 
           <input 
             type={isPasswordVisible ? 'text' : 'password'} 
             name="re_password" 
-            className="p-2 px-5 border border-solid border-slate-300 rounded-xl" 
+            className="p-2 px-5 border border-solid border-slate-300 rounded-xl min-w-min" 
             placeholder="Condirmar Contraseña"
             onChange={handleChangeRePassword}
             value={userRegister.rePassword}
           />
-          {validationErrors.re_password && <span className="text-red-500 w-fit">{validationErrors.re_password}</span>}
+          {validationErrors.re_password && userRegister.rePassword && <span className="text-red-500 w-fit">{validationErrors.re_password}</span>}
           {validationErrors.non_field_errors && <span className="text-red-500 w-fit">{validationErrors.non_field_errors}</span>}
 
           <button type='button' className='self-end' onClick={handlePasswordVisibility}><img src={isPasswordVisible ? LogoEyeOff : LogoEye} alt="" /></button>
         </div>
-        <div className="p-5"><button type="submit" className="rounded-lg border border-solid border-slate-800 p-1 px-3 hover:bg-slate-200 transition-all duration-200">Registrarme</button></div>
+
+        <div className="p-5">
+          <button type="submit" className="rounded-lg border border-solid border-slate-400 p-1 px-3 hover:bg-slate-200 transition-all duration-200">
+            Registrarme
+          </button>
+        </div>
           
       </form>
     </div>

@@ -6,13 +6,13 @@ const AcountOptionsPage = () => {
       id: 1,
       nameOption: 'Registrarme',
       path: '/register',
-      color: 'mb-15 mb-12 bg-slate-100'
+      color: 'mb-15 mb-10 bg-slate-200'
     },
     {
       id: 2,
       nameOption: 'Loguearme',
       path: '/login',
-      color: 'mb-20 bg-gray-100'
+      color: 'mb-20 bg-gray-200'
     }
   ]
 

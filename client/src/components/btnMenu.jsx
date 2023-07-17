@@ -14,7 +14,7 @@ export const BtnMenu = ({ logo, path='', menuItemClassName='', text='', isList=f
   return (
     <>
       <Link ref={ref} {...anchorProps} to={path} className={BtnClassName}>
-        <img src={logo} alt="" width={30} height={30}/>
+        <img src={logo} alt="" width={35} height={35}/>
       </Link>
 
       <ControlledMenu

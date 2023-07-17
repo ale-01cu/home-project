@@ -28,7 +28,7 @@ export const Search = () => {
 
   return (
     <form action="" className='sm:w-1/2' onSubmit={handleSubmit}>
-      <div className='flex relative border-2 border-solid border-slate-800 w-full justify-between rounded-2xl'>
+      <div className='flex relative border-b-2 border-solid border-slate-800 w-full justify-between'>
         <div className='rounded-2xl outline-none basis-5/6 lg:basis-11/12 min-w-0 relative flex justify-end items-center'>
           <input 
             type="text" 
