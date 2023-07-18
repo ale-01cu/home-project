@@ -1,16 +1,14 @@
 import {useEffect, useRef, useState, useCallback} from 'react'
-import {useSelector, useDispatch} from 'react-redux'
-import {updateContent} from '../redux/contentSlice.js'
+import {useDispatch} from 'react-redux'
 import {Link} from 'react-router-dom'
 import { InfiniteScroll } from 'react-simple-infinite-scroll'
 
-export const ContentList = () => {
+export const ContentList = ({content, updateContent}) => {
     const dispatch = useDispatch()
-    const content = useSelector(state => state.content)
     const refViewFinder = useRef()
     const [isViewFinder, setIsViewFinder] = useState(false)
 
-  
+
     const loadMore = useCallback(() => {
       const url = content.next
 

@@ -27,6 +27,8 @@ BASE_APPS = [
 LOCAL_APPS = [
     'apps.catalogue',
     'apps.category',
+    'apps.search',
+    'apps.lists',
 ]
 THIRD_APPS = [
     'rest_framework',

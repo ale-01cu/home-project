@@ -3,10 +3,11 @@ from .serializers import ContentDetailSerializer, ContentListSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 from .pagination import ContentPagination
 from rest_framework.filters import SearchFilter
+from apps.search.searchEngine import SearchEngine
 
 class ContentListAPIView(generics.ListAPIView):
     serializer_class = ContentListSerializer
-    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filter_backends = [DjangoFilterBackend, SearchEngine]
     search_fields = [
         'name', 
         'description', 
