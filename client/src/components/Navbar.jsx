@@ -52,6 +52,8 @@ export default function NavBar(){
     return randomElement
   }
 
+  const color = randomColor()
+
   return (
     <nav className="basis-1/12 flex justify-center relative">
       <div 
@@ -104,13 +106,13 @@ export default function NavBar(){
           ? <>
               <BtnMenu 
                 img={
-                  <span className={`text-3xl font-semibold flex justify-center items-center text-center px-2 rounded-full ${randomColor()}`}>
+                  <span className={``}>
                     {username.charAt(0).toUpperCase()}
                   </span>
                 } 
                 path='#' 
                 menuItemClassName={menuItemClassName} W
-                BtnClassName='hover:scale-110 transition-transform duration-200 hidden sm:block flex justify-center items-center'
+                BtnClassName={`hover:scale-110 transition-transform duration-200 hidden sm:block flex justify-center items-center text-3xl font-semibold text-center px-2 rounded-full ${color}`}
                 isList={true}
                 list={[
                   {
@@ -130,13 +132,13 @@ export default function NavBar(){
 
               <BtnMenu 
                 img={
-                  <span className={`text-3xl font-semibold flex justify-center items-center text-center px-2 rounded-full ${randomColor()}`}>
+                  <span className={``}>
                     {username.charAt(0).toUpperCase()}
                   </span>
                 } 
                 path='/acounts' 
                 menuItemClassName={menuItemClassName} 
-                BtnClassName='hover:scale-110 transition-transform duration-200 sm:hidden flex justify-center items-center'
+                BtnClassName={`hover:scale-110 transition-transform duration-200 sm:hidden flex justify-center items-center text-3xl font-semibold text-center px-2 rounded-full ${color}`}
               />
             </>
 

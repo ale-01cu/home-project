@@ -91,7 +91,6 @@ export const ContentList = () => {
         >
 
           {content.results.map(content => {
-            console.log(content);
             return <li key={content.id} className=''>
               <Link to={'/detail/' + content.id} className='relative flex flex-col h-full'>
                 <div id="poster" className="h-4/5"><img src={content.photo} alt="" className='h-full object-cover'/></div>
