@@ -12,7 +12,8 @@ export const tokensSlice = createSlice({
         addTokens: (state, action) => {
             localStorage.setItem('tkaccess', action.payload.access)
             localStorage.setItem('tkrefresh', action.payload.refresh)
-            return action.payload
+            state.access = action.payload.access
+            state.refresh = action.payload.refresh
         }
     }
 })

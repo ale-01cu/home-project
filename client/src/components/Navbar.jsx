@@ -1,5 +1,6 @@
-import {useEffect} from 'react'
-import {CATEGORYURL} from '../utils/urls.js'
+import {useEffect, useState} from 'react'
+import {CATEGORYURL, GETUSERURL} from '../utils/urls.js'
+import COLORS from '../utils/colors.js'
 import {addCategorys} from '../redux/categorySlice.js'
 import {useSelector, useDispatch} from 'react-redux'
 import LogoHome from '../assets/home_FILL0_wght400_GRAD0_opsz24.svg'
@@ -14,14 +15,35 @@ import '@szhsin/react-menu/dist/transitions/slide.css';
 export default function NavBar(){
   const dispatch = useDispatch()
   const categorys = useSelector(state => state.categorys)
+  const tokenAccess = useSelector(state => state.tokens.access)
+  const [username, setUsername] = useState('')
   const menuItemClassNameList = ({ hover }) => hover ? 'bg-slate-700 text-white' : 'text-white bg-slate-800';
   const menuItemClassName = ({ hover }) => hover ? 'bg-slate-800 text-white' : 'text-white bg-slate-800';
 
   useEffect(() => {
       fetching(CATEGORYURL)
         .then(data => dispatch(addCategorys(data)))
-  }, [dispatch])
 
+      if (tokenAccess) {
+        fetch(GETUSERURL, {
+          method: 'GET',
+          headers: {
+            "Authorization": "Bearer " + tokenAccess
+          }
+        })
+        .then(res => res.json())
+        .then(data => setUsername(data.username))
+      }else {
+        setUsername('')
+      }
+      
+  }, [dispatch, tokenAccess])
+
+  const randomColor = () => {
+    const randomIndex = Math.floor(Math.random() * COLORS.length);
+    const randomElement = COLORS[randomIndex];
+    return randomElement
+  }
 
   return (
     <nav className="basis-1/12 flex justify-center relative">
@@ -70,42 +92,77 @@ export default function NavBar(){
           BtnClassName='hover:scale-110 transition-transform duration-200 sm:hidden'
         />
 
-        <BtnMenu 
-          logo={LogoLoggedOut} 
-          path='#' 
-          menuItemClassName={menuItemClassName} 
-          BtnClassName='hover:scale-110 transition-transform duration-200 hidden sm:block'
-          isList={true}
-          list={[
-            {
-              id: 1,
-              name: 'Loguearme',
-              url: '/login'
-            },
-            {
-              id:2,
-              name: 'Registrarme',
-              url: '/register'
-            }
-          ]}
-          menuItemClassNameList={menuItemClassNameList}
-          titleList='Cuenta: '
-        />
+        {
+          username
+          ? <>
+              <BtnMenu 
+                img={
+                  <span className={`text-3xl font-semibold flex justify-center items-center px-2 rounded-full ${randomColor()}`}>
+                    {username.charAt(0).toUpperCase()}
+                  </span>
+                } 
+                path='#' 
+                menuItemClassName={menuItemClassName} W
+                BtnClassName='hover:scale-110 transition-transform duration-200 hidden sm:block'
+                isList={true}
+                list={[
+                  {
+                    id: 1,
+                    name: 'Ver Perfil',
+                    url: '#'
+                  },
+                  {
+                    id:2,
+                    name: 'Cerrar Sesion',
+                    url: '/logout'
+                  }
+                ]}
+                menuItemClassNameList={menuItemClassNameList}
+              />
 
-        <BtnMenu 
-          logo={LogoLoggedOut} 
-          path='/acounts' 
-          menuItemClassName={menuItemClassName} 
-          BtnClassName='hover:scale-110 transition-transform duration-200 sm:hidden'
-        />
+              <BtnMenu 
+                img={
+                  <span className={`text-3xl font-semibold flex justify-center items-center text-center px-2 rounded-full ${randomColor()}`}>
+                    {username.charAt(0).toUpperCase()}
+                  </span>
+                } 
+                path='#' 
+                menuItemClassName={menuItemClassName} 
+                BtnClassName='hover:scale-110 transition-transform duration-200 sm:hidden'
+              />
+            </>
 
-        {/* <BtnMenu 
-          logo={LogoContent} 
-          path='/categorys' 
-          menuItemClassName={menuItemClassName} 
-          text='Buscador'
-          BtnClassName='hover:scale-110 transition-transform duration-200'
-        /> */}
+          : <>
+              <BtnMenu 
+                logo={LogoLoggedOut}
+                path='#' 
+                menuItemClassName={menuItemClassName} W
+                BtnClassName='hover:scale-110 transition-transform duration-200 hidden sm:block'
+                isList={true}
+                list={[
+                  {
+                    id: 1,
+                    name: 'Loguearme',
+                    url: '/login'
+                  },
+                  {
+                    id:2,
+                    name: 'Registrarme',
+                    url: '/register'
+                  }
+                ]}
+                menuItemClassNameList={menuItemClassNameList}
+                titleList='Cuenta: '
+              />
+
+              <BtnMenu 
+                logo={LogoLoggedOut}
+                path='/acounts' 
+                menuItemClassName={menuItemClassName} 
+                BtnClassName='hover:scale-110 transition-transform duration-200 sm:hidden'
+              />
+            </>
+        }
 
       </div>
     </nav>
