@@ -3,12 +3,19 @@ import { object, string } from 'yup';
 import LogoEye from '../assets/visibility_FILL0_wght400_GRAD0_opsz24.svg'
 import LogoEyeOff from '../assets/visibility_off_FILL0_wght400_GRAD0_opsz24.svg'
 import {LOGINURL} from '../utils/urls'
+import {addTokens} from '../redux/tokensSlice'
+import {useDispatch} from 'react-redux'
+import { useNavigate } from 'react-router-dom';
+
 
 const Login = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [isPasswordVisible, setisPasswordVisible] = useState(false)
   const [validationErrors, setValidationErrors] = useState({})
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
 
   let registerSchema = object({
     username: string()
@@ -49,10 +56,25 @@ const Login = () => {
       getData().then(data => {
 
         if (res.status === 200) {
-          console.log("Se ha logueado mi pana");
+          dispatch(addTokens(data))
+          navigate('/')
 
         }else {
-          console.log("algo malo paso");
+          const errors = {}
+
+          for (let i = 0; i < Object.keys(data).length; i++) {
+            const key = Object.keys(data)[i];
+            let value = data[key];
+
+            if (value === "No active account found with the given credentials")
+              value = 'No hay ninguna cuenta activa con estas credenciales'
+
+            else if (value === 'This field may not be blank.')
+              value = 'Este campo no puede estar en blanco.'
+      
+            errors[key] = value;
+          }
+          setValidationErrors(errors);
         }
 
       })
@@ -91,6 +113,8 @@ const Login = () => {
             onChange={handleChangeUserName}
             value={username}
           />
+          {validationErrors.username && username && <span className="text-red-500 w-fit">{validationErrors.username}</span>}
+
           <input 
             type={isPasswordVisible ? 'text' : 'password'} 
             name="password" 
@@ -99,6 +123,9 @@ const Login = () => {
             onChange={handleChangePassword}
             value={password}
           />
+          {validationErrors.password && password && <span className="text-red-500 w-fit">{validationErrors.password}</span>}
+          {validationErrors.detail && <span className="text-red-500 w-fit">{validationErrors.detail}</span>}
+
           <button type='button' className='self-end' onClick={handlePasswordVisibility}><img src={isPasswordVisible ? LogoEyeOff : LogoEye} alt="" /></button>
         </div>
         <div className="p-5">

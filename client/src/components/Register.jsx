@@ -1,23 +1,25 @@
-import {addPassword, addUserName, addRePassword, clearUserRegister} from '../redux/userRegisterSlice'
-import { useSelector, useDispatch } from 'react-redux'
-import {useState} from 'react'
 import LogoEye from '../assets/visibility_FILL0_wght400_GRAD0_opsz24.svg'
 import LogoEyeOff from '../assets/visibility_off_FILL0_wght400_GRAD0_opsz24.svg'
 import {REGISTERURL} from '../utils/urls'
 import { object, string } from 'yup';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 const Register = () => {
-  const dispatch = useDispatch()
-  const userRegister = useSelector(state => state.userRegister)
   const [isPasswordVisible, setisPasswordVisible] = useState(false)
   const [validationErrors, setValidationErrors] = useState({})
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [re_password, setRePassword] = useState('')
   const navigate = useNavigate();
 
   useEffect(() => {
-    return () => dispatch(clearUserRegister())
-  }, [dispatch])
+    return () => {
+      setUsername('')
+      setPassword('')
+      setRePassword('')
+    }
+  }, [])
 
   let registerSchema = object({
     username: string()
@@ -33,7 +35,7 @@ const Register = () => {
       .max(255, 'La contraseña no debe tener más de 255 caracteres')
       .required('La contraseña es obligatoria')
       .test('passwords-match', 'Las contraseñas no coinciden', function(value) {
-        return userRegister.password === value;
+        return password === value;
       })
   });
 
@@ -52,9 +54,9 @@ const Register = () => {
     e.preventDefault()
 
     const formData = {
-      username: userRegister.username,
-      password: userRegister.password,
-      re_password: userRegister.rePassword,
+      username,
+      password,
+      re_password,
     };
 
     fetch(REGISTERURL,{
@@ -112,19 +114,19 @@ const Register = () => {
   const handleChangeUserName = e => {
     const { name, value } = e.target
     inputsValidate(name, value)
-    dispatch(addUserName(value))
+    setUsername(value)
   }
 
   const handleChangePassword = e => {
     const { name, value } = e.target
     inputsValidate(name, value)
-    dispatch(addPassword(value))
+    setPassword(value)
   }
 
   const handleChangeRePassword = e => {
     const { name, value } = e.target
     inputsValidate(name, value)
-    dispatch(addRePassword(value))
+    setRePassword(value)
   }
 
   const handlePasswordVisibility = () => setisPasswordVisible(!isPasswordVisible)
@@ -141,9 +143,9 @@ const Register = () => {
             className="p-2 px-5 border border-solid border-slate-300 rounded-xl min-w-min" 
             placeholder="Escriba su Nombre"
             onChange={handleChangeUserName}
-            value={userRegister.username}
+            value={username}
           />
-          {validationErrors.username && userRegister.username && <span className="text-red-500 w-fit">{validationErrors.username}</span>}
+          {validationErrors.username && username && <span className="text-red-500 w-fit">{validationErrors.username}</span>}
           
           <input 
             type={isPasswordVisible ? 'text' : 'password'} 
@@ -151,9 +153,9 @@ const Register = () => {
             className="p-2 px-5 border border-solid border-slate-300 rounded-xl min-w-min" 
             placeholder="Contraseña"
             onChange={handleChangePassword}
-            value={userRegister.password}
+            value={password}
           />
-          {validationErrors.password && userRegister.password && <span className="text-red-500 w-fit">{validationErrors.password}</span>}
+          {validationErrors.password && password && <span className="text-red-500 w-fit">{validationErrors.password}</span>}
 
           <input 
             type={isPasswordVisible ? 'text' : 'password'} 
@@ -161,9 +163,9 @@ const Register = () => {
             className="p-2 px-5 border border-solid border-slate-300 rounded-xl min-w-min" 
             placeholder="Condirmar Contraseña"
             onChange={handleChangeRePassword}
-            value={userRegister.rePassword}
+            value={re_password}
           />
-          {validationErrors.re_password && userRegister.rePassword && <span className="text-red-500 w-fit">{validationErrors.re_password}</span>}
+          {validationErrors.re_password && re_password && <span className="text-red-500 w-fit">{validationErrors.re_password}</span>}
           {validationErrors.non_field_errors && <span className="text-red-500 w-fit">{validationErrors.non_field_errors}</span>}
 
           <button type='button' className='self-end' onClick={handlePasswordVisibility}><img src={isPasswordVisible ? LogoEyeOff : LogoEye} alt="" /></button>

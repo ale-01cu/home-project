@@ -3,7 +3,7 @@ import categoryReducer from './categorySlice.js'
 import contentReducer from './contentSlice.js'
 import contentDetailReducer from './contentDetailSlice.js'
 import searchSlice from './searchSlice.js'
-import userRegisterSlice from './userRegisterSlice.js'
+import tokensSlice from './tokensSlice.js'
 
 export const store = configureStore({
     reducer: {
@@ -11,6 +11,6 @@ export const store = configureStore({
         content: contentReducer,
         contentDetail: contentDetailReducer,
         search: searchSlice,
-        userRegister: userRegisterSlice
+        tokens: tokensSlice
     }
 })
