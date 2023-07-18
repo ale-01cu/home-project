@@ -4,6 +4,7 @@ import { CATALOGUEURL } from '../utils/urls'
 import {useSelector, useDispatch} from 'react-redux'
 import {addContentDetail} from '../redux/contentDetailSlice.js'
 import {useParams} from 'react-router-dom'
+import COLORS from '../utils/colors'
 
 export const ContentDetail = () => {
   const { id } = useParams()
@@ -15,7 +16,12 @@ export const ContentDetail = () => {
       .then(data => dispatch(addContentDetail(data)))
   }, [dispatch, id])
 
-  console.log(content);
+  const randomColor = () => {
+    const randomIndex = Math.floor(Math.random() * COLORS.length);
+    const randomElement = COLORS[randomIndex];
+    return randomElement
+  }
+
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="flex flex-col sm:flex-row p-5 sm:p-10 w-4/5 justify-between items-center sm:items-start">
@@ -39,16 +45,16 @@ export const ContentDetail = () => {
           
           <span>Descripcion: <br />{content.description}</span>
           <span>${content.category.price}</span>
-          <div className="">
+          <div className="text-slate-800 rounded-lg space-x-1">
             Actores: <br />
             {content.actors.map(actor => (
-              <span key={actor.id} className="rounded-lg align-middle text-sm font-medium py-1 px-2 bg-slate-300" id="genders-cards">{actor.full_name} </span>
+              <span key={actor.id} className={"rounded-lg align-middle text-sm font-medium py-1 px-2 " + randomColor()} id="genders-cards">{actor.full_name} </span>
             ))}
           </div>
           <div id="genders" className="text-slate-800 rounded-lg space-x-1">
               Generos: <br />
               {content.genders.map(gender => (
-                <span key={gender.id} className="rounded-lg align-middle text-sm font-medium py-1 px-2 bg-slate-300" id="genders-cards">{gender.name} </span>
+                <span key={gender.id} className={"rounded-lg align-middle text-sm font-medium py-1 px-2 " + randomColor()} id="genders-cards">{gender.name} </span>
               ))}
           </div>
         </div>
