@@ -11,7 +11,6 @@ export const SearchPage = () => {
     const search = useSelector(state => state.search)
 
     useEffect(() => {
-
       dispatch(clearContent())
 
       if (search) {
@@ -30,15 +29,8 @@ export const SearchPage = () => {
               results: uniqueResults
             }))
           })
-  
-  
-          // return () => {
-          //   dispatch(addSearch(''))
-          // };
       }
-
-    
-      }, [dispatch, search])
+    }, [dispatch, search])
 
 
     return (

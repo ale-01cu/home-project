@@ -16,6 +16,7 @@ export default function NavBar(){
   const dispatch = useDispatch()
   const categorys = useSelector(state => state.categorys)
   const tokenAccess = useSelector(state => state.tokens.access)
+  const tokenRefresh = useSelector(state => state.tokens.refresh)
   const [username, setUsername] = useState('')
   const menuItemClassNameList = ({ hover }) => hover ? 'bg-slate-700 text-white' : 'text-white bg-slate-800';
   const menuItemClassName = ({ hover }) => hover ? 'bg-slate-800 text-white' : 'text-white bg-slate-800';
@@ -24,18 +25,24 @@ export default function NavBar(){
       fetching(CATEGORYURL)
         .then(data => dispatch(addCategorys(data)))
 
-      if (tokenAccess) {
-        fetch(GETUSERURL, {
-          method: 'GET',
-          headers: {
-            "Authorization": "Bearer " + tokenAccess
-          }
-        })
-        .then(res => res.json())
-        .then(data => setUsername(data.username))
-      }else {
-        setUsername('')
+      const getUsername = async () => {
+        if (tokenAccess) {
+          const res = await fetch(GETUSERURL, {
+            method: 'GET',
+            headers: {
+              "Authorization": "Bearer " + tokenAccess
+            }
+          })
+          const data = await res.json()
+          setUsername(data.username)
+
+        }else {
+          setUsername('')
+        }
       }
+      
+      getUsername()
+      
       
   }, [dispatch, tokenAccess])
 
@@ -93,17 +100,17 @@ export default function NavBar(){
         />
 
         {
-          username
+          tokenRefresh
           ? <>
               <BtnMenu 
                 img={
-                  <span className={`text-3xl font-semibold flex justify-center items-center px-2 rounded-full ${randomColor()}`}>
+                  <span className={`text-3xl font-semibold flex justify-center items-center text-center px-2 rounded-full ${randomColor()}`}>
                     {username.charAt(0).toUpperCase()}
                   </span>
                 } 
                 path='#' 
                 menuItemClassName={menuItemClassName} W
-                BtnClassName='hover:scale-110 transition-transform duration-200 hidden sm:block'
+                BtnClassName='hover:scale-110 transition-transform duration-200 hidden sm:block flex justify-center items-center'
                 isList={true}
                 list={[
                   {
@@ -118,6 +125,7 @@ export default function NavBar(){
                   }
                 ]}
                 menuItemClassNameList={menuItemClassNameList}
+                titleList='Cuenta: '
               />
 
               <BtnMenu 
@@ -126,9 +134,9 @@ export default function NavBar(){
                     {username.charAt(0).toUpperCase()}
                   </span>
                 } 
-                path='#' 
+                path='/acounts' 
                 menuItemClassName={menuItemClassName} 
-                BtnClassName='hover:scale-110 transition-transform duration-200 sm:hidden'
+                BtnClassName='hover:scale-110 transition-transform duration-200 sm:hidden flex justify-center items-center'
               />
             </>
 

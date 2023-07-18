@@ -21,7 +21,6 @@ export const BtnMenu = ({
   const [menuState, toggle] = useMenuState({ transition: true, transitionTimeout: '0.1s' });
   const { anchorProps, hoverProps } = useHover(menuState.state, toggle);
 
-
   return (
     <>
       <Link ref={ref} {...anchorProps} to={path} className={BtnClassName}>
@@ -56,7 +55,6 @@ export const BtnMenu = ({
               {text}
             </MenuItem>
         }
-
       </ControlledMenu>
     </>
     

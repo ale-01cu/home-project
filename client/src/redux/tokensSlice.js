@@ -2,7 +2,7 @@ import {createSlice} from '@reduxjs/toolkit'
 
 const initialState = {
     access: '',
-    refresh: ''
+    refresh: '',
 }
 
 export const tokensSlice = createSlice({
@@ -18,5 +18,5 @@ export const tokensSlice = createSlice({
     }
 })
 
-export const { addTokens } = tokensSlice.actions
+export const { addTokens, changeValidTokens } = tokensSlice.actions
 export default tokensSlice.reducer
