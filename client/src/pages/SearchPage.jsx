@@ -2,15 +2,28 @@ import {Search} from '../components/SearchForm'
 import {ContentList} from '../components/ContentList'
 import {useDispatch, useSelector} from 'react-redux'
 import { useEffect } from "react"
-import { updateSearchContent } from '../redux/searchSlice' 
+import { addSearch, updateSearchContent, addSearchContent } from '../redux/searchSlice' 
 import SearchList from '../components/searchLists'
+import { useLocation } from 'react-router-dom';
+import { fetching } from '../services/fetching'
+import { CATALOGUEURL } from '../utils/urls'
 
 export const SearchPage = () => {
   const dispatch = useDispatch()
   const searchContent = useSelector(state => state.search)
+  const location = useLocation();
+  const query = new URLSearchParams(location.search).get("q");
   const search = searchContent.search
 
   useEffect(() => {
+    if (query) {
+      dispatch(addSearch(query))
+      const url = CATALOGUEURL + '?search=' + query
+
+      fetching(url)
+        .then(data => dispatch(addSearchContent(data)))
+
+    }
 
     // if (search) {
     //   const url = CATALOGUEURL + '?search=' + search
@@ -37,7 +50,7 @@ export const SearchPage = () => {
     // };
 
   
-    }, [dispatch, search])
+    }, [dispatch, query])
 
 
   return (

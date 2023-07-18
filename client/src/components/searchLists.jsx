@@ -19,7 +19,7 @@ const SearchList = () => {
         {
           searchList.map(e => (
             <li key={e.id}>
-              <Link className="text-blue-600">{e.search_text}</Link>
+              <Link to={'/search?q=' + e.search_text} className="text-blue-600">{e.search_text}</Link>
             </li>
           ))
         }

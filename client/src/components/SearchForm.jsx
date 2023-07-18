@@ -5,10 +5,12 @@ import LogoCloseSearch from '../assets/close_FILL0_wght400_GRAD0_opsz24.svg'
 import {fetching} from '../services/fetching.js'
 import {CATALOGUEURL} from '../utils/urls.js'
 import { addSearchContent } from '../redux/searchSlice.js'
+import {useNavigate} from 'react-router-dom'
 
 export const Search = () => {
   const dispatch = useDispatch()
   const search = useSelector(state => state.search.search)
+  const navegate = useNavigate()
 
   const handleChange = e => {
     dispatch(addSearch(e.target.value))
@@ -27,6 +29,7 @@ export const Search = () => {
       fetching(url)
         .then(data => dispatch(addSearchContent(data)))
   
+      navegate('/search?q=' + search)
     }
   }
 
