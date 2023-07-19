@@ -54,7 +54,7 @@ export const Search = () => {
             onChange={handleChange} 
             value={search} 
             className='rounded-2xl w-full outline-none min-w-0 py-2 pl-2 bg-inherit'
-            placeholder='Buscar'
+            placeholder='¿Que Desea Buscar?'
           />
           {search && <button type='button' className='absolute z-10 bg-inherit' onClick={handleClick}>
             <img src={LogoCloseSearch} alt="" />
