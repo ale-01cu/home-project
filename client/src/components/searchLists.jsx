@@ -1,11 +1,19 @@
 import { useEffect, useState } from "react"
 import { SEARCHLISTURL, GENDERSLISTURL, ACTORSLISTURL } from "../utils/urls"
 import {Link} from 'react-router-dom'
+import { useSelector } from "react-redux"
+import { useLocation } from 'react-router-dom';
 
 const SearchList = () => {
+  const categorys = useSelector(state => state.categorys)
   const [trendingSearchsList, setTrendingSearchsList] = useState([])
   const [gendersList, setGenderList] = useState([])
   const [actorsList, setActorsList] = useState([])
+  const location = useLocation();
+  const querySearch = new URLSearchParams(location.search).get("s")
+  const queryGender = new URLSearchParams(location.search).get("g")
+  const queryActor = new URLSearchParams(location.search).get("a")
+  const queryCategory = new URLSearchParams(location.search).get("c")
 
   useEffect(() => {
     const getLists = async () => {
@@ -29,14 +37,14 @@ const SearchList = () => {
 
 
   return (
-    <div className="w-4/5 md:w-full gap-5 space-y-8 md:space-y-0 flex flex-col md:flex-row xl:flex-col">
+    <div className="w-4/5 md:w-full gap-5 xl:space-y-8 md:space-y-0 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-1">
       <div>
         <h1 className="border-b border-solid border-slate-700">Busquedas en Tendencia</h1>
         <ul className="p-2">
           {
             trendingSearchsList.map(e => (
               <li key={e.id}>
-                <Link to={'/search?q=' + e.search_text} className="text-blue-700">{e.search_text}</Link>
+                <Link to={'/search?s=' + e.search_text} className="text-blue-700">{e.search_text}</Link>
               </li>
             ))
           }
@@ -49,7 +57,11 @@ const SearchList = () => {
           {
             gendersList.map(e => (
               <li key={e.id} className="min-w-max">
-                <Link to={'/search?q=' + e.name} className="bg-slate-200 px-2 py-1 rounded-xl hover:bg-inherit transition-all duration-200">{e.name}</Link>
+                <Link 
+                  to={'/search?s=' + e.name} 
+                  className={"bg-slate-200 px-2 py-1 rounded-xl hover:bg-slate-900 hover:text-white transition-all duration-200"}>
+                    {e.name}
+                </Link>
               </li>
             ))
           }
@@ -62,13 +74,26 @@ const SearchList = () => {
           {
             actorsList.map(e => (
               <li key={e.id} className="min-w-max">
-                <Link to={'/search?q=' + e.full_name} className="bg-slate-200 px-2 py-1 rounded-xl hover:bg-inherit transition-all duration-200">{e.full_name}</Link>
+                <Link to={'/search?a=' + e.full_name} className={"bg-slate-200 px-2 py-1 rounded-xl hover:bg-slate-900 hover:text-white transition-all duration-200"}>{e.full_name}</Link>
               </li>
             ))
           }
         </ul>
       </div>
 
+      <div>
+        <h1 className='border-b border-solid border-slate-700'>Categorias</h1>
+        <ul className='p-5 xl:p-0 grid grid-cols-2 gap-2 xl:gap-1 xl:py-2'>
+          {categorys.map(category => (
+            <li key={category.id} className='max-w-lg'>
+              <Link to={'/search?c=' + category.name} className='rounded-lg w-full relative flex justify-center items-center'>
+                <img src={category.photo} alt="" className='rounded-lg object-contain'/>
+                <span className='backdrop-blur-sm absolute font-semibold text-lg text-white p-2 rounded-3xl'>{category.name}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   )
 }

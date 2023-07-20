@@ -48,7 +48,6 @@ class SearchEngine(filters.SearchFilter):
     def filter_queryset(self, request, queryset, view):
         search_fields = self.get_search_fields(view, request)
         search_terms = self.get_search_terms(request)
-        print(search_terms)
         search_terms = self.text_process(" ".join(search_terms))
 
         if not search_fields or not search_terms:
