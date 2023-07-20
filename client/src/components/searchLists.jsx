@@ -15,6 +15,7 @@ const SearchList = () => {
   const queryActor = new URLSearchParams(location.search).get("a")
   const queryCategory = new URLSearchParams(location.search).get("c")
 
+
   useEffect(() => {
     const getLists = async () => {
       const resTrendingSearchsList = await fetch(SEARCHLISTURL)
@@ -58,8 +59,8 @@ const SearchList = () => {
             gendersList.map(e => (
               <li key={e.id} className="min-w-max">
                 <Link 
-                  to={'/search?s=' + e.name} 
-                  className={"bg-slate-200 px-2 py-1 rounded-xl hover:bg-slate-900 hover:text-white transition-all duration-200"}>
+                  to={'/search?g=' + e.name} 
+                  className={`bg-slate-200 px-2 py-1 rounded-xl hover:bg-slate-900 hover:text-white transition-all duration-200 ${queryGender == e.name ? "bg-slate-900 text-white" : " "}`}>
                     {e.name}
                 </Link>
               </li>
@@ -74,7 +75,11 @@ const SearchList = () => {
           {
             actorsList.map(e => (
               <li key={e.id} className="min-w-max">
-                <Link to={'/search?a=' + e.full_name} className={"bg-slate-200 px-2 py-1 rounded-xl hover:bg-slate-900 hover:text-white transition-all duration-200"}>{e.full_name}</Link>
+                <Link 
+                  to={'/search?a=' + e.full_name} 
+                  className={`bg-slate-200 px-2 py-1 rounded-xl hover:bg-slate-900 hover:text-white transition-all duration-200 ${queryActor === e.full_name ? "bg-slate-900 text-white" : " "}`}>
+                    {e.full_name}
+                </Link>
               </li>
             ))
           }
