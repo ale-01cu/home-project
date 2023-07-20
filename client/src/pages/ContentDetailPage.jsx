@@ -4,6 +4,7 @@ import { CATALOGUEURL } from '../utils/urls'
 import {useSelector, useDispatch} from 'react-redux'
 import {addContentDetail} from '../redux/contentDetailSlice.js'
 import {useParams} from 'react-router-dom'
+import VideoPlayer from '../components/VideoPlayer'
 
 export const ContentDetail = () => {
   const { id } = useParams()
@@ -18,6 +19,9 @@ export const ContentDetail = () => {
   console.log(content);
   return (
     <div className="flex justify-center items-center min-h-screen">
+      <div>
+        <VideoPlayer id={id} path={content.path}/>
+      </div>
       <div className="flex flex-col sm:flex-row p-5 sm:p-10 w-4/5 justify-between items-center sm:items-start">
         <div className="lg:basis-1/5 grid ">
           <img src={content.photo} alt="" className="rounded-lg object-fill lg:max-w-sm"/>
