@@ -2,19 +2,18 @@ import { useEffect, useState } from "react"
 import { SEARCHLISTURL, GENDERSLISTURL, ACTORSLISTURL } from "../utils/urls"
 import {Link} from 'react-router-dom'
 import { useSelector } from "react-redux"
-import { useLocation } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 const SearchList = () => {
   const categorys = useSelector(state => state.categorys)
   const [trendingSearchsList, setTrendingSearchsList] = useState([])
   const [gendersList, setGenderList] = useState([])
   const [actorsList, setActorsList] = useState([])
-  const location = useLocation();
+  const [params, setParams] = useSearchParams()
   const querySearch = new URLSearchParams(location.search).get("s")
-  const queryGender = new URLSearchParams(location.search).get("g")
-  const queryActor = new URLSearchParams(location.search).get("a")
+  const queryGender = params.get("g") ? params.get("g").split(" ") : []
+  const queryActor = params.get("a") ? params.get("a").split(" ") : []
   const queryCategory = new URLSearchParams(location.search).get("c")
-
 
   useEffect(() => {
     const getLists = async () => {
@@ -59,8 +58,18 @@ const SearchList = () => {
             gendersList.map(e => (
               <li key={e.id} className="min-w-max">
                 <Link 
-                  to={'/search?g=' + e.name} 
-                  className={`bg-slate-200 px-2 py-1 rounded-xl hover:bg-slate-900 hover:text-white transition-all duration-200 ${queryGender == e.name ? "bg-slate-900 text-white" : " "}`}>
+                  to={
+                    !queryGender.includes(e.id.toString())
+                    ? queryGender.length > 0
+                      ? `/search?g=${queryGender.join("+")}+${e.id}` 
+                      : `/search?g=${e.id}`
+                    : queryGender.includes(e.id.toString())
+                      ? queryGender.length > 1
+                        ? `/search?g=${queryGender.filter(item => item != e.id).join("+")}`
+                        : `/search`
+                      : `/search?g=${queryGender.toString()}`
+                  } 
+                  className={`bg-slate-200 px-2 py-1 rounded-xl hover:bg-slate-900 hover:text-white transition-all duration-200 ${queryGender.includes(e.id.toString()) ? "bg-slate-900 text-white" : " "}`}>
                     {e.name}
                 </Link>
               </li>
@@ -76,8 +85,18 @@ const SearchList = () => {
             actorsList.map(e => (
               <li key={e.id} className="min-w-max">
                 <Link 
-                  to={'/search?a=' + e.full_name} 
-                  className={`bg-slate-200 px-2 py-1 rounded-xl hover:bg-slate-900 hover:text-white transition-all duration-200 ${queryActor === e.full_name ? "bg-slate-900 text-white" : " "}`}>
+                  to={
+                    !queryActor.includes(e.id.toString())
+                    ? queryActor.length > 0
+                      ? `/search?a=${queryActor.join("+")}+${e.id}` 
+                      : `/search?a=${e.id}`
+                    : queryActor.includes(e.id.toString())
+                      ? queryActor.length > 1
+                        ? `/search?a=${queryActor.filter(item => item != e.id).join("+")}`
+                        : `/search`
+                      : `/search?a=${queryActor.toString()}`
+                    } 
+                  className={`bg-slate-200 px-2 py-1 rounded-xl hover:bg-slate-900 hover:text-white transition-all duration-200 ${queryActor.includes(e.id.toString()) ? "bg-slate-900 text-white" : " "}`}>
                     {e.full_name}
                 </Link>
               </li>
@@ -91,7 +110,7 @@ const SearchList = () => {
         <ul className='p-5 xl:p-0 grid grid-cols-2 gap-2 xl:gap-1 xl:py-2'>
           {categorys.map(category => (
             <li key={category.id} className='max-w-lg'>
-              <Link to={'/search?c=' + category.name} className='rounded-lg w-full relative flex justify-center items-center'>
+              <Link to={'/search?c=' + category.id} className='rounded-lg w-full relative flex justify-center items-center'>
                 <img src={category.photo} alt="" className='rounded-lg object-contain'/>
                 <span className='backdrop-blur-sm absolute font-semibold text-lg text-white p-2 rounded-3xl'>{category.name}</span>
               </Link>

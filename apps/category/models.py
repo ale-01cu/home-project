@@ -52,7 +52,7 @@ class Actor(models.Model):
         
     full_name = models.CharField(
         max_length=255,
-        verbose_name='Nombre'
+        verbose_name='Nombre completo'
     )
     
     def __str__(self) -> str:

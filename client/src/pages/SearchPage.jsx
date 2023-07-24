@@ -2,9 +2,9 @@ import {Search} from '../components/SearchForm'
 import {ContentList} from '../components/ContentList'
 import {useDispatch, useSelector} from 'react-redux'
 import { useEffect } from "react"
-import { addSearch, updateSearchContent, addSearchContent } from '../redux/searchSlice' 
+import { addSearch, updateSearchContent, addSearchContent, clearSearchContent } from '../redux/searchSlice' 
 import SearchList from '../components/searchLists'
-import { useLocation } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { fetching } from '../services/fetching'
 import { CATALOGUEURL } from '../utils/urls'
 
@@ -12,63 +12,49 @@ export const SearchPage = () => {
   const dispatch = useDispatch()
   const searchContent = useSelector(state => state.search)
   const location = useLocation();
-  const querySearch = new URLSearchParams(location.search).get("s")
-  const queryGender = new URLSearchParams(location.search).get("g")
-  const queryActor = new URLSearchParams(location.search).get("a")
-  const queryCategory = new URLSearchParams(location.search).get("c")
+  const [params, setParams] = useSearchParams()
+  const querySearch = new URLSearchParams(location.search).get("s") === null ? '' : new URLSearchParams(location.search).get("s")
+  const queryGender = params.get("g") === null ? '' : params.get("g")
+  const queryActor = params.get("a") === null ? '' : params.get("a")
+  const queryCategory = params.get("c") === null ? '' : params.get("c")
+
 
   useEffect(() => {
-    const qs = querySearch === null ? '' : querySearch
-    const qg = queryGender === null ? '' : queryGender
-    const qa = queryActor === null ? '' : queryActor
-    const qc = queryCategory === null ? '' : queryCategory
 
-    console.log("adasdasdasda");
-    if ( qs || qg || qa || qc ) {
+    if ( querySearch || queryGender.length > 0 || queryActor || queryCategory ) {
       let url = CATALOGUEURL
 
-      if (qs) {
-        url += '?search=' + qs
-        dispatch(addSearch(qs))
+      if (querySearch) {
+        url += '?search=' + querySearch
+        dispatch(addSearch(querySearch))
       
-      }else if ( qg || qa || qc ) {
-        url += '?category__name='+ qc +
-        '&genders__name=' + qg +
-        '&actors__full_name=' + qa
+      }else if ( queryGender.length > 0 || queryActor || queryCategory ) {
+        url += '?category='+ queryCategory
+
+        if (queryGender) {
+          const genders = queryGender.split(" ")
+          for (let i in genders) {
+            url += `&genders=${genders[i]}`
+          }
+        }
+        if (queryActor) {
+          const actors = queryActor.split(" ")
+          for (let i in actors) {
+            url += `&actors=${actors[i]}`
+          }
+        }
       }
 
       fetching(url)
-      .then(data => dispatch(addSearchContent(data)))
+      .then(data => {
+        console.log(data);
+        dispatch(addSearchContent(data))})
+    
+    }else {
+      dispatch(clearSearchContent())
     }
 
-        
-
-    // if (search) {
-    //   const url = CATALOGUEURL + '?search=' + search
-
-    //   fetching(url)
-    //     .then(data => {
-    //       console.log(data);
-    //       const uniqueResults = data.results.filter((result, index, self) =>
-    //         index === self.findIndex(r => r.id === result.id)
-    //       );
-    //       dispatch(addContent({
-    //         count: data.count,
-    //         next: data.next,
-    //         previous: data.previous,
-    //         results: uniqueResults
-    //       }))
-    //     })
-
-
-    // return () => {
-    //   if (!search) {
-    //     dispatch(clearSearchContent())
-    //   }
-    // };
-
-  
-    }, [dispatch, querySearch, queryGender, queryActor, queryCategory])
+  }, [dispatch, querySearch, queryGender, queryActor, queryCategory])
 
 
   return (
