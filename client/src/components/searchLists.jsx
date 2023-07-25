@@ -1,19 +1,23 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useMemo } from "react"
 import { SEARCHLISTURL, GENDERSLISTURL, ACTORSLISTURL } from "../utils/urls"
 import {Link} from 'react-router-dom'
 import { useSelector } from "react-redux"
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useLocation } from 'react-router-dom';
 
 const SearchList = () => {
   const categorys = useSelector(state => state.categorys)
   const [trendingSearchsList, setTrendingSearchsList] = useState([])
   const [gendersList, setGenderList] = useState([])
   const [actorsList, setActorsList] = useState([])
-  const [params, setParams] = useSearchParams()
-  const querySearch = new URLSearchParams(location.search).get("s")
-  const queryGender = params.get("g") ? params.get("g").split(" ") : []
-  const queryActor = params.get("a") ? params.get("a").split(" ") : []
-  const queryCategory = new URLSearchParams(location.search).get("c")
+  const [categoryHover, setCategoryHover] = useState({
+    id: null,
+    state: false
+  })
+  const [params] = useSearchParams()
+  const location = useLocation()
+  const queryGender = useMemo(() => params.get("g") === null ? [] : params.getAll("g"), [params]) 
+  const queryActor = useMemo(() => params.get("a") === null ? [] : params.getAll("a"), [params]) 
+  const queryCategory = params.get("c") === null ? "" : params.get("c")
 
   useEffect(() => {
     const getLists = async () => {
@@ -36,6 +40,52 @@ const SearchList = () => {
   }, [])
 
 
+  function buildURL(queryParams, text, query) {
+    const params = new URLSearchParams(location.search);
+    
+    if (text in queryParams) {
+      params.delete(query, text);
+    } else {
+      if (!params.getAll(query).includes(text)) {
+        params.append(query, text);
+      } else {
+        const newLocation = decodeURIComponent(location.search).replace(/\+/g, " ")
+        const regex = new RegExp(`${query}=${text}(?:&|$)`, 'g');
+        const newSearch = newLocation.replace(regex, '').replace(/ /g, '+');
+        if (newSearch === '') {
+          return `${location.pathname}`;
+        } else {
+          return `${location.pathname}${newSearch}`;
+        }
+      }
+    }
+  
+    return `${location.pathname}?${params.toString()}`;
+  }
+
+  const buildURLCategorys = (id) => {
+    const params = new URLSearchParams(decodeURIComponent(location.search));
+
+    if (queryCategory) {
+      if (queryCategory == id) {
+        params.delete("c", id)
+        return `${location.pathname}?${params.toString()}`;
+
+      }else {
+        return location.search.replace(`c=${queryCategory}`, `c=${id}`)
+
+      }
+    }else{
+      if (location.search) {
+        return location.search + `&c=${id}`
+
+      }else{
+        return `?c=${id}`
+
+      }
+    }
+  }
+
   return (
     <div className="w-4/5 md:w-full gap-5 xl:space-y-8 md:space-y-0 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-1">
       <div>
@@ -44,7 +94,7 @@ const SearchList = () => {
           {
             trendingSearchsList.map(e => (
               <li key={e.id}>
-                <Link to={'/search?s=' + e.search_text} className="text-blue-700">{e.search_text}</Link>
+                <Link to={'/search?s=' + e.search_text} className="text-blue-700 hover:text-slate-900 transition-all duration-200 text-lg">{e.search_text}</Link>
               </li>
             ))
           }
@@ -58,18 +108,8 @@ const SearchList = () => {
             gendersList.map(e => (
               <li key={e.id} className="min-w-max">
                 <Link 
-                  to={
-                    !queryGender.includes(e.id.toString())
-                    ? queryGender.length > 0
-                      ? `/search?g=${queryGender.join("+")}+${e.id}` 
-                      : `/search?g=${e.id}`
-                    : queryGender.includes(e.id.toString())
-                      ? queryGender.length > 1
-                        ? `/search?g=${queryGender.filter(item => item != e.id).join("+")}`
-                        : `/search`
-                      : `/search?g=${queryGender.toString()}`
-                  } 
-                  className={`bg-slate-200 px-2 py-1 rounded-xl hover:bg-slate-900 hover:text-white transition-all duration-200 ${queryGender.includes(e.id.toString()) ? "bg-slate-900 text-white" : " "}`}>
+                  to={buildURL(queryGender, e.name, "g")}
+                  className={`bg-slate-200 px-2 py-1 rounded-xl hover:bg-slate-900 hover:text-white transition-all duration-200 ${queryGender.includes(e.name) ? "bg-slate-900 text-white" : " "}`}>
                     {e.name}
                 </Link>
               </li>
@@ -85,18 +125,8 @@ const SearchList = () => {
             actorsList.map(e => (
               <li key={e.id} className="min-w-max">
                 <Link 
-                  to={
-                    !queryActor.includes(e.id.toString())
-                    ? queryActor.length > 0
-                      ? `/search?a=${queryActor.join("+")}+${e.id}` 
-                      : `/search?a=${e.id}`
-                    : queryActor.includes(e.id.toString())
-                      ? queryActor.length > 1
-                        ? `/search?a=${queryActor.filter(item => item != e.id).join("+")}`
-                        : `/search`
-                      : `/search?a=${queryActor.toString()}`
-                    } 
-                  className={`bg-slate-200 px-2 py-1 rounded-xl hover:bg-slate-900 hover:text-white transition-all duration-200 ${queryActor.includes(e.id.toString()) ? "bg-slate-900 text-white" : " "}`}>
+                  to={buildURL(queryActor, e.full_name, "a")} 
+                  className={`bg-slate-200 px-2 py-1 rounded-xl hover:bg-slate-900 hover:text-white transition-all duration-200 ${queryActor.includes(e.full_name) ? "bg-slate-900 text-white" : " "}`}>
                     {e.full_name}
                 </Link>
               </li>
@@ -110,9 +140,19 @@ const SearchList = () => {
         <ul className='p-5 xl:p-0 grid grid-cols-2 gap-2 xl:gap-1 xl:py-2'>
           {categorys.map(category => (
             <li key={category.id} className='max-w-lg'>
-              <Link to={'/search?c=' + category.id} className='rounded-lg w-full relative flex justify-center items-center'>
-                <img src={category.photo} alt="" className='rounded-lg object-contain'/>
-                <span className='backdrop-blur-sm absolute font-semibold text-lg text-white p-2 rounded-3xl'>{category.name}</span>
+              <Link 
+                onMouseOver={() => setCategoryHover({
+                  id: category.id,
+                  state: true
+                })}
+                onMouseLeave={() => setCategoryHover({
+                  id: category.id,
+                  state: false
+                })}
+                to={buildURLCategorys(category.id)} 
+                className="rounded-lg w-full relative flex justify-center items-center">
+                  <img src={category.photo} alt="" className={`rounded-lg object-contain transition-all duration-100 ${queryCategory == category.id && 'blur-sm'} ${categoryHover.id === category.id && categoryHover.state ? 'blur-sm': '' }`}/>
+                  <span className='w-full text-center backdrop-blur-sm absolute font-semibold text-lg text-white p-2 rounded-3xl whitespace-nowrap text-ellipsis overflow-hidden'>{category.name}</span>
               </Link>
             </li>
           ))}

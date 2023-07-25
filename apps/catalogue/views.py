@@ -4,8 +4,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from .pagination import ContentPagination
 from apps.search.searchEngine import SearchEngine
 from django.db.models import Q
-from django.db.models.aggregates import Count
-from apps.category.models import Gender, Actor
+from .filter import ContentFilter
 
 class ContentListAPIView(generics.ListAPIView):
     serializer_class = ContentListSerializer
@@ -22,7 +21,7 @@ class ContentListAPIView(generics.ListAPIView):
     ]
     filterset_fields = ['category', 'genders', 'actors']
     pagination_class = ContentPagination
-    # filterset_class = ContentFilter
+    filterset_class = ContentFilter
     
     # def get_queryset(self):
     #     return self.get_serializer_class().Meta.model.objects.filter(
