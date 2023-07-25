@@ -10,7 +10,7 @@ const SearchList = () => {
   const [gendersList, setGenderList] = useState([])
   const [actorsList, setActorsList] = useState([])
   const [categoryHover, setCategoryHover] = useState({
-    id: null,
+    name: '',
     state: false
   })
   const [params] = useSearchParams()
@@ -63,24 +63,24 @@ const SearchList = () => {
     return `${location.pathname}?${params.toString()}`;
   }
 
-  const buildURLCategorys = (id) => {
+  const buildURLCategorys = (name) => {
     const params = new URLSearchParams(decodeURIComponent(location.search));
 
     if (queryCategory) {
-      if (queryCategory == id) {
-        params.delete("c", id)
+      if (queryCategory == name) {
+        params.delete("c", name)
         return `${location.pathname}?${params.toString()}`;
 
       }else {
-        return location.search.replace(`c=${queryCategory}`, `c=${id}`)
+        return location.search.replace(`c=${queryCategory}`, `c=${name}`)
 
       }
     }else{
       if (location.search) {
-        return location.search + `&c=${id}`
+        return location.search + `&c=${name}`
 
       }else{
-        return `?c=${id}`
+        return `?c=${name}`
 
       }
     }
@@ -142,16 +142,16 @@ const SearchList = () => {
             <li key={category.id} className='max-w-lg'>
               <Link 
                 onMouseOver={() => setCategoryHover({
-                  id: category.id,
+                  name: category.name,
                   state: true
                 })}
                 onMouseLeave={() => setCategoryHover({
-                  id: category.id,
+                  name: category.name,
                   state: false
                 })}
-                to={buildURLCategorys(category.id)} 
+                to={buildURLCategorys(category.name)} 
                 className="rounded-lg w-full relative flex justify-center items-center">
-                  <img src={category.photo} alt="" className={`rounded-lg object-contain transition-all duration-100 ${queryCategory == category.id && 'blur-sm'} ${categoryHover.id === category.id && categoryHover.state ? 'blur-sm': '' }`}/>
+                  <img src={category.photo} alt="" className={`rounded-lg object-contain transition-all duration-100 ${queryCategory == category.name && 'blur-sm'} ${categoryHover.name === category.name && categoryHover.state ? 'blur-sm': '' }`}/>
                   <span className='w-full text-center backdrop-blur-sm absolute font-semibold text-lg text-white p-2 rounded-3xl whitespace-nowrap text-ellipsis overflow-hidden'>{category.name}</span>
               </Link>
             </li>

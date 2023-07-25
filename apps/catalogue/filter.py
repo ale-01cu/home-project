@@ -4,11 +4,17 @@ from .models import Content
 class ContentFilter(django_filters.FilterSet):
     genders = django_filters.CharFilter(method='filter_by_genders')
     actors = django_filters.CharFilter(method='filter_by_actors')
+    category = django_filters.CharFilter(method='filter_by_category')
 
     class Meta:
         model = Content
         fields = ['category', 'genders', 'actors']
 
+    def filter_by_category(self, queryset, name, value):
+        # Filtra los elementos que tengan exactamente esos géneros y ninguno más
+        queryset = queryset.filter(category__name=value)
+        return queryset.distinct()
+    
     def filter_by_genders(self, queryset, name, value):
         # Separa los géneros pasados como una cadena separada por comas en una lista
         print(value)

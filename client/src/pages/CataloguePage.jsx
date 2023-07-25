@@ -14,7 +14,7 @@ export const Catalogue = () => {
 
   useEffect(() => {
     const url = category 
-    ? CATALOGUEURL + '?category__name=' + category 
+    ? CATALOGUEURL + '?category=' + category 
     : CATALOGUEURL
 
     fetching(url)
