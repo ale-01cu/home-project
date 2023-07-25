@@ -16,7 +16,7 @@ export const ContentDetail = () => {
       .then(data => dispatch(addContentDetail(data)))
   }, [dispatch, id])
 
-  console.log(content);
+
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div>
