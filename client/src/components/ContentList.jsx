@@ -75,10 +75,10 @@ export const ContentList = ({content, updateContent}) => {
       >
 
         <ul className='
-          relative w-full h-max grid gap-x-2 gap-y-12 sm:gap-y-5
+          relative w-full h-max grid gap-x-2 gap-y-12 sm:gap-y-10
           p-5 mn:px-10 sm:p-14 sm:pl-0 justify-center grid-cols-2
           sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6
-          2xl:grid-cols-7 3xl:grid-cols-8'
+          2xl:grid-cols-7 3xl:grid-cols-8 2xl:gap-y-5 xl:gap-y-7'
         >
 
           {content.results.map(content => {
