@@ -1,6 +1,6 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
-from .helpers import generate_content_photo_path
+from .helpers import generate_content_photo_path, generate_content_images_path
 from .countries import Countries
 from apps.category.models import Gender, Actor, Category
 from django.core.exceptions import ValidationError
@@ -128,14 +128,14 @@ class Image(models.Model):
     image = models.ImageField(
         unique=True, 
         verbose_name='Url de la Imagen', 
-        upload_to=generate_content_photo_path,
+        upload_to=generate_content_images_path,
     )
     
-    product = models.ForeignKey(
+    content = models.ForeignKey(
         Content, 
         on_delete=models.CASCADE, 
         related_name='images', 
-        verbose_name='Prodduto'
+        verbose_name='Contenido'
     )
     
     def __str__(self):

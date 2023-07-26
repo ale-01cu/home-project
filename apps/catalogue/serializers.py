@@ -1,13 +1,19 @@
 from rest_framework import serializers
 from .models import (
     Content, 
-    Season
+    Season,
+    Image
 )
 from apps.category.serializers import (
     CategorySerializer, 
     ActorSerializer, 
     GenderSerializer
 )
+
+class ImagesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Image
+        fields = ('id', 'image')
         
 class SeasonSerializer(serializers.ModelSerializer):
     class Meta:
@@ -22,6 +28,7 @@ class ContentDetailSerializer(serializers.ModelSerializer):
     category = CategorySerializer()
     genders = GenderSerializer(many=True)
     actors = ActorSerializer(many=True)
+    images = ImagesSerializer(many=True)
     
     class Meta:
         model = Content

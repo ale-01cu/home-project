@@ -18,7 +18,8 @@ const initialState = {
   countrie: '',
   seasons: [],
   actors: [],
-  genders: []
+  genders: [],
+  images: []
 }
 
 export const contentDetailSlice = createSlice({

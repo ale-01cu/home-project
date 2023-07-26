@@ -29,13 +29,15 @@ function VideoPlayer({ id }) {
         type: 'video/x-matroska',
       }],
       controls: true,
-      autoplay: true,
-      fluid: false,
-      with: 200,
-      height: 100,
-      preload: 'auto'
+      autoplay: false,
+      fluid: true,
+      preload: 'auto',
+      headers: {
+        "asd": "hola"
+      }
     };
     const player = videojs(videoRef.current, options);
+    console.log(player);
 
     // Destruir la instancia del reproductor de video antes de desmontar el componente
     return () => {
