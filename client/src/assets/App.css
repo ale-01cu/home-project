@@ -2,7 +2,7 @@
 @tailwind components;
 
 .szh-menu{
-    @apply bg-slate-800;
+    @apply bg-white;
 }
 
 body {

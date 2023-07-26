@@ -1,4 +1,6 @@
-import {useState} from 'react'
+import {useEffect, useRef} from 'react'
+import videojs from 'video.js';
+import 'video.js/dist/video-js.css';
 
 // const VideoPlayer = ({id, path}) => {
 //   const [videoUrl, setVideoUrl] = useState(`http://localhost:8000/api/catalogue/stream/${id}`);
@@ -13,22 +15,39 @@ import {useState} from 'react'
 // }
 
 function VideoPlayer({ id }) {
-  const videoUrl = `http://localhost:8000/api/catalogue/stream/${id}`
-  const [videoSrc, setVideoSrc] = useState(null);
+  const videoUrl = `http://localhost:8000/api/catalogue/stream/${id}/`
+  const videoRef = useRef()
 
-  const fetchVideo = async () => {
-    const response = await fetch(videoUrl);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+  useEffect(() => {
+    // Cree una instancia del reproductor de video utilizando las opciones
+    const options = {
+      sources: [{
+        src: videoUrl,
+        type: 'video/mp4',
+      }, {
+        src: videoUrl,
+        type: 'video/x-matroska',
+      }],
+      controls: true,
+      autoplay: true,
+      fluid: false,
+      with: 200,
+      height: 100,
+      preload: 'auto'
+    };
+    const player = videojs(videoRef.current, options);
+
+    // Destruir la instancia del reproductor de video antes de desmontar el componente
+    return () => {
+      if (player) {
+        player.dispose();
+      }
     }
-    setVideoSrc(URL.createObjectURL(await response.blob()));
-  };
+  }, [id, videoUrl]);
 
-  console.log(videoSrc);
   return (
     <div>
-      <button onClick={fetchVideo}>Cargar video</button>
-      {videoSrc && <video src={videoSrc} controls />}
+        <video ref={videoRef} className="video-js vjs-default-skin"></video>
     </div>
   );
 }

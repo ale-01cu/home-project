@@ -20,7 +20,7 @@ export const ContentDetail = () => {
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div>
-        <VideoPlayer id={id} path={content.path}/>
+        <VideoPlayer id={id}/>
       </div>
       <div className="flex flex-col sm:flex-row p-5 sm:p-10 w-4/5 justify-between items-center sm:items-start">
         <div className="lg:basis-1/5 grid ">

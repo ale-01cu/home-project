@@ -9,6 +9,8 @@ import re
 import mimetypes
 from wsgiref.util import FileWrapper
 from .rangeFileWrapper import RangeFileWrapper
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 range_re = re.compile(r'bytes\s*=\s*(\d+)\s*-\s*(\d*)', re.I)
 
 class ContentListAPIView(generics.ListAPIView):
@@ -54,31 +56,11 @@ class VideoStreamAPIView(views.APIView):
         if pk: 
             return self.get_serializer_class().Meta.model.objects.filter(status=True, pk=pk).first()
         return self.get_serializer_class().Meta.model.objects.filter(status=True)
-
-    # def get(self, request, pk=None):
-    #     # Obtener el objeto de contenido correspondiente al video
-    #     queryset = self.get_queryset()
-    #     content = get_object_or_404(queryset, pk=pk)
-    #     video_url = content.path
-        
-    #     chunk_size = 8192 # tamaño de cada fragmento en bytes
-    #     response = StreamingHttpResponse(
-    #         FileResponse(
-    #             open(video_url, 'rb'), 
-    #             content_type='video/mp4'
-    #         ), 
-    #         status=200, 
-    #         reason=None, 
-    #         content_type='video/mp4', 
-    #         charset=None
-    #     )
-    #     response['Content-Disposition'] = 'inline; filename="video.mp4"'
-    #     response['Cache-Control'] = 'no-cache'
-    #     response['X-Accel-Buffering'] = 'no'
-    #     # response['Transfer-Encoding'] = 'chunked'
-    #     return response
     
     def get(self, request, pk=None):
+        #print(request.headers['Range'])
+        user = request.user
+        
         content = self.get_queryset(pk)
         path = content.path
         
@@ -119,4 +101,12 @@ class VideoStreamAPIView(views.APIView):
             resp['Content-Length'] = str(size)
             
         resp['Accept-Ranges'] = 'bytes'
+
+        if int(resp['Content-Length']) == size:
+            print(f"{user} intento descargar el contenido {content.name}")
+            return Response(
+                'No esta permitido descargar este medio', 
+                status=status.HTTP_401_UNAUTHORIZED
+            )
+            
         return resp
