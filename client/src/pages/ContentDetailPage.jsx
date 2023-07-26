@@ -27,8 +27,13 @@ export const ContentDetail = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2">
-          <div className="flex flex-col p-7 basis-4/5 space-y-6 relative sm:col-start-2 sm:col-end-3 sm:row-start-2 sm:row-end-3">
-            <span className="text-3xl font-semibold">{content.name}</span>
+          <div className="flex flex-col p-7 sm:p-2 basis-4/5 space-y-6 relative sm:col-start-2 sm:col-end-3 sm:row-start-2 sm:row-end-3">
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2">
+              <p className="text-2xl font-bold">{content.name}</p>
+              <span className="bg-yellow-300 p-2 rounded-full text-center h-max w-1/2 justify-self-end">Precio: ${content.category.price}</span>
+            </div>
+
             <div className="flex flex-wrap">
               <div className="flex flex-col space-y-1 w-1/2 pr-1">
                 <span>Categoria: {content.category.name}</span>
@@ -64,29 +69,25 @@ export const ContentDetail = () => {
               </div>
             </div>
 
-            <div className="absolute bg-yellow-300 p-2 rounded-full right-5">
-              <span>${content.category.price}</span>
-            </div>
-
             <div id="genders" className="text-slate-800 rounded-lg space-x-1">
-                Generos: <br />
-                {content.genders.map(gender => (
-                  <span key={gender.id} className="rounded-lg align-middle text-sm font-medium py-1 px-2 bg-slate-300" id="genders-cards">{gender.name} </span>
-                ))}
+              Generos: <br />
+              {content.genders.map(gender => (
+                <span key={gender.id} className="rounded-lg align-middle text-sm font-medium py-1 px-2 bg-slate-300" id="genders-cards">{gender.name} </span>
+              ))}
             </div>  
-            <div className="">
+            <div id="actors" className="text-slate-800 rounded-lg space-x-1">
               Actores: <br />
               {content.actors.map(actor => (
-                <span key={actor.id} className="rounded-lg align-middle text-sm font-medium py-1 px-2 bg-slate-300" id="genders-cards">{actor.full_name} </span>
+                <span key={actor.id} className="rounded-lg align-middle text-sm font-medium py-1 px-2 bg-slate-300 mb-1" id="genders-cards">{actor.full_name} </span>
               ))}
             </div>
           </div>
 
-          <ul className={`p-2 w-full grid grid-cols-2 lg:grid-cols-3 lg:gap-1 sm:col-start-1 sm:col-end-2 sm:row-start-2 sm:row-end-3 ${content.images.length < 3 ? 'lg:grid-cols-1 sm:grid-cols-1' : ''}`}>
+          <ul className={`p-2 w-full grid gap-1 sm:col-start-1 sm:col-end-2 sm:row-start-2 sm:row-end-3 ${content.images.length == 0 ? 'lg:grid-cols-1 sm:grid-cols-1 place-items-center' : 'grid-cols-2 lg:grid-cols-3'}`}>
             <li className="max-w-xs sm:max-w-max"><img src={content.photo} alt="" className="h-full object-cover"/></li>
             {content.images.map(i => (
               <li key={i.id} className="max-w-xs">
-                <img src={i.image} alt="" className="h-full object-cover"/>
+                <img src={i.image} alt="" className="h-full object-cover rounded-2xl"/>
               </li>
             ))}
           </ul>
@@ -95,7 +96,7 @@ export const ContentDetail = () => {
 
       <div className="sm:basis-1/5">
         <ul>
-          <li><span>Hola buenos dias</span></li>
+          <li><span>Aqui van los capitulos de las series y el contenido relacionado</span></li>
         </ul>
       </div>
     </div>

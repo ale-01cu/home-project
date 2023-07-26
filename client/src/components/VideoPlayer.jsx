@@ -37,7 +37,6 @@ function VideoPlayer({ id }) {
       }
     };
     const player = videojs(videoRef.current, options);
-    console.log(player);
 
     // Destruir la instancia del reproductor de video antes de desmontar el componente
     return () => {
