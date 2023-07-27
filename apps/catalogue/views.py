@@ -88,7 +88,6 @@ class VideoStreamAPIView(views.APIView):
             
         path = content.path
 
-        print(request.headers)    
         # if 'Range' not in request.headers.keys():
         #     print(f"{user} intento descargar el contenido {content.name}")
         #     return Response(
@@ -133,23 +132,28 @@ class VideoStreamAPIView(views.APIView):
             )
             resp['Content-Length'] = str(length)
             resp['Content-Range'] = 'bytes %s-%s/%s' % (first_byte, last_byte, size)
-            
-        else:
-            resp = StreamingHttpResponse(
-                FileWrapper(
-                    open(path, 'rb')
-                ), 
-                content_type=content_type
-            )
-            resp['Content-Length'] = str(size)
+           
+           
+        # Devuelve el video completo 
+        # else:
+        #     resp = StreamingHttpResponse(
+        #         FileWrapper(
+        #             open(path, 'rb')
+        #         ), 
+        #         content_type=content_type
+        #     )
+        #     resp['Content-Length'] = str(size)
             
         resp['Accept-Ranges'] = 'bytes'
+        
+        if int(resp['Content-Length']) == size:
+            print("Se devolvio el video completo")
 
-        if int(resp['Content-Length']) == size and 'Range' not in request.headers.keys():
-            print(f"{user} intento descargar el contenido {content.name}")
-            return Response(
-                'No esta permitido descargar este medio', 
-                status=status.HTTP_401_UNAUTHORIZED
-            )
+        # if int(resp['Content-Length']) == size and 'Range' not in request.headers.keys():
+        #     print(f"{user} intento descargar el contenido {content.name}")
+        #     return Response(
+        #         'No esta permitido descargar este medio', 
+        #         status=status.HTTP_401_UNAUTHORIZED
+        #     )
             
         return resp

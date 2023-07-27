@@ -20,11 +20,11 @@ export const ContentDetail = () => {
       .then(data => {
         console.log(data);
         dispatch(addContentDetail(data))
-        if (data.seasons.length > 0) {
+        if (data.seasons.length > 0 && !videoQuery) {
           navegate('?v=' + data.seasons[0].chapters[0].id)
         }
       })
-  }, [dispatch, id, navegate])
+  }, [dispatch, id, navegate, videoQuery])
 
 
   return (

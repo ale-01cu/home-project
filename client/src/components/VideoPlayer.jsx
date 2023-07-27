@@ -24,11 +24,15 @@ const VideoPlayer = ({ id }) => {
     fluid: true,
     responsive: true,
     preload: 'metadata',
-    language: 'es'
+    language: 'es',
   };
 
   const handlePlayerReady = (player) => {
     playerRef.current = player;
+
+    player.on('error', (error) => {
+      console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+    });
 
     // You can handle player events here, for example:
     player.on('waiting', () => {
