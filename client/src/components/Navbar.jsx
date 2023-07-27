@@ -13,8 +13,8 @@ import '@szhsin/react-menu/dist/transitions/slide.css';
 export default function NavBar(){
   const dispatch = useDispatch()
   const categorys = useSelector(state => state.categorys)
-  const menuItemClassNameList = ({ hover }) => hover ? 'bg-slate-200' : 'text-slate-800 bg-white transition-all duration-200';
-  const menuItemClassName = ({ hover }) => hover ? 'text-slate-800 bg-white' : 'text-slate-800 bg-white transition-all duration-200';
+  const menuItemClassNameList = ({ hover }) => hover ? 'bg-slate-200' : 'text-slate-900 bg-white transition-all duration-200';
+  const menuItemClassName = ({ hover }) => hover ? 'text-slate-900 bg-white' : 'text-slate-900 bg-white transition-all duration-200';
 
   useEffect(() => {
       fetching(CATEGORYURL)

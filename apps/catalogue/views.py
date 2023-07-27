@@ -54,21 +54,31 @@ class VideoStreamAPIView(views.APIView):
     
     def get_queryset(self, pk=None):
         if pk: 
-            return self.get_serializer_class().Meta.model.objects.filter(status=True, pk=pk).first()
+            return self.get_serializer_class().Meta.model.objects.filter(
+                status=True, pk=pk).first()
         return self.get_serializer_class().Meta.model.objects.filter(status=True)
     
     def get(self, request, pk=None):
         user = request.user
         content = self.get_queryset(pk)
         path = content.path
-        
+        print(path)
         if 'Range' not in request.headers.keys():
             print(f"{user} intento descargar el contenido {content.name}")
+            return Response(
+                'No esta permitido descargar este medio', 
+                status=status.HTTP_401_UNAUTHORIZED
+            )
         
         # Esta validacion se activa cuando se envia el header 'gzip, deflate, br' dentro de 'Accept-Encoding' que normalmente esto es enviado en la peticion de descargar
         if 'Accept-Encoding' in request.headers.keys():
             if request.headers['Accept-Encoding'] == 'gzip, deflate, br':
                 print(f"{user} intento descargar el contenido {content.name}")
+                
+                return Response(
+                    'No esta permitido descargar este medio', 
+                    status=status.HTTP_401_UNAUTHORIZED
+                )
                 
         
         range_header = request.META.get('HTTP_RANGE', '').strip()

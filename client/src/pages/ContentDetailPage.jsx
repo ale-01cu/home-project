@@ -3,7 +3,7 @@ import { fetching } from '../services/fetching'
 import { CATALOGUEURL } from '../utils/urls'
 import {useSelector, useDispatch} from 'react-redux'
 import {addContentDetail} from '../redux/contentDetailSlice.js'
-import {useParams} from 'react-router-dom'
+import {useParams, Link} from 'react-router-dom'
 import VideoPlayer from '../components/VideoPlayer'
 
 export const ContentDetail = () => {
@@ -14,15 +14,16 @@ export const ContentDetail = () => {
   useEffect(() => {
       fetching(CATALOGUEURL + id + '/')
       .then(data => {
+        console.log(data);
         dispatch(addContentDetail(data))
       })
   }, [dispatch, id])
 
 
   return (
-    <div className="flex flex-col sm:flex-row">
-      <div className="flex flex-col min-h-screen space-y-5 sm:basis-4/5">
-        <div className="w-full p-2">
+    <div className="flex flex-col sm:flex-row p-2">
+      <div className="flex flex-col min-h-screen space-y-5 sm:basis-4/5 p-3">
+        <div className="w-full">
           <VideoPlayer id={id}/>
         </div>
 
@@ -31,7 +32,7 @@ export const ContentDetail = () => {
             
             <div className="grid grid-cols-1 sm:grid-cols-2">
               <p className="text-2xl font-bold">{content.name}</p>
-              <span className="bg-yellow-300 p-2 rounded-full text-center h-max w-1/2 justify-self-end">Precio: ${content.category.price}</span>
+              <span className="bg-yellow-300 p-2 px-3 rounded-full text-center h-max w-max justify-self-end">Precio: ${content.category.price}</span>
             </div>
 
             <div className="flex flex-wrap">
@@ -83,7 +84,7 @@ export const ContentDetail = () => {
             </div>
           </div>
 
-          <ul className={`p-2 w-full grid gap-1 sm:col-start-1 sm:col-end-2 sm:row-start-2 sm:row-end-3 ${content.images.length == 0 ? 'lg:grid-cols-1 sm:grid-cols-1 place-items-center' : 'grid-cols-2 lg:grid-cols-3'}`}>
+          <ul className={`p-2 w-full grid gap-1 sm:col-start-1 place-content-center sm:place-content-start sm:col-end-2 sm:row-start-2 sm:row-end-3 ${content.images.length == 0 ? 'lg:grid-cols-1 sm:grid-cols-1 place-items-center' : 'grid-cols-2 lg:grid-cols-3'}`}>
             <li className="max-w-xs sm:max-w-max"><img src={content.photo} alt="" className="h-full object-cover"/></li>
             {content.images.map(i => (
               <li key={i.id} className="max-w-xs">
@@ -95,9 +96,24 @@ export const ContentDetail = () => {
       </div>
 
       <div className="sm:basis-1/5">
-        <ul>
-          <li><span>Aqui van los capitulos de las series y el contenido relacionado</span></li>
-        </ul>
+        {
+          content.seasons && (
+            <ul className="space-y-5">
+              {content.seasons.map(season => (
+                <li key={season.id}>
+                  <ul className="flex flex-col space-y-2">
+                    <span>Temporada: {season.number}</span>
+                    {season.chapters.map(chapter => (
+                      <li key={chapter.id}>
+                        <Link className="bg-slate-300 ml-2"><span>{chapter.name}</span></Link>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ))}
+            </ul>
+          )
+        }
       </div>
     </div>
   )

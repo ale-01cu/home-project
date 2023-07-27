@@ -22,12 +22,15 @@ class CharapterSerializer(serializers.ModelSerializer):
         fields = ('name', 'subtitle')    
     
 class SeasonSerializer(serializers.ModelSerializer):
-    charapters = CharapterSerializer(many=True)
+    chapters = CharapterSerializer(many=True)
+    number_of_chapters = serializers.SerializerMethodField()
     
     class Meta:
         model = Season
         fields = '__all__'
         
+    def get_number_of_chapters(self, obj):        
+        return obj.number_of_chapters
 
 class ContentDetailSerializer(serializers.ModelSerializer):
     seasons = SeasonSerializer(
