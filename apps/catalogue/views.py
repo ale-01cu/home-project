@@ -74,24 +74,24 @@ class VideoStreamAPIView(views.APIView):
             content = self.get_queryset(pk=pk)
             
         path = content.path
-        print(path)
+
+        print(request.headers)    
+        # if 'Range' not in request.headers.keys():
+        #     print(f"{user} intento descargar el contenido {content.name}")
+        #     return Response(
+        #         'No esta permitido descargar este medio', 
+        #         status=status.HTTP_401_UNAUTHORIZED
+        #     )
         
-        if 'Range' not in request.headers.keys():
-            print(f"{user} intento descargar el contenido {content.name}")
-            return Response(
-                'No esta permitido descargar este medio', 
-                status=status.HTTP_401_UNAUTHORIZED
-            )
-        
-        # Esta validacion se activa cuando se envia el header 'gzip, deflate, br' dentro de 'Accept-Encoding' que normalmente esto es enviado en la peticion de descargar
-        if 'Accept-Encoding' in request.headers.keys():
-            if request.headers['Accept-Encoding'] == 'gzip, deflate, br':
-                print(f"{user} intento descargar el contenido {content.name}")
+        # # Esta validacion se activa cuando se envia el header 'gzip, deflate, br' dentro de 'Accept-Encoding' que normalmente esto es enviado en la peticion de descargar
+        # if 'Accept-Encoding' in request.headers.keys():
+        #     if request.headers['Accept-Encoding'] == 'gzip, deflate, br':
+        #         print(f"{user} intento descargar el contenido {content.name}")
                 
-                return Response(
-                    'No esta permitido descargar este medio', 
-                    status=status.HTTP_401_UNAUTHORIZED
-                )
+        #         return Response(
+        #             'No esta permitido descargar este medio', 
+        #             status=status.HTTP_401_UNAUTHORIZED
+        #         )
                 
         
         range_header = request.META.get('HTTP_RANGE', '').strip()
