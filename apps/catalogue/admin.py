@@ -21,7 +21,7 @@ class CharacterAdmin(admin.ModelAdmin):
     list_per_page = 25
 
 class ContentAdmin(admin.ModelAdmin):
-    inlines = [SeasonAdminInline, CharacterAdminInline, ImageAdmin]
+    inlines = [ImageAdmin, SeasonAdminInline, CharacterAdminInline]
     list_display = (
         'id',
         'name', 

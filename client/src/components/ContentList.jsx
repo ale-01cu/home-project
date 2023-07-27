@@ -110,7 +110,7 @@ export const ContentList = () => {
           })}
           <div id='viewfinder' ref={refViewFinder}></div>
         </ul>
-    </InfiniteScroll>
+      </InfiniteScroll>
       
     )
 }
