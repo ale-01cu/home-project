@@ -1,5 +1,6 @@
 import {useEffect, useRef} from 'react'
 import videojs from 'video.js';
+import { useSearchParams } from 'react-router-dom';
 import 'video.js/dist/video-js.css';
 
 // const VideoPlayer = ({id, path}) => {
@@ -15,10 +16,15 @@ import 'video.js/dist/video-js.css';
 // }
 
 function VideoPlayer({ id }) {
-  const videoUrl = `http://localhost:8000/api/catalogue/stream/${id}/`
-  const videoRef = useRef()
+  const [params] = useSearchParams()
+  const videoQuery = params.get("v")
+  console.log(videoQuery);
+  const videoUrl = videoQuery ? `http://localhost:8000/api/catalogue/stream/${id}/${params.get("v")}/` : `http://localhost:8000/api/catalogue/stream/${id}/`
+  const videoRef = useRef(null)
 
+  console.log(videoUrl);
   useEffect(() => {
+    console.log("almejas");
     // Cree una instancia del reproductor de video utilizando las opciones
     const options = {
       sources: [{
@@ -32,10 +38,8 @@ function VideoPlayer({ id }) {
       autoplay: false,
       fluid: true,
       preload: 'auto',
-      headers: {
-        "asd": "hola"
-      }
     };
+    
     const player = videojs(videoRef.current, options);
 
     // Destruir la instancia del reproductor de video antes de desmontar el componente
@@ -44,11 +48,11 @@ function VideoPlayer({ id }) {
         player.dispose();
       }
     }
-  }, [id, videoUrl]);
+  }, [id, videoUrl, videoQuery]);
 
   return (
     <div>
-        <video ref={videoRef} className="video-js vjs-default-skin"></video>
+      <video ref={videoRef} className="video-js vjs-default-skin"></video>
     </div>
   );
 }

@@ -19,7 +19,7 @@ const initialState = {
   seasons: [],
   actors: [],
   genders: [],
-  images: []
+  images: [],
 }
 
 export const contentDetailSlice = createSlice({
@@ -32,5 +32,5 @@ export const contentDetailSlice = createSlice({
     }
 })
 
-export const { addContentDetail } = contentDetailSlice.actions
+export const { addContentDetail, addVideoUrl } = contentDetailSlice.actions
 export default contentDetailSlice.reducer

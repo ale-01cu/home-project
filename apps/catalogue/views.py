@@ -11,6 +11,7 @@ from wsgiref.util import FileWrapper
 from .rangeFileWrapper import RangeFileWrapper
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from .models import Chapter
 range_re = re.compile(r'bytes\s*=\s*(\d+)\s*-\s*(\d*)', re.I)
 
 class ContentListAPIView(generics.ListAPIView):
@@ -52,17 +53,29 @@ class VideoStreamAPIView(views.APIView):
     def get_serializer_class(self):
         return ContentDetailSerializer
     
-    def get_queryset(self, pk=None):
-        if pk: 
+    def get_queryset(self, **kwargs):
+        print(kwargs)
+        if 'pk' in kwargs.keys(): 
             return self.get_serializer_class().Meta.model.objects.filter(
-                status=True, pk=pk).first()
+                status=True, pk=kwargs['pk']).first()
+            
+        elif 'chapter_pk' in kwargs.keys(): 
+            return Chapter.objects.filter(pk=kwargs['chapter_pk']).first()
+            
         return self.get_serializer_class().Meta.model.objects.filter(status=True)
     
-    def get(self, request, pk=None):
+    def get(self, request, pk=None, chapter_pk=None):
         user = request.user
-        content = self.get_queryset(pk)
+        
+        if chapter_pk:
+            content = self.get_queryset(chapter_pk=chapter_pk)
+        
+        else:
+            content = self.get_queryset(pk=pk)
+            
         path = content.path
         print(path)
+        
         if 'Range' not in request.headers.keys():
             print(f"{user} intento descargar el contenido {content.name}")
             return Response(

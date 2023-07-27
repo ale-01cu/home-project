@@ -108,7 +108,7 @@ export const ContentDetail = () => {
                     {season.chapters.map(chapter => (
 
                       <li key={chapter.id} className="hover:bg-slate-200 hover:text-slate-500 m-1 p-2 flex transition-all duration-200">
-                        <Link className="w-full flex space-x-2">
+                        <Link to={`?v=${chapter.id}`} className="w-full flex space-x-2">
                           <img src={PlayArrowIcon} alt="" />
                           <span className="w-full">{chapter.name}</span>
                         </Link>

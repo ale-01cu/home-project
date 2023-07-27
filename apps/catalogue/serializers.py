@@ -19,7 +19,7 @@ class ImagesSerializer(serializers.ModelSerializer):
 class CharapterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Chapter
-        fields = ('name', 'subtitle')    
+        fields = ('id', 'name', 'subtitle')    
     
 class SeasonSerializer(serializers.ModelSerializer):
     chapters = CharapterSerializer(many=True)
