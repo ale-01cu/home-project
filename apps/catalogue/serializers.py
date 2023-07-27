@@ -16,13 +16,13 @@ class ImagesSerializer(serializers.ModelSerializer):
         model = Image
         fields = ('id', 'image')
         
-class CharapterSerializer(serializers.ModelSerializer):
+class ChapterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Chapter
         fields = ('id', 'name', 'subtitle')    
     
 class SeasonSerializer(serializers.ModelSerializer):
-    chapters = CharapterSerializer(many=True)
+    chapters = ChapterSerializer(many=True)
     number_of_chapters = serializers.SerializerMethodField()
     
     class Meta:

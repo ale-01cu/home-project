@@ -1,5 +1,9 @@
 from rest_framework import generics, views, status
-from .serializers import ContentDetailSerializer, ContentListSerializer
+from .serializers import (
+    ContentDetailSerializer, 
+    ContentListSerializer,
+    ChapterSerializer
+)
 from django_filters.rest_framework import DjangoFilterBackend
 from .pagination import ContentPagination
 from rest_framework.filters import SearchFilter
@@ -13,6 +17,15 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from .models import Chapter
 range_re = re.compile(r'bytes\s*=\s*(\d+)\s*-\s*(\d*)', re.I)
+
+
+class ChapterRetrieveApiView(generics.RetrieveAPIView):
+    serializer_class = ChapterSerializer
+    
+    def get_queryset(self):
+        queryset = self.get_serializer_class().Meta.model.objects.all()
+        return queryset
+
 
 class ContentListAPIView(generics.ListAPIView):
     serializer_class = ContentListSerializer

@@ -19,12 +19,18 @@ class Content(models.Model):
         unique=True,
         null=True,
         blank=True,
-        verbose_name='Nombre'
+        verbose_name='Nombre',
+        help_text="""
+        Se llena automaticamente si no se llena, a travez de la ruta del contenido.
+        """
     )
     
     photo = models.ImageField(
         upload_to=generate_content_photo_path,
-        verbose_name='Foto de Portada'
+        verbose_name='Foto de Portada',
+        help_text="""
+        Imagen que saldra en el catalogo.
+        """
     )
     
     category = models.ForeignKey(
@@ -43,21 +49,36 @@ class Content(models.Model):
         max_length=255,
         verbose_name='Ruta en disco duro',
         null=True,
-        blank=True
+        blank=True,
+        help_text="""
+        Este campo es para especificar la ruta de la carpeta de la pelicula o serie pero hay que tener en cuenta los siguientes puntos:
+        En caso de los contenidos con un solo video:
+            . Si se pone la ruta de la carpeta donde esta el contenido detecta automaticamente el archivo de video dentro de la ruta.
+            . De esa ruta es de donde se va a leer el video que ve el usuario.
+        En caso de los contenidos con varios videos:
+            . En este caso se pone la ruta de la carpeta donde se encuentra el contenido pero esto es solo para saber donde esta el contenido.
+            . Se puede dejar en blanco aunque es recomendable usarlo para saber la ubicacion del contenido.
+        """
     )
     
     format = models.CharField(
         max_length=50, 
         null=True,
         blank=True,
-        verbose_name='Formato'
+        verbose_name='Formato',
+        help_text="""
+        No es obligatorio y en caso de llenar la ruta de la carpeta y sea un slo fichero de video este campo se llenara automaticamente con la informacion del archivo de video.
+        """
     )
     
     size = models.CharField(
         max_length=10, 
         null=True,
         blank=True,
-        verbose_name='Tamaño'
+        verbose_name='Tamaño',
+        help_text="""
+        No es obligatorio y en caso de llenar la ruta de la carpeta y sea un solo fichero de video este campo se llenara automaticamente con la informacion del archivo de video.
+        """
     )
     
     release_date = models.DateField(
