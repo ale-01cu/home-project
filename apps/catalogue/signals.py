@@ -1,8 +1,9 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from .models import Content, Season, Character
+from .models import Content, Season, Chapter
 import os
 import mimetypes
+from django.db.utils import IntegrityError
 
 def calculate_size(bytes):
     if bytes >= 1073741824:
@@ -33,7 +34,7 @@ def iterate_OnePath(path, instance):
                     instance.name = str(file.split(".")[0])
                     
                 if not instance.format:
-                    instance.format = str(mimetype).split("/")[1]
+                    instance.format = str(file.split(".")[1])
                     
                 if not instance.size:
                     instance.size = calculate_size(os.path.getsize(file_path))
@@ -47,15 +48,21 @@ def iterate_ManyPaths(path, season_instance):
             if mimetype is not None and mimetype.startswith('video'):
                 file_path = os.path.join(root, file)
                 
-                new_character = Character(
+                new_character, created = Chapter.objects.get_or_create(
                     content=season_instance.content,
                     season=season_instance,
                     path=file_path,
                     name=str(file.split(".")[0])
                 )
                 
-                new_character.save()
-
+                if created:
+                    # El objeto Chapter fue creado porque no existía previamente
+                    # Realiza cualquier otra operación necesaria
+                    pass
+                else:
+                    # El objeto Chapter ya existía en la base de datos
+                    # No necesitas hacer nada más
+                    pass
 
 
 @receiver(post_save, sender=Content)
@@ -67,7 +74,6 @@ def save_files_videos_signal(sender, instance, **kwargs):
     if path and not os.path.isfile(path) and not seasons_exist:
         iterate_OnePath(path, instance)
     
-             
                 
 @receiver(post_save, sender=Season)
 def save_files_videos_signal(sender, instance, **kwargs):

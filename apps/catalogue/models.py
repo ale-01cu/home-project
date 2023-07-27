@@ -172,10 +172,6 @@ class Season(models.Model):
         verbose_name='Temporada'
     )
     
-    number_of_chapters = models.PositiveIntegerField(
-        verbose_name='Cantidad de Capitulos'
-    )
-    
     path = models.CharField(
         max_length=255,
         verbose_name='Ruta en disco duro de la temporada',
@@ -194,8 +190,12 @@ class Season(models.Model):
     def __str__(self) -> str:
         return f'Temporada {self.number} de la serie {self.content.name}'
     
+    @property
+    def number_of_chapters(self):
+        return self.chapters.count()
     
-class Character(models.Model):
+    
+class Chapter(models.Model):
     class Meta:
         verbose_name = 'Capitulo'
         verbose_name_plural = 'Capitulos'
@@ -203,14 +203,14 @@ class Character(models.Model):
     content = models.ForeignKey(
         Content, 
         on_delete=models.CASCADE,
-        related_name='characters',
+        related_name='chapters',
         verbose_name='Contenido'
     )
         
     season = models.ForeignKey(
         Season,
         on_delete=models.CASCADE,
-        related_name='characters',
+        related_name='chapters',
         verbose_name='Temporada'
     )
     
@@ -229,6 +229,7 @@ class Character(models.Model):
     )
     
     name = models.CharField(
+        unique=True,
         max_length=255,
         verbose_name='Nombre',
     )

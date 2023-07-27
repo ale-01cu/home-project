@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import Image, Season, Content, Character
+from .models import Image, Season, Content, Chapter
 
 class CharacterAdminInline(admin.TabularInline):
-    model = Character
+    model = Chapter
     extra = 0
 
 class SeasonAdminInline(admin.TabularInline):
@@ -50,4 +50,4 @@ class ContentAdmin(admin.ModelAdmin):
     list_per_page = 25
     
 admin.site.register(Content, ContentAdmin)
-admin.site.register(Character, CharacterAdmin)
+admin.site.register(Chapter, CharacterAdmin)
