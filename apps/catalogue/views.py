@@ -109,8 +109,6 @@ class VideoStreamAPIView(views.APIView):
             
         resp['Accept-Ranges'] = 'bytes'
 
-        print(resp['Content-Length'])
-        print(size)
         if int(resp['Content-Length']) == size and 'Range' not in request.headers.keys():
             print(f"{user} intento descargar el contenido {content.name}")
             return Response(

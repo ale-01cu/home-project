@@ -1,6 +1,10 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
-from .helpers import generate_content_photo_path, generate_content_images_path
+from .helpers import (
+    generate_content_photo_path, 
+    generate_content_images_path,
+    generate_content_subtitles_path    
+)
 from .countries import Countries
 from apps.category.models import Gender, Actor, Category
 from django.core.exceptions import ValidationError
@@ -13,6 +17,8 @@ class Content(models.Model):
     name = models.CharField(
         max_length=100, 
         unique=True,
+        null=True,
+        blank=True,
         verbose_name='Nombre'
     )
     
@@ -42,12 +48,14 @@ class Content(models.Model):
     
     format = models.CharField(
         max_length=50, 
+        null=True,
         blank=True,
         verbose_name='Formato'
     )
     
     size = models.CharField(
         max_length=10, 
+        null=True,
         blank=True,
         verbose_name='Tamaño'
     )
@@ -112,6 +120,11 @@ class Content(models.Model):
         verbose_name='Fecha de Creado'
     )
     
+    update_date = models.DateTimeField(
+        auto_now=True,
+        verbose_name='Ultima vez modificado'
+    )
+    
     def __str__(self) -> str:
         return self.name
     
@@ -140,6 +153,7 @@ class Image(models.Model):
     
     def __str__(self):
         return str(self.image)
+    
   
     
 class Season(models.Model):
@@ -147,7 +161,7 @@ class Season(models.Model):
         verbose_name = 'Temporada'
         verbose_name_plural = 'Temporadas'
         
-    serie = models.ForeignKey(
+    content = models.ForeignKey(
         Content, 
         on_delete=models.CASCADE,
         related_name='seasons',
@@ -162,6 +176,60 @@ class Season(models.Model):
         verbose_name='Cantidad de Capitulos'
     )
     
+    path = models.CharField(
+        max_length=255,
+        verbose_name='Ruta en disco duro de la temporada',
+    )
+    
+    status = models.BooleanField(
+        default=True,
+        verbose_name='Estado'
+    )
+    
+    was_added = models.BooleanField(
+        default=False,
+        verbose_name='Fue Agregada'
+    )
+    
     def __str__(self) -> str:
-        return f'Temporada {self.number} de la serie {self.serie.name}'
+        return f'Temporada {self.number} de la serie {self.content.name}'
+    
+    
+class Character(models.Model):
+    class Meta:
+        verbose_name = 'Capitulo'
+        verbose_name_plural = 'Capitulos'
+        
+    content = models.ForeignKey(
+        Content, 
+        on_delete=models.CASCADE,
+        related_name='characters',
+        verbose_name='Contenido'
+    )
+        
+    season = models.ForeignKey(
+        Season,
+        on_delete=models.CASCADE,
+        related_name='characters',
+        verbose_name='Temporada'
+    )
+    
+    path = models.CharField(
+        max_length=255,
+        verbose_name='Ruta en disco duro del capitulo',
+        null=True,
+        blank=True
+    )
+    
+    subtitle = models.FileField(
+        upload_to=generate_content_subtitles_path,
+        verbose_name='Subtitulo',
+        null=True,
+        blank=True
+    )
+    
+    name = models.CharField(
+        max_length=255,
+        verbose_name='Nombre',
+    )
   

@@ -10,6 +10,7 @@ from apps.category.serializers import (
     GenderSerializer
 )
 
+
 class ImagesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Image
@@ -32,7 +33,11 @@ class ContentDetailSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Content
-        fields = '__all__'
+        exclude = (
+            'create_date', 
+            'update_date', 
+            'status'
+        )
         
 class ContentListSerializer(serializers.ModelSerializer):
     category = CategorySerializer()
