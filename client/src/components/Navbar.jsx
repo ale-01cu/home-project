@@ -23,7 +23,7 @@ export default function NavBar(){
 
 
   return (
-    <nav className="basis-1/12 flex justify-center relative">
+    <nav className="sm:basis-1/12 lg:basis-1/13 px-2 flex justify-center relative">
       <div 
         id='nav-fix'
         className='
@@ -31,7 +31,7 @@ export default function NavBar(){
           sm:items-start space-x-2 sm:space-x-0 
           fixed w-full h-max bottom-0 py-2 sm:py-0 
           sm:w-max sm:min-h-screen flex sm:flex-col 
-          sm:space-y-3 justify-center z-50'
+          sm:space-y-3 justify-center z-50 px-3'
         >      
         
         <BtnMenu 

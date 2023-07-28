@@ -5,7 +5,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import {addContentDetail} from '../redux/contentDetailSlice.js'
 import {useParams, useSearchParams, Link, useNavigate} from 'react-router-dom'
 import VideoPlayer from '../components/VideoPlayer'
-import PlayArrowIcon from '../assets/play_arrow_FILL0_wght700_GRAD0_opsz24.svg'
+import PlayArrowIcon from '../assets/play_arrow_FILL0_wght100_GRAD0_opsz40.svg'
 
 export const ContentDetail = () => {
   const { id } = useParams()
@@ -28,8 +28,8 @@ export const ContentDetail = () => {
 
 
   return (
-    <div className="flex flex-col md:flex-row p-2">
-      <div className="flex flex-col min-h-screen space-y-5 sm:basis-4/5 p-3 sm:px-10">
+    <div className="flex flex-col md:flex-row py-5 lg:px-24">
+      <div className="flex flex-col min-h-screen space-y-5 sm:basis-9/12 sm:pr-10">
         <div className="w-full">
           <VideoPlayer id={id}/>
         </div>
@@ -102,7 +102,7 @@ export const ContentDetail = () => {
         </div>
       </div>
 
-      <div className="sm:basis-1/5 py-3">
+      <div className="sm:basis-3/12 py-3">
         {
           content.seasons.length > 0 && (
             <ul className="space-y-5">
@@ -114,7 +114,7 @@ export const ContentDetail = () => {
                     {season.chapters.map(chapter => (
 
                       <li key={chapter.id} className={`hover:bg-slate-200 hover:text-slate-500 m-1 p-2 flex transition-all duration-200 ${videoQuery == chapter.id ? 'bg-slate-200 text-slate-500' : ''}`}>
-                        <Link to={`?v=${chapter.id}`} className="w-full flex space-x-2">
+                        <Link to={`?v=${chapter.id}`} className="w-full flex space-x-2 items-center">
                           <img src={PlayArrowIcon} width={30} height={30} alt="" />
                           <span className="w-full">{chapter.name}</span>
                         </Link>

@@ -13,7 +13,7 @@ function App() {
   return (
     <div className='min-h-screen flex flex-col sm:flex-row' id='subRoot'>
       <NavBar/>
-      <main className='min-h-screen sm:basis-11/12 z-0 pb-14'>
+      <main className='min-h-screen sm:basis-11/12 lg:basis-12/13 z-0 pb-14'>
         <Routes>
           <Route path='/' element={<Catalogue/>}/>
           <Route path='/:category' element={<Catalogue/>}/>
