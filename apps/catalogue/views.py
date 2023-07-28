@@ -16,9 +16,13 @@ from .rangeFileWrapper import RangeFileWrapper
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from .models import Chapter
+
 range_re = re.compile(r'bytes\s*=\s*(\d+)\s*-\s*(\d*)', re.I)
 
-
+from django.http import HttpResponse
+from ffmpeg_streaming import Formats, Bitrate, Representation, Size
+import ffmpeg_streaming
+ 
 class ChapterRetrieveApiView(generics.RetrieveAPIView):
     serializer_class = ChapterSerializer
     
@@ -66,6 +70,7 @@ class VideoStreamAPIView(views.APIView):
     def get_serializer_class(self):
         return ContentDetailSerializer
     
+    
     def get_queryset(self, **kwargs):
         print(kwargs)
         if 'pk' in kwargs.keys(): 
@@ -77,6 +82,7 @@ class VideoStreamAPIView(views.APIView):
             
         return self.get_serializer_class().Meta.model.objects.filter(status=True)
     
+    
     def get(self, request, pk=None, chapter_pk=None):
         user = request.user
         
@@ -86,25 +92,7 @@ class VideoStreamAPIView(views.APIView):
         else:
             content = self.get_queryset(pk=pk)
             
-        path = content.path
-
-        # if 'Range' not in request.headers.keys():
-        #     print(f"{user} intento descargar el contenido {content.name}")
-        #     return Response(
-        #         'No esta permitido descargar este medio', 
-        #         status=status.HTTP_401_UNAUTHORIZED
-        #     )
-        
-        # # Esta validacion se activa cuando se envia el header 'gzip, deflate, br' dentro de 'Accept-Encoding' que normalmente esto es enviado en la peticion de descargar
-        # if 'Accept-Encoding' in request.headers.keys():
-        #     if request.headers['Accept-Encoding'] == 'gzip, deflate, br':
-        #         print(f"{user} intento descargar el contenido {content.name}")
-                
-        #         return Response(
-        #             'No esta permitido descargar este medio', 
-        #             status=status.HTTP_401_UNAUTHORIZED
-        #         )
-                
+        path = content.path   
         
         range_header = request.META.get('HTTP_RANGE', '').strip()
         range_match = range_re.match(range_header)
@@ -120,7 +108,11 @@ class VideoStreamAPIView(views.APIView):
             if last_byte >= size:
                 last_byte = size - 1
                 
-            length = last_byte - first_byte + 1
+            if first_byte == 0 and last_byte == size - 1:
+                length = 500
+            else:
+                length = last_byte - first_byte + 1
+                
             resp = StreamingHttpResponse(
                 RangeFileWrapper(
                     open(path, 'rb'), 
@@ -130,30 +122,28 @@ class VideoStreamAPIView(views.APIView):
                 status=206, 
                 content_type=content_type
             )
-            resp['Content-Length'] = str(length)
+            
+            resp['Content-Length'] = str(round(float(length)))
             resp['Content-Range'] = 'bytes %s-%s/%s' % (first_byte, last_byte, size)
            
-           
-        # Devuelve el video completo 
-        # else:
-        #     resp = StreamingHttpResponse(
-        #         FileWrapper(
-        #             open(path, 'rb')
-        #         ), 
-        #         content_type=content_type
-        #     )
-        #     resp['Content-Length'] = str(size)
+        else:
+            print(f"{user} intento descargar el contenido {content.name}")
+            return Response(
+                'No esta permitido descargar este medio', 
+                status=status.HTTP_401_UNAUTHORIZED
+            )
+            
             
         resp['Accept-Ranges'] = 'bytes'
-        
         if int(resp['Content-Length']) == size:
             print("Se devolvio el video completo")
 
-        # if int(resp['Content-Length']) == size and 'Range' not in request.headers.keys():
-        #     print(f"{user} intento descargar el contenido {content.name}")
-        #     return Response(
-        #         'No esta permitido descargar este medio', 
-        #         status=status.HTTP_401_UNAUTHORIZED
-        #     )
+
+        if int(resp['Content-Length']) == size and 'Range' not in request.headers.keys():
+            print(f"{user} intento descargar el contenido {content.name}")
+            return Response(
+                'No esta permitido descargar este medio', 
+                status=status.HTTP_401_UNAUTHORIZED
+            )
             
         return resp

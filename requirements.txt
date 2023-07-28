@@ -9,3 +9,4 @@ whitenoise==6.4.0
 django-simple-history==3.3.0
 Pillow==9.5.0
 django-filter==23.2
+python-ffmpeg-video-streaming==0.1.15
