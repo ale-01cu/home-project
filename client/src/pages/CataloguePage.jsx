@@ -20,5 +20,9 @@ export const Catalogue = () => {
 
   }, [dispatch, category])
 
-  return <ContentList/>
+  return (
+    <div className="md:px-24">
+      <ContentList/>
+    </div>
+  )
 }

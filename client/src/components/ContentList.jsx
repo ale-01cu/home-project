@@ -77,18 +77,18 @@ export const ContentList = () => {
       >
 
         <ul className='
-          relative w-full h-max grid gap-x-2 gap-y-12 sm:gap-y-5
+          relative w-full h-max grid gap-x-1 gap-y-5 sm:gap-y-5
           p-5 mn:px-10 sm:p-14 sm:pl-0 justify-center grid-cols-2
-          sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6
-          2xl:grid-cols-7 3xl:grid-cols-8'
+          sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5
+          2xl:grid-cols-6 3xl:grid-cols-7'
         >
 
           {content.results.map(content => {
             console.log(content);
             return <li key={content.id} className=''>
-              <Link id='card' to={'/detail/' + content.id} className='flex flex-col h-full hover:bg-gray-200 transition-all duration-150 min-h-max'>
-                <div id="poster" className="h-4/5 overflow-hidden"><img src={content.photo} alt="" className='h-full object-cover transition-all duration-150'/></div>
-                <div id="detail" className="h-1/5 p-1">
+              <Link id='card' to={'/detail/' + content.id} className='flex flex-col justify-between h-full hover:bg-gray-200 transition-all duration-150 min-h-max'>
+                <div id="poster" className="h-full overflow-hidden"><img src={content.photo} alt="" className='h-full object-cover transition-all duration-150'/></div>
+                <div id="detail" className=" p-2">
                     <div className="flex justify-between">
                         {
                           content.release_year
