@@ -37,7 +37,7 @@ export const ContentDetail = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2">
           <div className="flex flex-col p-7 sm:p-2 basis-4/5 space-y-6 relative sm:col-start-1 sm:col-end-2 sm:row-start-2 sm:row-end-3">
             
-            <div className="flex flex-wrap justify-between">
+            <div className="flex flex-wrap gap-2 justify-between">
               <p className="text-2xl font-bold">{content.name}</p>
               <span className="bg-yellow-300 p-2 px-3 rounded-full text-center h-max w-max">Precio: ${content.category.price}</span>
             </div>
@@ -51,10 +51,10 @@ export const ContentDetail = () => {
               
               <div className="flex flex-col space-y-1 w-1/2 pl-1">
                 <span>
-                  Subtitulada: <span className={`${content.subtitles ? 'text-green-500': 'text-red-500'}`}>{content.subtitles ? 'Si' : 'No'}</span>
+                  Subtitulada: <span className={`${content.is_subtitled ? 'text-green-500': 'text-red-500'}`}>{content.is_subtitled ? 'Si' : 'No'}</span>
                 </span>
                 <span>
-                  En Español: <span className={`${content.spanish ? 'text-green-500': 'text-red-500'}`}>{content.spanish ? 'Si' : 'No'}</span>
+                  En Español: <span className={`${content.is_spanish ? 'text-green-500': 'text-red-500'}`}>{content.is_spanish ? 'Si' : 'No'}</span>
                 </span>
                 <span>
                   Plataforma: <span className={`${content.platform ? 'text-green-500': 'text-red-500'}`}>{content.platform ? 'Si' : 'No'}</span>
@@ -77,17 +77,21 @@ export const ContentDetail = () => {
               </div>
             </div>
 
-            <div id="genders" className="text-slate-800 rounded-lg space-x-1">
-              Generos: <br />
-              {content.genders.map(gender => (
-                <span key={gender.id} className="rounded-lg align-middle text-sm font-medium py-1 px-2 bg-slate-300 mb-1" id="genders-cards">{gender.name} </span>
-              ))}
+            <div id="genders" className="flex flex-col text-slate-800 rounded-lg">
+              Generos:
+              <div className="flex flex-wrap gap-1">
+                {content.genders.map(gender => (
+                  <span key={gender.id} className="rounded-lg align-middle text-sm font-medium py-1 px-2 bg-slate-300" id="genders-cards">{gender.name} </span>
+                ))}
+              </div>
             </div>  
-            <div id="actors" className="text-slate-800 rounded-lg space-x-1">
-              Actores: <br />
-              {content.actors.map(actor => (
-                <span key={actor.id} className="rounded-lg align-middle text-sm font-medium py-1 px-2 bg-slate-300 mb-1" id="genders-cards">{actor.full_name} </span>
-              ))}
+            <div id="actors" className="flex flex-col text-slate-800 rounded-lg">
+              Actores:
+                <div className="flex flex-wrap gap-1">
+                  {content.actors.map(actor => (
+                    <span key={actor.id} className="rounded-lg align-middle text-sm font-medium py-1 px-2 bg-slate-300" id="genders-cards">{actor.full_name} </span>
+                  ))}
+                </div>
             </div>
           </div>
 

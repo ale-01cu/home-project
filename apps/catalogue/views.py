@@ -72,7 +72,6 @@ class VideoStreamAPIView(views.APIView):
     
     
     def get_queryset(self, **kwargs):
-        print(kwargs)
         if 'pk' in kwargs.keys(): 
             return self.get_serializer_class().Meta.model.objects.filter(
                 status=True, pk=kwargs['pk']).first()
@@ -85,10 +84,10 @@ class VideoStreamAPIView(views.APIView):
     
     def get(self, request, pk=None, chapter_pk=None):
         user = request.user
+        print(request.headers['Range'])
         
         if chapter_pk:
             content = self.get_queryset(chapter_pk=chapter_pk)
-        
         else:
             content = self.get_queryset(pk=pk)
             
@@ -100,19 +99,23 @@ class VideoStreamAPIView(views.APIView):
         content_type, encoding = mimetypes.guess_type(path)
         content_type = content_type or 'application/octet-stream'
         
+        print("tamaño del archivo: ", size)
         if range_match:
             first_byte, last_byte = range_match.groups()
             first_byte = int(first_byte) if first_byte else 0
             last_byte = int(last_byte) if last_byte else size - 1
             
+            length = 10000
+            print("primer byte: ", first_byte)
+            print("segundo byte: ", last_byte)
+            
             if last_byte >= size:
                 last_byte = size - 1
+            
+            if length > size:
+                length = (size * 25) / 100
                 
-            if first_byte == 0 and last_byte == size - 1:
-                length = 500
-            else:
-                length = last_byte - first_byte + 1
-                
+            print("tamaño de la respuesta: ", length)
             resp = StreamingHttpResponse(
                 RangeFileWrapper(
                     open(path, 'rb'), 
@@ -133,11 +136,10 @@ class VideoStreamAPIView(views.APIView):
                 status=status.HTTP_401_UNAUTHORIZED
             )
             
-            
         resp['Accept-Ranges'] = 'bytes'
+        
         if int(resp['Content-Length']) == size:
             print("Se devolvio el video completo")
-
 
         if int(resp['Content-Length']) == size and 'Range' not in request.headers.keys():
             print(f"{user} intento descargar el contenido {content.name}")

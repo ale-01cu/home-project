@@ -27,8 +27,8 @@ export default function NavBar(){
       <div 
         id='nav-fix'
         className='
-          bg-white sm:bg-white items-center 
-          sm:items-start space-x-2 sm:space-x-0 
+          bg-white items-center 
+          sm:items-start space-x-3 sm:space-x-0 
           fixed w-full h-max bottom-0 py-2 sm:py-0 
           sm:w-max sm:min-h-screen flex sm:flex-col 
           sm:space-y-3 justify-center z-50 px-3'
