@@ -6,15 +6,15 @@ import LogoHome from '../assets/home_FILL0_wght400_GRAD0_opsz24.svg'
 import LogoContent from '../assets/live_tv_FILL0_wght400_GRAD0_opsz24.svg'
 import LogoSearch from '../assets/search_FILL0_wght400_GRAD0_opsz24.svg'
 import {fetching} from '../services/fetching.js'
-import {BtnMenu} from './btnMenu.jsx'
+import {BtnMenu} from './BtnMenu.jsx'
 import '@szhsin/react-menu/dist/index.css';
 import '@szhsin/react-menu/dist/transitions/slide.css';
 
 export default function NavBar(){
   const dispatch = useDispatch()
   const categorys = useSelector(state => state.categorys)
-  const menuItemClassNameList = ({ hover }) => hover ? 'bg-slate-200' : 'text-slate-900 bg-white transition-all duration-200';
-  const menuItemClassName = ({ hover }) => hover ? 'text-slate-900 bg-white' : 'text-slate-900 bg-white transition-all duration-200';
+  const menuItemClassNameList = ({ hover }) => hover ? 'bg-slate-200' : 'text-slate-900 bg-white transition-all duration-150';
+  const menuItemClassName = ({ hover }) => hover ? 'text-slate-900 bg-white' : 'text-slate-900 bg-white transition-all duration-150';
 
   useEffect(() => {
       fetching(CATEGORYURL)

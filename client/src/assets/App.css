@@ -14,4 +14,16 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr))
 }
 
+#card:hover > #poster img{
+    scale: 102%;
+}
+
+/* #subRoot{
+    background-color: rgb(26, 26, 26);
+}
+
+#nav-fix{
+    background-color: rgb(51, 51, 51);
+} */
+
 @tailwind utilities;

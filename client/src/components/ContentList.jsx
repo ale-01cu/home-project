@@ -86,8 +86,8 @@ export const ContentList = () => {
           {content.results.map(content => {
             console.log(content);
             return <li key={content.id} className=''>
-              <Link to={'/detail/' + content.id} className='relative flex flex-col h-full'>
-                <div id="poster" className="h-4/5"><img src={content.photo} alt="" className='h-full object-cover'/></div>
+              <Link id='card' to={'/detail/' + content.id} className='flex flex-col h-full hover:bg-gray-200 transition-all duration-150 min-h-max'>
+                <div id="poster" className="h-4/5 overflow-hidden"><img src={content.photo} alt="" className='h-full object-cover transition-all duration-150'/></div>
                 <div id="detail" className="h-1/5 p-1">
                     <div className="flex justify-between">
                         {

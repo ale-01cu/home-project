@@ -44,7 +44,7 @@ class ContentAdmin(admin.ModelAdmin):
         'genders', 
         'release_year', 
         'platform', 
-        'spanish'
+        'is_spanish'
     )
     
     list_per_page = 25

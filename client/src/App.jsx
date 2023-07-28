@@ -3,7 +3,6 @@ import {
   Routes,
   Route
 } from "react-router-dom";
-import {ContentList} from './components/ContentList'
 import {CategorysList} from './components/CategoryList'
 import {ContentDetail} from './pages/ContentDetailPage.jsx'
 import {SearchPage} from './pages/SearchPage.jsx'
@@ -14,7 +13,7 @@ function App() {
   return (
     <div className='min-h-screen flex flex-col sm:flex-row' id='subRoot'>
       <NavBar/>
-      <main className='min-h-screen sm:basis-11/12 z-0 pb-12'>
+      <main className='min-h-screen sm:basis-11/12 z-0 pb-14'>
         <Routes>
           <Route path='/' element={<Catalogue/>}/>
           <Route path='/:category' element={<Catalogue/>}/>

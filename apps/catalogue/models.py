@@ -3,7 +3,8 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from .helpers import (
     generate_content_photo_path, 
     generate_content_images_path,
-    generate_content_subtitles_path    
+    generate_content_subtitles_path,
+    generate_content_subtitule_path 
 )
 from .countries import Countries
 from apps.category.models import Gender, Actor, Category
@@ -97,14 +98,21 @@ class Content(models.Model):
         blank=True,
     )
     
-    subtitles = models.BooleanField(
+    is_subtitled = models.BooleanField(
         default=False,
         verbose_name='Esta Subtitulada'
     )
     
-    spanish = models.BooleanField(
+    is_spanish = models.BooleanField(
         default=False,
         verbose_name='Esta en Español'
+    )
+    
+    subtitle = models.FileField(
+        upload_to=generate_content_subtitule_path,
+        verbose_name='Subtitulo',
+        null=True,
+        blank=True
     )
     
     description = models.TextField(
@@ -232,7 +240,9 @@ class Chapter(models.Model):
         Season,
         on_delete=models.CASCADE,
         related_name='chapters',
-        verbose_name='Temporada'
+        verbose_name='Temporada',
+        null=True,
+        blank=True
     )
     
     path = models.CharField(

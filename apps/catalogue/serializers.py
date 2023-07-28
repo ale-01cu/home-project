@@ -33,10 +33,7 @@ class SeasonSerializer(serializers.ModelSerializer):
         return obj.number_of_chapters
 
 class ContentDetailSerializer(serializers.ModelSerializer):
-    seasons = SeasonSerializer(
-        many=True, 
-        read_only=True
-    )
+    seasons = SeasonSerializer(many=True, read_only=True)
     category = CategorySerializer()
     genders = GenderSerializer(many=True)
     actors = ActorSerializer(many=True)
