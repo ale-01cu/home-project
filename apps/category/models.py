@@ -43,7 +43,8 @@ class Gender(models.Model):
   
     def __str__(self) -> str:
         return self.name
-    
+      
+
 class Actor(models.Model):
     class Meta:
         verbose_name = 'Actor/Actriz'
@@ -51,7 +52,7 @@ class Actor(models.Model):
         
     full_name = models.CharField(
         max_length=255,
-        verbose_name='Nombre'
+        verbose_name='Nombre completo'
     )
     
     def __str__(self) -> str:

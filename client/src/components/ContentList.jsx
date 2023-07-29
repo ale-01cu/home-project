@@ -1,16 +1,14 @@
 import {useEffect, useRef, useState, useCallback} from 'react'
-import {useSelector, useDispatch} from 'react-redux'
-import {updateContent} from '../redux/contentSlice.js'
+import {useDispatch} from 'react-redux'
 import {Link} from 'react-router-dom'
 import { InfiniteScroll } from 'react-simple-infinite-scroll'
 
-export const ContentList = () => {
+export const ContentList = ({content, updateContent}) => {
     const dispatch = useDispatch()
-    const content = useSelector(state => state.content)
     const refViewFinder = useRef()
     const [isViewFinder, setIsViewFinder] = useState(false)
 
-  
+
     const loadMore = useCallback(() => {
       const url = content.next
 
@@ -84,7 +82,6 @@ export const ContentList = () => {
         >
 
           {content.results.map(content => {
-            console.log(content);
             return <li key={content.id} className=''>
               <Link id='card' to={'/detail/' + content.id} className='flex flex-col justify-between h-full hover:bg-gray-200 transition-all duration-150 min-h-max'>
                 <div id="poster" className="h-full overflow-hidden"><img src={content.photo} alt="" className='h-full object-cover transition-all duration-150'/></div>

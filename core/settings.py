@@ -27,6 +27,8 @@ BASE_APPS = [
 LOCAL_APPS = [
     'apps.catalogue',
     'apps.category',
+    'apps.search',
+    'apps.lists',
 ]
 THIRD_APPS = [
     'rest_framework',
@@ -129,3 +131,6 @@ CORS_ALLOWED_ORIGINS = [
 
 CORS_ALLOW_ALL_ORIGINS = True
 
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}

@@ -1,3 +1,6 @@
+import os
+import re
+import mimetypes
 from rest_framework import generics, views, status
 from .serializers import (
     ContentDetailSerializer, 
@@ -6,22 +9,16 @@ from .serializers import (
 )
 from django_filters.rest_framework import DjangoFilterBackend
 from .pagination import ContentPagination
-from rest_framework.filters import SearchFilter
 from django.http import StreamingHttpResponse
-import os
-import re
-import mimetypes
-from wsgiref.util import FileWrapper
 from .rangeFileWrapper import RangeFileWrapper
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from .models import Chapter
+from apps.search.searchEngine import SearchEngine
+from .filter import ContentFilter
+import ffmpeg_streaming
 
 range_re = re.compile(r'bytes\s*=\s*(\d+)\s*-\s*(\d*)', re.I)
-
-from django.http import HttpResponse
-from ffmpeg_streaming import Formats, Bitrate, Representation, Size
-import ffmpeg_streaming
  
 class ChapterRetrieveApiView(generics.RetrieveAPIView):
     serializer_class = ChapterSerializer
@@ -30,25 +27,31 @@ class ChapterRetrieveApiView(generics.RetrieveAPIView):
         queryset = self.get_serializer_class().Meta.model.objects.all()
         return queryset
 
-
 class ContentListAPIView(generics.ListAPIView):
     serializer_class = ContentListSerializer
-    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filter_backends = [SearchEngine, DjangoFilterBackend]
     search_fields = [
-        'name', 
+        'name',
         'description', 
         'category__name',
-        'release_date',
         'release_year',
         'platform',
         'countrie',
         'genders__name',
         'actors__full_name'
     ]
-    filterset_fields = ['category__name']
+    filterset_fields = ['category', 'genders', 'actors']
     pagination_class = ContentPagination
+    filterset_class = ContentFilter
     
-    def get_queryset(self):
+    # def get_queryset(self):
+    #     return self.get_serializer_class().Meta.model.objects.filter(
+    #         status=True).order_by(
+    #             '-release_year',
+    #             '-release_date'
+    #         )
+
+    def get_queryset(self):        
         return self.get_serializer_class().Meta.model.objects.filter(
             status=True).order_by(
                 '-release_year',
@@ -57,9 +60,6 @@ class ContentListAPIView(generics.ListAPIView):
     
 class ContentDetailAPIView(generics.RetrieveAPIView):
     serializer_class = ContentDetailSerializer
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['category__name']
-    pagination_class = ContentPagination
     
     def get_queryset(self):
         return self.get_serializer_class().Meta.model.objects.filter(status=True)
