@@ -2,6 +2,7 @@ import {useEffect, useRef, useState, useCallback} from 'react'
 import {useDispatch} from 'react-redux'
 import {Link} from 'react-router-dom'
 import { InfiniteScroll } from 'react-simple-infinite-scroll'
+import COLORS from '../utils/colors.js'
 
 export const ContentList = ({content, updateContent}) => {
     const dispatch = useDispatch()
@@ -65,6 +66,12 @@ export const ContentList = ({content, updateContent}) => {
 
     }, [content.next, isViewFinder, dispatch, onChange])
 
+    const randomColor = () => {
+      const randomIndex = Math.floor(Math.random() * COLORS.length);
+      const randomElement = COLORS[randomIndex];
+      return randomElement
+    }
+
     return (
       <InfiniteScroll
         throttle={100}
@@ -98,7 +105,7 @@ export const ContentList = ({content, updateContent}) => {
 
                     <div id="genders" className="text-slate-800 rounded-lg whitespace-nowrap text-ellipsis overflow-hidden space-x-1">
                         {content.genders.map(gender => (
-                          <span key={gender.id} className="rounded-lg align-middle text-sm font-medium px-2 text-center bg-slate-300" id="genders-cards">{gender.name} </span>
+                          <span key={gender.id} className={"rounded-lg align-middle text-sm font-medium px-2 text-center " + randomColor()} id="genders-cards">{gender.name} </span>
                         ))}
                     </div>
                 </div>

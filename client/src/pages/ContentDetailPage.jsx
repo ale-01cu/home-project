@@ -6,6 +6,7 @@ import {addContentDetail} from '../redux/contentDetailSlice.js'
 import {useParams, useSearchParams, Link, useNavigate} from 'react-router-dom'
 import VideoPlayer from '../components/VideoPlayer'
 import PlayArrowIcon from '../assets/play_arrow_FILL0_wght100_GRAD0_opsz40.svg'
+import COLORS from '../utils/colors'
 
 export const ContentDetail = () => {
   const { id } = useParams()
@@ -26,6 +27,12 @@ export const ContentDetail = () => {
       })
   }, [dispatch, id, navegate, videoQuery])
 
+
+  const randomColor = () => {
+    const randomIndex = Math.floor(Math.random() * COLORS.length);
+    const randomElement = COLORS[randomIndex];
+    return randomElement
+  }
 
   return (
     <div className="flex flex-col md:flex-row py-5 lg:px-24">
