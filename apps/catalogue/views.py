@@ -105,15 +105,16 @@ class VideoStreamAPIView(views.APIView):
             first_byte = int(first_byte) if first_byte else 0
             last_byte = int(last_byte) if last_byte else size - 1
             
-            length = 10000
             print("primer byte: ", first_byte)
             print("segundo byte: ", last_byte)
             
             if last_byte >= size:
                 last_byte = size - 1
-            
-            if length > size:
-                length = (size * 25) / 100
+                
+            if first_byte == 0 and last_byte == size - 1:
+                length = 500
+            else:
+                length = last_byte - first_byte + 1
                 
             print("tamaño de la respuesta: ", length)
             resp = StreamingHttpResponse(
@@ -137,9 +138,9 @@ class VideoStreamAPIView(views.APIView):
             )
             
         resp['Accept-Ranges'] = 'bytes'
-        
         if int(resp['Content-Length']) == size:
             print("Se devolvio el video completo")
+
 
         if int(resp['Content-Length']) == size and 'Range' not in request.headers.keys():
             print(f"{user} intento descargar el contenido {content.name}")

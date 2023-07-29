@@ -25,13 +25,18 @@ const VideoPlayer = ({ id }) => {
     responsive: true,
     preload: 'metadata',
     language: 'es',
+    html5: {
+      vhs: {
+        withCredentials: true
+      }
+    }
   };
 
   const handlePlayerReady = (player) => {
     playerRef.current = player;
 
     player.on('error', (error) => {
-      console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+      console.log("error en el reproductor");
     });
 
     // You can handle player events here, for example:

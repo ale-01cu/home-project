@@ -1,6 +1,7 @@
 import videojs from 'video.js';
 import { useRef, useEffect, useState } from 'react';
 import {CHAPTERDETAILURL} from '../utils/urls'
+import '@videojs/http-streaming'
 
 const VideoJS = (props) => {
   const videoRef = useRef(null);
@@ -15,6 +16,7 @@ const VideoJS = (props) => {
       fetch(url)
       .then(res => res.json())
       .then(data => setChapter(data))
+      .catch(e => console.error(e))
     }
 
   }, [videoQuery])
