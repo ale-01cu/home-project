@@ -3,7 +3,6 @@ import {CATEGORYURL, GETUSERURL} from '../utils/urls.js'
 import COLORS from '../utils/colors.js'
 import {addCategorys} from '../redux/categorySlice.js'
 import {useSelector, useDispatch} from 'react-redux'
-import LogoHome from '../assets/home_FILL0_wght400_GRAD0_opsz24.svg'
 import LogoContent from '../assets/live_tv_FILL0_wght400_GRAD0_opsz24.svg'
 import LogoSearch from '../assets/search_FILL0_wght400_GRAD0_opsz24.svg'
 import {fetching} from '../services/fetching.js'
@@ -59,33 +58,40 @@ export default function NavBar(){
   const color = randomColor()
 
   return (
-    <nav className="sm:basis-1/12 lg:basis-1/13 px-2 flex justify-center relative">
+    <nav className="sm:w-20 px-2 flex justify-center relative">
       <div 
         id='nav-fix'
         className='
-          bg-white items-center 
-          sm:items-start space-x-3 sm:space-x-0 
-          fixed w-full h-max bottom-0 py-2 sm:py-0 
-          sm:w-max sm:min-h-screen flex sm:flex-col 
-          sm:space-y-3 justify-center z-50 px-3'
+          items-center 
+          space-x-3 
+          fixed 
+          w-full 
+          h-max 
+          bottom-0 
+          py-2 
+          justify-center 
+          z-50 
+          px-3
+          flex 
+          sm:flex-col 
+          sm:items-start 
+          sm:space-x-0 
+          sm:py-0 
+          sm:w-max 
+          sm:min-h-screen 
+          sm:space-y-3 
+          '
         >      
         
-        <BtnMenu 
+        {/* <BtnMenu 
           logo={LogoHome} 
           path='/' 
           menuItemClassName={menuItemClassName} 
           text='Home'
           BtnClassName='hover:scale-110 transition-transform duration-200'
-        />
+        /> */}
 
-        <BtnMenu 
-          logo={LogoSearch} 
-          path='/search' 
-          menuItemClassName={menuItemClassName} 
-          text='Buscador'
-          BtnClassName='hover:scale-110 transition-transform duration-200'
-        />
-
+        
         <BtnMenu 
           logo={LogoContent} 
           path='/' 
@@ -95,6 +101,14 @@ export default function NavBar(){
           list={categorys}
           menuItemClassNameList={menuItemClassNameList}
           titleList='Contenido:'
+        />
+
+        <BtnMenu 
+          logo={LogoSearch} 
+          path='/search' 
+          menuItemClassName={menuItemClassName} 
+          text='Buscador'
+          BtnClassName='hover:scale-110 transition-transform duration-200'
         />
         
         <BtnMenu 
@@ -110,7 +124,7 @@ export default function NavBar(){
           ? <>
               <BtnMenu 
                 img={
-                  <span className={``}>
+                  <span className="flex justify-center items-center max-h-max max-w-max">
                     {username.charAt(0).toUpperCase()}
                   </span>
                 } 
@@ -119,11 +133,11 @@ export default function NavBar(){
                 BtnClassName={`hover:scale-110 transition-transform duration-200 hidden sm:block flex justify-center items-center text-3xl font-semibold text-center px-2 rounded-full ${color}`}
                 isList={true}
                 list={[
-                  {
-                    id: 1,
-                    name: 'Ver Perfil',
-                    url: '#'
-                  },
+                  // {
+                  //   id: 1,
+                  //   name: 'Ver Perfil',
+                  //   url: '#'
+                  // },
                   {
                     id:2,
                     name: 'Cerrar Sesion',
@@ -136,7 +150,7 @@ export default function NavBar(){
 
               <BtnMenu 
                 img={
-                  <span className={``}>
+                  <span className="flex justify-center items-center max-h-max max-w-max">
                     {username.charAt(0).toUpperCase()}
                   </span>
                 } 

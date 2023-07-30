@@ -1,11 +1,14 @@
 import {createSlice} from '@reduxjs/toolkit'
 
 const initialState = {
-    search: '',
+  search: '',
+  searchResult: {
     count: 0,
     next: '',
     previous: '',
     results: []
+  }
+
 }
 
 export const searchSlice = createSlice({
@@ -16,10 +19,10 @@ export const searchSlice = createSlice({
       state.search = action.payload
     },
     addSearchContent: ( state, action ) => {
-      state.count = action.payload.count
-      state.next = action.payload.next
-      state.previous = action.payload.previous
-      state.results = action.payload.results
+      state.searchResult.count = action.payload.count
+      state.searchResult.next = action.payload.next
+      state.searchResult.previous = action.payload.previous
+      state.searchResult.results = action.payload.results
 
     },
     updateSearchContent: ( state, action ) => {
@@ -31,21 +34,21 @@ export const searchSlice = createSlice({
       } = action.payload
 
       const newMovies = results.filter((movie) => {
-        return !state.results.some((existingMovie) => existingMovie.id === movie.id)
+        return !state.searchResult.results.some((existingMovie) => existingMovie.id === movie.id)
       })
 
-      state.count = count
-      state.next = next
-      state.previous = previous
-      state.results = state.results.concat(newMovies)
+      state.searchResult.count = count
+      state.searchResult.next = next
+      state.searchResult.previous = previous
+      state.searchResult.results = state.results.concat(newMovies)
 
     },
     clearSearchContent: ( state ) => {
       state.search = ''
-      state.count = 0
-      state.next = ''
-      state.previous = ''
-      state.results = []
+      state.searchResult.count = 0
+      state.searchResult.next = ''
+      state.searchResult.previous = ''
+      state.searchResult.results = []
     }
   }
 })

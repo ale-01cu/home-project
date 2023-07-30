@@ -5,12 +5,12 @@ import LogoCloseSearch from '../assets/close_FILL0_wght400_GRAD0_opsz24.svg'
 import {fetching} from '../services/fetching.js'
 import {CATALOGUEURL} from '../utils/urls.js'
 import { addSearchContent } from '../redux/searchSlice.js'
-import {useNavigate} from 'react-router-dom'
+import {useSearchParams} from 'react-router-dom'
 
 export const Search = () => {
   const dispatch = useDispatch()
   const search = useSelector(state => state.search.search)
-  const navegate = useNavigate()
+  const [params, setParams] = useSearchParams()
 
   const handleChange = e => {
     dispatch(addSearch(e.target.value))
@@ -29,7 +29,7 @@ export const Search = () => {
       fetching(url)
         .then(data => dispatch(addSearchContent(data)))
   
-      navegate('/search?q=' + search)
+      setParams({'s': search})
     }
   }
 
@@ -56,9 +56,11 @@ export const Search = () => {
             className='rounded-2xl w-full outline-none min-w-0 py-2 pl-2 bg-inherit'
             placeholder='¿Que Desea Buscar?'
           />
-          {search && <button type='button' className='absolute z-10 bg-inherit' onClick={handleClick}>
-            <img src={LogoCloseSearch} alt="" />
-          </button>}
+          {
+            search && <button type='button' className='px-2' onClick={handleClick}>
+              <img src={LogoCloseSearch} alt="" />
+            </button>
+          }
         </div>
         <button type='submit' className='
           bg-slate-800 
@@ -69,7 +71,11 @@ export const Search = () => {
           flex 
           justify-center 
           items-center 
-          py-2 px-2'
+          py-2 
+          px-2
+          hover:bg-slate-700
+          transition-all
+          '
           >
           <img src={LogoSearch} alt="" className='invert'/>
         </button>

@@ -10,7 +10,7 @@ import { CATALOGUEURL } from '../utils/urls'
 
 export const SearchPage = () => {
   const dispatch = useDispatch()
-  const searchContent = useSelector(state => state.search)
+  const searchContent = useSelector(state => state.search.searchResult)
   const [params] = useSearchParams()
 
   const querySearch = params.get("s") === null ? '' : params.get("s")
@@ -29,6 +29,7 @@ export const SearchPage = () => {
       
       }else if ( queryGender.length > 0 || queryActor || queryCategory ) {
         url += '?category='+ queryCategory
+        dispatch(addSearch(""))
 
         if (queryGender) {
           const genders = queryGender.join(",")
@@ -54,15 +55,15 @@ export const SearchPage = () => {
 
 
   return (
-    <div className='flex flex-col items-center py-8 px-2 sm:px-0 space-y-10 pb-14 sm:items-start xl:flex-row'>
-      <div className='sm:w-full flex flex-col items-center space-y-5 xl:basis-9/12 2xl:basis-10/12'>
+    <div className='flex flex-col items-center py-8 px-2 md:px-24 lg:px-20 gap-y-20 sm:items-start xl:flex-row'>
+      <div className='sm:w-full flex flex-col items-center space-y-5 w-full xl:basis-9/12 2xl:basis-10/12 pr-8'>
         <Search/>
         <ContentList 
           content={searchContent} 
           updateContent={updateSearchContent}
         />
       </div>
-      <div className='sm:w-full flex flex-col items-center px-2 xl:basis-3/12 2xl:basis-2/12 xl:mr-5'>
+      <div className='sm:w-full flex flex-col items-center p-2 w-full xl:basis-3/12 2xl:basis-2/12 xl:mr-5'>
         <SearchList/>
       </div>
     </div>

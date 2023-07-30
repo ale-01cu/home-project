@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from "react"
 import { SEARCHLISTURL, GENDERSLISTURL, ACTORSLISTURL } from "../utils/urls"
 import {Link} from 'react-router-dom'
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useSearchParams, useLocation } from 'react-router-dom';
 import LogoSearch from '../assets/search_FILL0_wght400_GRAD0_opsz24.svg'
 
@@ -43,7 +43,8 @@ const SearchList = () => {
 
   function buildURL(queryParams, text, query) {
     const params = new URLSearchParams(location.search);
-    
+    params.delete('s');
+
     if (text in queryParams) {
       params.delete(query, text);
     } else {
@@ -88,16 +89,16 @@ const SearchList = () => {
   }
 
   return (
-    <div className="w-4/5 md:w-full gap-5 xl:space-y-8 md:space-y-0 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-1">
+    <div id="container-lists-search" className="w-4/5 md:w-full gap-5 xl:space-y-8 md:space-y-0 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-1">
       {
         trendingSearchsList.length > 0 && (
         <div>
-          <h1 className="border-b border-solid border-slate-700">Busquedas en Tendencia</h1>
-          <ul className="p-2">
+          <h1 className="">Busquedas en Tendencia</h1>
+          <ul className="">
             {
               trendingSearchsList.map(e => (
                 <li key={e.id}>
-                  <Link to={'/search?s=' + e.search_text} className="text-blue-700 hover:text-slate-900 max-w-max p-2 transition-all duration-200 text-lg flex justify-start items-center gap-x-2">
+                  <Link to={'/search?s=' + e.search_text} className="text-blue-700 hover:text-slate-900 max-w-max py-2 pr-2 transition-all duration-200 text-lg flex justify-start items-center gap-x-2">
                     <img src={LogoSearch} alt="" />
                     {e.search_text}
                   </Link>
@@ -112,8 +113,8 @@ const SearchList = () => {
       {
         gendersList.length > 0 && (
         <div>
-          <h1 className="border-b border-solid border-slate-700">Generos</h1>
-          <ul className="p-2 py-4 flex gap-2 flex-wrap">
+          <h1 className="">Generos</h1>
+          <ul className=" py-4 flex gap-2 flex-wrap">
             {
               gendersList.map(e => (
                 <li key={e.id} className="min-w-max">
@@ -132,8 +133,8 @@ const SearchList = () => {
       {
         actorsList.length > 0 && (
         <div>
-          <h1 className="border-b border-solid border-slate-700">Actores</h1>
-          <ul className="p-2 py-4 flex gap-2 flex-wrap">
+          <h1 className="">Actores</h1>
+          <ul className=" py-4 flex gap-2 flex-wrap">
             {
               actorsList.map(e => (
                 <li key={e.id} className="min-w-max">
@@ -152,8 +153,8 @@ const SearchList = () => {
       {
         categorys.length > 0 && (
         <div>
-          <h1 className='border-b border-solid border-slate-700'>Categorias</h1>
-          <ul className='p-5 xl:p-0 grid grid-cols-2 gap-2 xl:gap-1 xl:py-2'>
+          <h1 className=''>Categorias</h1>
+          <ul className=' xl:p-0 grid grid-cols-2 gap-2 xl:gap-1 xl:py-2'>
             {categorys.map(category => (
               <li key={category.id} className='max-w-lg'>
                 <Link 
