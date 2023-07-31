@@ -11,7 +11,7 @@ const initialState = {
   size: '',
   release_date: '',
   release_year: '',
-  subtitles: null,
+  subtitle: '',
   spanish: null,
   description: '',
   platform: '',

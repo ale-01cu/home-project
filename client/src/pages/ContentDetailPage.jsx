@@ -20,24 +20,22 @@ export const ContentDetail = () => {
   useEffect(() => {
       fetching(CATALOGUEURL + id + '/')
       .then(data => {
+        console.log(data.subtitle);
         console.log(data);
         dispatch(addContentDetail(data))
-        // if (data.seasons.length > 0 && !videoQuery) {
-        //   navegate('?v=' + data.seasons[0].chapters[0].id)
-        // }
       })
   }, [dispatch, id, navegate, videoQuery])
 
 
   return (
-    <div className={`flex flex-col md:flex-row py-5 lg:px-24 ${!content.seasons.length > 0 ? 'justify-center items-center' : ''}`}>
-      <div className="flex flex-col min-h-screen space-y-5 sm:basis-9/12 sm:pr-10">
+    <div className={`flex flex-col md:flex-row py-5 lg:px-18 xl:px-24 ${!content.seasons.length > 0 ? 'justify-center items-center' : ''}`}>
+      <div className={`flex flex-col min-h-screen space-y-5 sm:basis-9/12 sm:pr-10 ${!content.seasons.length > 0 ? 'w-11/12 sm:pr-0' : ''}`}>
         {content.seasons.length > 0 && !videoQuery 
         ? (
             <div className="w-full h-full flex justify-center items-center">
               <Link to={'?v=' + content.seasons[0].chapters[0].id} className="p-5 text-2xl flex justify-center items-center gap-2 hover:scale-105 transition-all">
                 <img src={PlayArrowIconBegin} alt="" width={35} height={35}/>
-                <span>Comenzar</span>
+                <span>Ver</span>
               </Link>
             </div>
           )

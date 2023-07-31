@@ -1,9 +1,11 @@
 import {useRef} from 'react'
 import { useSearchParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import VideoJS from './VideoJs'
 import 'video.js/dist/video-js.css';
 
 const VideoPlayer = ({ id }) => {
+  const srcSubtitle = useSelector(state => state.contentDetail.subtitle)
   const [params] = useSearchParams()
   const videoQuery = params.get("v")
   const videoUrl = videoQuery 
@@ -18,17 +20,27 @@ const VideoPlayer = ({ id }) => {
     }, {
       src: videoUrl,
       type: 'video/x-matroska',
-    }],
+    },{
+      src: videoUrl,
+      type: 'video/mp4',
+    },],
+    playbackRates: [0.5, 1, 1.5, 2],
+    aspectRatio: '16:9',
+    enableSourceset: true,
     controls: true,
     autoplay: false,
     fluid: true,
     responsive: true,
     preload: 'metadata',
     language: 'es',
+    subtitles: {
+      src: srcSubtitle,
+      kind: 'subtitles',
+      srclang: 'es',
+      label: 'Español'
+    },
     html5: {
-      vhs: {
-        withCredentials: true
-      }
+      nativeTextTracks: false
     }
   };
 
