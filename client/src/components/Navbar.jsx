@@ -62,6 +62,7 @@ export default function NavBar(){
       <div 
         id='nav-fix'
         className='
+          bg-white
           items-center 
           space-x-3 
           fixed 

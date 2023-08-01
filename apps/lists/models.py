@@ -35,20 +35,20 @@ class CustomsList(models.Model):
     
 class CustomsListItem(models.Model):
     class Meta:
-        verbose_name = 'Producto de la lista'
-        verbose_name_plural = 'Productos de las listas'
+        verbose_name = 'Contenido de la lista'
+        verbose_name_plural = 'Contenido de las listas'
     
     custom_list = models.ForeignKey(
         CustomsList,
         related_name='custom_list_items', 
-        verbose_name='Producto de la lista', 
+        verbose_name='Contenido de la lista', 
         on_delete=models.CASCADE
     )
         
     content = models.ForeignKey(
         Content, 
         related_name='custom_list_item', 
-        verbose_name='Producto', 
+        verbose_name='Contenido', 
         on_delete=models.CASCADE
     )
     
@@ -58,4 +58,4 @@ class CustomsListItem(models.Model):
     )
     
     def __str__(self):
-        return self.product.name
+        return self.content.name

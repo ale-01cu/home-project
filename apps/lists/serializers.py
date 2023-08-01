@@ -5,12 +5,11 @@ from apps.catalogue.serializers import ContentListSerializer
 class CustomListsSerializer(serializers.ModelSerializer):
     content = ContentListSerializer(
         read_only=True,
-        many=True
     )
     
     class Meta:
         model = CustomsListItem
-        fields = ('content',)
+        fields = ('id', 'content',)
 
 
 class CustomListsSerializer(serializers.ModelSerializer):
@@ -21,7 +20,7 @@ class CustomListsSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = CustomsList
-        fields = ('name', 'custom_list_items')
+        fields = ('id', 'name', 'custom_list_items')
         
     
 

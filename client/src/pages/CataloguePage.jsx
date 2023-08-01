@@ -6,6 +6,7 @@ import {addContent} from '../redux/contentSlice'
 import {useParams} from 'react-router-dom'
 import {ContentList} from '../components/ContentList'
 import { updateContent } from "../redux/contentSlice"
+import CatalogueLists from '../components/CatalogueLists'
 
 export const Catalogue = () => {
   const { category } = useParams()
@@ -24,6 +25,7 @@ export const Catalogue = () => {
 
   return (
     <div className="md:px-24">
+      <CatalogueLists/>
       <ContentList content={content} updateContent={updateContent}/>
     </div>
   )

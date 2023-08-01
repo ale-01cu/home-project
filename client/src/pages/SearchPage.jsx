@@ -3,7 +3,7 @@ import {ContentList} from '../components/ContentList'
 import {useDispatch, useSelector} from 'react-redux'
 import { useEffect, useMemo } from "react"
 import { addSearch, updateSearchContent, addSearchContent, clearSearchContent } from '../redux/searchSlice' 
-import SearchList from '../components/searchLists'
+import SearchList from '../components/SearchLists'
 import { useSearchParams } from 'react-router-dom';
 import { fetching } from '../services/fetching'
 import { CATALOGUEURL } from '../utils/urls'

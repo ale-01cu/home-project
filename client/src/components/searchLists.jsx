@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from "react"
 import { SEARCHLISTURL, GENDERSLISTURL, ACTORSLISTURL } from "../utils/urls"
 import {Link} from 'react-router-dom'
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import { useSearchParams, useLocation } from 'react-router-dom';
 import LogoSearch from '../assets/search_FILL0_wght400_GRAD0_opsz24.svg'
 
