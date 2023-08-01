@@ -125,9 +125,11 @@ export default function NavBar(){
           ? <>
               <BtnMenu 
                 img={
-                  <span className="flex justify-center items-center max-h-max max-w-max">
-                    {username.charAt(0).toUpperCase()}
-                  </span>
+                  <div>
+                    <span className="flex justify-center items-center max-h-max max-w-max text-lg p-1">
+                      {username.charAt(0).toUpperCase()}
+                    </span>
+                  </div>
                 } 
                 path='#' 
                 menuItemClassName={menuItemClassName} W

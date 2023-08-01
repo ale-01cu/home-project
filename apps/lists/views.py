@@ -49,6 +49,7 @@ class NewContentAPIView(APIView):
             
             serializer = ContentListSerializer(
                 content, 
+                context={'request': request}, 
                 many=True
             )
             

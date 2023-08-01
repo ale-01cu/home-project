@@ -18,8 +18,6 @@ class Content(models.Model):
     name = models.CharField(
         max_length=100, 
         unique=True,
-        null=True,
-        blank=True,
         verbose_name='Nombre',
         help_text="""
         Se llena automaticamente si no se llena, a travez de la ruta del contenido.

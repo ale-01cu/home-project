@@ -24,9 +24,12 @@ export const Catalogue = () => {
   }, [dispatch, category])
 
   return (
-    <div className="md:px-24">
+    <div className="md:px-24 space-y-16 p-5">
       <CatalogueLists/>
-      <ContentList content={content} updateContent={updateContent}/>
+      <div>
+        <h1 className="p-5 pl-0 sm:p-10 sm:pl-0 text-3xl font-extrabold">{category ? category : 'Catalogo'}</h1>
+        <ContentList content={content} updateContent={updateContent}/>
+      </div>
     </div>
   )
 }
