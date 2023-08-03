@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom'
 import { useSelector } from "react-redux"
 import { useSearchParams, useLocation } from 'react-router-dom';
 import LogoSearch from '../assets/search_FILL0_wght400_GRAD0_opsz24.svg'
+import CategoryList from './CategoryList'
 
 const SearchList = () => {
   const categorys = useSelector(state => state.categorys)
@@ -114,7 +115,7 @@ const SearchList = () => {
         gendersList.length > 0 && (
         <div>
           <h1 className="">Generos</h1>
-          <ul className=" py-4 flex gap-2 flex-wrap">
+          <ul className=" py-4 flex gap-x-2 gap-y-3 flex-wrap">
             {
               gendersList.map(e => (
                 <li key={e.id} className="min-w-max">
@@ -134,7 +135,7 @@ const SearchList = () => {
         actorsList.length > 0 && (
         <div>
           <h1 className="">Actores</h1>
-          <ul className=" py-4 flex gap-2 flex-wrap">
+          <ul className=" py-4 flex gap-x-2 gap-y-3 flex-wrap">
             {
               actorsList.map(e => (
                 <li key={e.id} className="min-w-max">
