@@ -5,7 +5,7 @@ import {CATEGORYURL} from '../utils/urls.js'
 import {Link} from 'react-router-dom'
 import {fetching} from '../services/fetching.js'
 
-export const CategorysList = () => {
+const CategorysList = () => {
   const dispatch = useDispatch()
   const categorys = useSelector(state => state.categorys)
   
@@ -16,15 +16,20 @@ export const CategorysList = () => {
   }, [dispatch])
 
   return (
-    <ul className='grid grid-cols-1 p-5 gap-y-4 pb-16 justify-items-center'>
-      {categorys.map(category => (
-        <li key={category.id} className='max-w-lg'>
-          <Link to={'/' + category.name} className='rounded-lg w-full relative flex justify-center items-center'>
-            <img src={category.photo} alt="" className='rounded-lg object-contain'/>
-            <span className='backdrop-blur-sm absolute font-semibold text-lg text-white p-2 rounded-3xl'>{category.name}</span>
-          </Link>
-        </li>
-      ))}
-    </ul>
+    <div className='w-full'>
+      {/* <h1 className='p-5 pl-0 text-3xl font-extrabold'>Categorias</h1> */}
+      <ul className='gallery gap-3'>
+        {categorys.map(category => (
+          <li key={category.id} className='max-w-lg'>
+            <Link to={'/' + category.name + '#12'} className='rounded-lg w-full relative flex justify-center items-center'>
+              <img src={category.photo} alt="" className='rounded-lg object-contain'/>
+              <span className='backdrop-blur-sm absolute font-semibold text-lg text-white p-2 rounded-3xl'>{category.name}</span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
   )
 }
+
+export default CategorysList

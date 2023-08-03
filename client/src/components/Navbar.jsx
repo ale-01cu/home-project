@@ -3,10 +3,10 @@ import {CATEGORYURL, GETUSERURL} from '../utils/urls.js'
 import COLORS from '../utils/colors.js'
 import {addCategorys} from '../redux/categorySlice.js'
 import {useSelector, useDispatch} from 'react-redux'
-import LogoContent from '../assets/live_tv_FILL0_wght400_GRAD0_opsz24.svg'
-import LogoSearch from '../assets/search_FILL0_wght400_GRAD0_opsz24.svg'
 import {fetching} from '../services/fetching.js'
 import {BtnMenu} from './BtnMenu.jsx'
+import LogoContent from '../assets/live_tv_FILL0_wght400_GRAD0_opsz24.svg'
+import LogoSearch from '../assets/search_FILL0_wght400_GRAD0_opsz24.svg'
 import LogoLoggedOut from '../assets/account_circle_FILL0_wght400_GRAD0_opsz24.svg'
 import '@szhsin/react-menu/dist/index.css';
 import '@szhsin/react-menu/dist/transitions/slide.css';
@@ -105,6 +105,14 @@ export default function NavBar(){
         />
 
         <BtnMenu 
+          logo={LogoContent} 
+          path='/' 
+          menuItemClassName={menuItemClassName} 
+          text='Buscador'
+          BtnClassName='hover:scale-110 transition-transform duration-200 sm:hidden'
+        />
+
+        <BtnMenu 
           logo={LogoSearch} 
           path='/search' 
           menuItemClassName={menuItemClassName} 
@@ -112,13 +120,6 @@ export default function NavBar(){
           BtnClassName='hover:scale-110 transition-transform duration-200'
         />
         
-        <BtnMenu 
-          logo={LogoContent} 
-          path='/categorys' 
-          menuItemClassName={menuItemClassName} 
-          text='Buscador'
-          BtnClassName='hover:scale-110 transition-transform duration-200 sm:hidden'
-        />
 
         {
           tokenRefresh
@@ -153,9 +154,11 @@ export default function NavBar(){
 
               <BtnMenu 
                 img={
-                  <span className="flex justify-center items-center max-h-max max-w-max">
-                    {username.charAt(0).toUpperCase()}
-                  </span>
+                  <div>
+                    <span className="flex justify-center items-center max-h-max max-w-max text-lg p-1">
+                      {username.charAt(0).toUpperCase()}
+                    </span>
+                  </div>
                 } 
                 path='/acounts' 
                 menuItemClassName={menuItemClassName} 

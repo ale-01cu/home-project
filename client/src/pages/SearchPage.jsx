@@ -55,7 +55,7 @@ export const SearchPage = () => {
 
 
   return (
-    <div className='flex flex-col items-center py-8 px-2 md:px-24 lg:px-20 gap-y-20 sm:items-start xl:flex-row'>
+    <div className='flex flex-col items-center py-8 md:px-24 lg:px-20 gap-y-20 sm:items-start xl:flex-row'>
       <div className='sm:w-full flex flex-col items-center space-y-5 w-full xl:basis-9/12 2xl:basis-10/12 sm:pr-8'>
         <Search/>
         <div className='pt-10'>

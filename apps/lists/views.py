@@ -70,9 +70,13 @@ class NewContentAPIView(APIView):
 # Mostrar Listas manuales y personalizadas   
 class CustomListsAPIView(generics.ListAPIView):
     serializer_class = CustomListsSerializer
-    now = timezone.now()
-    queryset = CustomListsSerializer.Meta.model.objects.filter(
-        Q(status=True) &
-        Q(start_date__lte=now) &
-        Q(end_date__gte=now)
-    )
+
+    
+    def get_queryset(self):
+        now = timezone.now()
+        queryset = CustomListsSerializer.Meta.model.objects.filter(
+            Q(status=True) &
+            Q(start_date__lte=now) &
+            Q(end_date__gte=now)
+        )
+        return queryset

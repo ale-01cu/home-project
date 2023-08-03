@@ -1,6 +1,5 @@
 import NavBar from './components/Navbar.jsx'
 import {Routes, Route} from "react-router-dom";
-import {CategorysList} from './components/CategoryList'
 import Logout from './components/logout.jsx'
 import {ContentDetail} from './pages/ContentDetailPage.jsx'
 import {SearchPage} from './pages/SearchPage.jsx'
@@ -22,7 +21,6 @@ function App() {
           <Route path='/' element={<Catalogue/>}/>
           <Route path='/:category' element={<Catalogue/>}/>
           <Route path='/detail/:id' element={<ContentDetail/>}/>
-          <Route path='/categorys' element={<CategorysList/>}/>
           <Route path='/search' element={<SearchPage/>}/>
           <Route path='/acounts' element={<AcountOptionsPage/>}/>
           <Route path='/register' element={<RegisterPage/>}/>

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-
+import randomColor from '../services/generateColor'
 
 const Card = ({content}) => {
   return (
@@ -41,7 +41,7 @@ const Card = ({content}) => {
           id="genders" 
           className="text-slate-800 rounded-lg whitespace-nowrap text-ellipsis overflow-hidden space-x-1">
             {content.genders.map(gender => (
-              <span key={gender.id} className={"rounded-lg align-middle text-sm font-medium px-2 text-center "} id="genders-cards">{gender.name} </span>
+              <span key={gender.id} className={"rounded-lg align-middle text-sm font-medium px-2 text-center " + randomColor()} id="genders-cards">{gender.name} </span>
             ))}
         </div>
       </div>

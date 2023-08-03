@@ -1,8 +1,6 @@
 import {useEffect, useRef, useState, useCallback} from 'react'
 import {useDispatch} from 'react-redux'
-import {Link} from 'react-router-dom'
 import { InfiniteScroll } from 'react-simple-infinite-scroll'
-import randomColor from '../services/generateColor'
 import Card from './CatalogueCard'
 
 export const ContentList = ({content, updateContent}) => {
@@ -91,10 +89,10 @@ export const ContentList = ({content, updateContent}) => {
           sm:grid-cols-2
           md:grid-cols-3 
           md:px-0
-          lg:grid-cols-4 
-          xl:grid-cols-5
-          2xl:grid-cols-6 
-          3xl:grid-cols-7
+          lg:grid-cols-3 
+          xl:grid-cols-4
+          2xl:grid-cols-5 
+          3xl:grid-cols-6
           '
         >
 

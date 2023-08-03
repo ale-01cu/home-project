@@ -1,17 +1,13 @@
 import { useEffect, useState } from "react"
 import {CATALOGUECUSTOMLISTSURL, CATALOGUENEWCONTENTLISTSURL} from '../utils/urls'
 import CatalogueCard from './CatalogueCard'
-
-// Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
-
-// Import Swiper styles
+import { FreeMode, Mousewheel, Scrollbar } from 'swiper/modules';
+import ListsIcon from '../assets/lists_FILL0_wght100_GRAD0_opsz24.svg'
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/scrollbar';
 
-// import required modules
-import { FreeMode, Mousewheel, Scrollbar } from 'swiper/modules';
 
 const CatalogueLists = () => {
   const [customLists, setCustomLists] = useState([])
@@ -38,20 +34,39 @@ const CatalogueLists = () => {
 
   }, [])
 
+  const breakpoints = {
+    0: {
+      slidesPerView: 1.5,
+      spaceBetween: 5,
+    },
+    640: {
+      slidesPerView: 1.5,
+      spaceBetween: 10,
+    },
+    1280: {
+      slidesPerView: 2.6,
+      spaceBetween: 10,
+    },
+    1536: {
+      slidesPerView: 3.5,
+      spaceBetween: 10,
+    },
+  }
+
   return (
     (customLists.length > 0 || newContentList.length > 0)  &&
     <div className="">
-      <h1 className="p-5 pl-0 text-3xl font-extrabold">Listas</h1>
+      {/* <h1 className="p-5 pl-0 text-3xl font-extrabold">Listas</h1> */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-10">
         {
           customLists.map(list => (
             <div key={list.id} className="w-full">
-              <div className="p-5 pl-0">
-                <h1 className="text-lg max-w-max  border-b border-solid border-slate-500">{list.name}</h1>
+              <div className="p-5 pl-0 flex justify-end items-center max-w-max gap-x-2">
+                <img src={ListsIcon} alt="" />
+                <h1 className="text-xl font-medium max-w-max">{list.name}</h1>
               </div>
               <ul>
                 <Swiper
-                  slidesPerView={4}
                   spaceBetween={10}
                   freeMode={true}
                   scrollbar={{
@@ -63,24 +78,7 @@ const CatalogueLists = () => {
                     sensitivity: 0.3,
                   }}
                   modules={[FreeMode, Scrollbar, Mousewheel]}
-                  breakpoints={{
-                    0: {
-                      slidesPerView: 1.5,
-                      spaceBetween: 5,
-                    },
-                    640: {
-                      slidesPerView: 1.5,
-                      spaceBetween: 10,
-                    },
-                    1280: {
-                      slidesPerView: 3.5,
-                      spaceBetween: 10,
-                    },
-                    1536: {
-                      slidesPerView: 3.5,
-                      spaceBetween: 10,
-                    },
-                  }}
+                  breakpoints={breakpoints}
                   className="mySwiper max-w-full"
                 >
                   {
@@ -98,11 +96,11 @@ const CatalogueLists = () => {
           ))
         }
         <div>
-          <div className="p-5 pl-0">
-            <h1 className="text-lg max-w-max  border-b border-solid border-slate-500">Nuevo Contenido de la semana</h1>
+          <div className="p-5 pl-0 flex justify-end items-center max-w-max gap-x-2">
+            <img src={ListsIcon} alt="" />
+            <h1 className="text-xl font-medium max-w-max">Nuevo contenido de la semana</h1>
           </div>
           <Swiper
-            slidesPerView={4}
             spaceBetween={10}
             freeMode={true}
             scrollbar={{
@@ -114,24 +112,7 @@ const CatalogueLists = () => {
               sensitivity: 0.3,
             }}
             modules={[FreeMode, Scrollbar, Mousewheel]}
-            breakpoints={{
-              0: {
-                slidesPerView: 1.5,
-                spaceBetween: 5,
-              },
-              640: {
-                slidesPerView: 1.5,
-                spaceBetween: 10,
-              },
-              1280: {
-                slidesPerView: 3.5,
-                spaceBetween: 10,
-              },
-              1536: {
-                slidesPerView: 3.5,
-                spaceBetween: 10,
-              },
-            }}
+            breakpoints={breakpoints}
             className="mySwiper max-w-full"
             >
             {

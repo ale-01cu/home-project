@@ -38,51 +38,52 @@ const Login = () => {
   const handleSubmit = e => {
     e.preventDefault()
 
-    const formData = {
-      username,
-      password
-    };
-
-    fetch(LOGINURL,{
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(formData)
-    })
-    .then(res => {
-      const getData = async () => res.json()
-
-      getData().then(data => {
-
-        if (res.status === 200) {
-          dispatch(addTokens(data))
-          navigate('/')
-
-        }else {
-          const errors = {}
-
-          for (let i = 0; i < Object.keys(data).length; i++) {
-            const key = Object.keys(data)[i];
-            let value = data[key];
-
-            if (value === "No active account found with the given credentials")
-              value = 'No hay ninguna cuenta activa con estas credenciales'
-
-            else if (value === 'This field may not be blank.')
-              value = 'Este campo no puede estar en blanco.'
-      
-            errors[key] = value;
-          }
-          setValidationErrors(errors);
-        }
-
+    if (!validationErrors.username && !validationErrors.password) {
+      const formData = {
+        username,
+        password
+      };
+  
+      fetch(LOGINURL,{
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
       })
-    })
-    .catch(e => {
-      console.log({error: e})
-    })
-
+      .then(res => {
+        const getData = async () => res.json()
+  
+        getData().then(data => {
+  
+          if (res.status === 200) {
+            dispatch(addTokens(data))
+            navigate('/')
+  
+          }else {
+            const errors = {}
+  
+            for (let i = 0; i < Object.keys(data).length; i++) {
+              const key = Object.keys(data)[i];
+              let value = data[key];
+  
+              if (value === "No active account found with the given credentials")
+                value = 'No hay ninguna cuenta activa con estas credenciales'
+  
+              else if (value === 'This field may not be blank.')
+                value = 'Este campo no puede estar en blanco.'
+        
+              errors[key] = value;
+            }
+            setValidationErrors(errors);
+          }
+  
+        })
+      })
+      .catch(e => {
+        console.log({error: e})
+      })
+    }
   }
 
   const handleChangeUserName = e => {
@@ -112,6 +113,7 @@ const Login = () => {
             placeholder="Escriba su Nombre"
             onChange={handleChangeUserName}
             value={username}
+            required
           />
           {validationErrors.username && username && <span className="text-red-500 w-fit">{validationErrors.username}</span>}
 
@@ -122,6 +124,7 @@ const Login = () => {
             placeholder="Contraseña"
             onChange={handleChangePassword}
             value={password}
+            required
           />
           {validationErrors.password && password && <span className="text-red-500 w-fit">{validationErrors.password}</span>}
           {validationErrors.detail && <span className="text-red-500 w-fit">{validationErrors.detail}</span>}

@@ -53,62 +53,65 @@ const Register = () => {
   const handleSubmit = e => {
     e.preventDefault()
 
-    const formData = {
-      username,
-      password,
-      re_password,
-    };
+    if (!validationErrors.username && !validationErrors.password && !validationErrors.re_password) {
+      const formData = {
+        username,
+        password,
+        re_password,
+      };
 
-    fetch(REGISTERURL,{
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(formData)
-    })
-    .then(res => {
-      const getData = async () => res.json()
-
-      getData().then(data => {
-
-        if (res.status === 201) {
-          navigate('/login')
-
-        }else {
-          const errors = {}
-
-          for (let i = 0; i < Object.keys(data).length; i++) {
-            const key = Object.keys(data)[i];
-            let value = data[key][0];
-
-            if (value === 'The password is too similar to the Nombre de Usuario.')
-              value = 'La contraseña es similar al nombre de usuario.'
-            
-            else if (value === 'This password is too common.')
-              value = 'Esta contraseña es demasiado comun.'
-            
-            else if (value === 'Cuenta de Usuario with this Nombre de Usuario already exists.')
-              value = 'Ya existe una cuenta con ese nombre.'
-
-            else if (value === 'This field may not be blank.')
-              value = 'Este campo no puede estar en blanco.'
-
-            else if (value === "The two password fields didn't match.")
-              value = 'Las contraseñas con diferentes.'
-
-            else if (value === "Ensure this field has no more than 255 characters.")
-              value = 'No estan permitidos mas de 255 caracteres.'
-
-              errors[key] = value;
-          }
-          setValidationErrors(errors);
-        }
-
+      fetch(REGISTERURL,{
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
       })
-    })
-    .catch(e => {
-      console.log({error: e});
-    })
+      .then(res => {
+        const getData = async () => res.json()
+
+        getData().then(data => {
+
+          if (res.status === 201) {
+            navigate('/login')
+
+          }else {
+            const errors = {}
+
+            for (let i = 0; i < Object.keys(data).length; i++) {
+              const key = Object.keys(data)[i];
+              let value = data[key][0];
+
+              if (value === 'The password is too similar to the Nombre de Usuario.')
+                value = 'La contraseña es similar al nombre de usuario.'
+              
+              else if (value === 'This password is too common.')
+                value = 'Esta contraseña es demasiado comun.'
+              
+              else if (value === 'Cuenta de Usuario with this Nombre de Usuario already exists.')
+                value = 'Ya existe una cuenta con ese nombre.'
+
+              else if (value === 'This field may not be blank.')
+                value = 'Este campo no puede estar en blanco.'
+
+              else if (value === "The two password fields didn't match.")
+                value = 'Las contraseñas con diferentes.'
+
+              else if (value === "Ensure this field has no more than 255 characters.")
+                value = 'No estan permitidos mas de 255 caracteres.'
+
+                errors[key] = value;
+            }
+            setValidationErrors(errors);
+          }
+
+        })
+      })
+      .catch(e => {
+        console.log({error: e});
+      })
+    }
+    
   }
 
   const handleChangeUserName = e => {
@@ -144,6 +147,7 @@ const Register = () => {
             placeholder="Escriba su Nombre"
             onChange={handleChangeUserName}
             value={username}
+            required
           />
           {validationErrors.username && username && <span className="text-red-500 w-fit">{validationErrors.username}</span>}
           
@@ -154,6 +158,7 @@ const Register = () => {
             placeholder="Contraseña"
             onChange={handleChangePassword}
             value={password}
+            required
           />
           {validationErrors.password && password && <span className="text-red-500 w-fit">{validationErrors.password}</span>}
 
@@ -164,6 +169,7 @@ const Register = () => {
             placeholder="Condirmar Contraseña"
             onChange={handleChangeRePassword}
             value={re_password}
+            required
           />
           {validationErrors.re_password && re_password && <span className="text-red-500 w-fit">{validationErrors.re_password}</span>}
           {validationErrors.non_field_errors && <span className="text-red-500 w-fit">{validationErrors.non_field_errors}</span>}
