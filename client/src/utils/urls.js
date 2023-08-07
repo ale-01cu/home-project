@@ -1,6 +1,7 @@
 export const CATEGORYURL = 'http://localhost:8000/api/category/'
 export const CATALOGUEURL = 'http://localhost:8000/api/catalogue/'
 export const CHAPTERDETAILURL = 'http://localhost:8000/api/catalogue/chapter/'
+export const CONTENTSUBTITLEURL = 'http://localhost:8000/api/catalogue/subtitle/'
 export const SEARCHLISTURL = 'http://localhost:8000/api/lists/treanding-searches/'
 export const GENDERSLISTURL = 'http://localhost:8000/api/category/genders/'
 export const ACTORSLISTURL = 'http://localhost:8000/api/category/actors/'

@@ -137,13 +137,13 @@ const Register = () => {
   return (
     <div className="min-h-screen flex justify-center items-center">
       <form action="" onSubmit={handleSubmit} className="p-10 flex flex-col items-center w-full">
-        <div><h1 className="text-center text-4xl p-3">Registro</h1></div>
+        <div><h1 className="text-center text-4xl p-3 font-medium">Registro</h1></div>
         
         <div className="flex flex-col space-y-6 p-5 min-w-min w-1/2 max-w-md">
           <input 
             type='text' 
             name="username" 
-            className="p-2 px-5 border border-solid border-slate-300 rounded-xl min-w-min" 
+            className="p-2 px-5 border border-solid border-slate-400 rounded-xl min-w-min" 
             placeholder="Escriba su Nombre"
             onChange={handleChangeUserName}
             value={username}
@@ -154,7 +154,7 @@ const Register = () => {
           <input 
             type={isPasswordVisible ? 'text' : 'password'} 
             name="password" 
-            className="p-2 px-5 border border-solid border-slate-300 rounded-xl min-w-min" 
+            className="p-2 px-5 border border-solid border-slate-400 rounded-xl min-w-min" 
             placeholder="Contraseña"
             onChange={handleChangePassword}
             value={password}
@@ -165,7 +165,7 @@ const Register = () => {
           <input 
             type={isPasswordVisible ? 'text' : 'password'} 
             name="re_password" 
-            className="p-2 px-5 border border-solid border-slate-300 rounded-xl min-w-min" 
+            className="p-2 px-5 border border-solid border-slate-400 rounded-xl min-w-min" 
             placeholder="Condirmar Contraseña"
             onChange={handleChangeRePassword}
             value={re_password}

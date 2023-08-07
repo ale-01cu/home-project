@@ -16,7 +16,9 @@ from rest_framework.response import Response
 from .models import Chapter
 from apps.search.searchEngine import SearchEngine
 from .filter import ContentFilter
-import ffmpeg_streaming 
+import ffmpeg_streaming
+import ffmpeg
+from django.http import FileResponse
 
 range_re = re.compile(r'bytes\s*=\s*(\d+)\s*-\s*(\d*)', re.I)
  
@@ -80,8 +82,7 @@ class VideoStreamAPIView(views.APIView):
             return Chapter.objects.filter(pk=kwargs['chapter_pk']).first()
             
         return self.get_serializer_class().Meta.model.objects.filter(status=True)
-    
-    
+        
     def get(self, request, pk=None, chapter_pk=None):
         user = request.user
         print(request.headers['Range'])
@@ -98,6 +99,7 @@ class VideoStreamAPIView(views.APIView):
         size = os.path.getsize(path)
         content_type, encoding = mimetypes.guess_type(path)
         content_type = content_type or 'application/octet-stream'
+    
         
         print("tamaño del archivo: ", size)
         if range_match:
@@ -150,3 +152,41 @@ class VideoStreamAPIView(views.APIView):
             )
             
         return resp
+    
+class SubtitlesAPIView(views.APIView):
+    def get_serializer_class(self):
+        return ContentDetailSerializer
+    
+    def get_queryset(self, **kwargs):
+        if 'pk' in kwargs.keys(): 
+            return self.get_serializer_class().Meta.model.objects.filter(
+                status=True, pk=kwargs['pk']).first()
+            
+        elif 'chapter_pk' in kwargs.keys(): 
+            return Chapter.objects.filter(pk=kwargs['chapter_pk']).first()
+            
+        return self.get_serializer_class().Meta.model.objects.filter(status=True)
+    
+    def get(self, request, pk=None, chapter_pk=None):      
+        print("almejas")  
+        if pk:
+            content = self.get_queryset(pk=pk)
+        else:
+            return Response({'error':"El archivo no existe"}, status=status.HTTP_404_NOT_FOUND) 
+            
+        path = content.path
+        filename = os.path.basename(path)
+        content_type, encoding = mimetypes.guess_type(path)
+        content_type = content_type or 'application/src'
+        
+        if os.path.exists(path):
+            # Abre el archivo en modo binario
+            with open(path, 'rb') as f:
+                # Crea una respuesta de archivo y establece el tipo MIME adecuado
+                response = FileResponse(f, content_type=content_type)
+                # Establece el nombre de archivo para la descarga
+                response['Content-Disposition'] = f'attachment; filename="{filename}.src"'
+                return response
+        else:
+            # Si el archivo no existe, puedes mostrar un mensaje de error o redirigir a otra página
+            return Response({'error':"El archivo no existe"}, status=status.HTTP_404_NOT_FOUND)

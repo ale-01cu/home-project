@@ -36,19 +36,23 @@ const CatalogueLists = () => {
 
   const breakpoints = {
     0: {
-      slidesPerView: 1.5,
+      slidesPerView: 1.2,
+      spaceBetween: 5,
+    },
+    420: {
+      slidesPerView: 2.2,
       spaceBetween: 5,
     },
     640: {
-      slidesPerView: 1.5,
+      slidesPerView: 2.2,
       spaceBetween: 10,
     },
     1280: {
-      slidesPerView: 2.6,
+      slidesPerView: 3.2,
       spaceBetween: 10,
     },
     1536: {
-      slidesPerView: 3.5,
+      slidesPerView: 4.2,
       spaceBetween: 10,
     },
   }
@@ -77,7 +81,7 @@ const CatalogueLists = () => {
                     invert: false,
                     sensitivity: 0.3,
                   }}
-                  modules={[FreeMode, Scrollbar, Mousewheel]}
+                  modules={[FreeMode, Scrollbar]}
                   breakpoints={breakpoints}
                   className="mySwiper max-w-full"
                 >
@@ -111,7 +115,7 @@ const CatalogueLists = () => {
               invert: false,
               sensitivity: 0.3,
             }}
-            modules={[FreeMode, Scrollbar, Mousewheel]}
+            modules={[FreeMode, Scrollbar]}
             breakpoints={breakpoints}
             className="mySwiper max-w-full"
             >

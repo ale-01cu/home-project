@@ -1,7 +1,8 @@
 from django.urls import path
 from .views import (
     ContentListAPIView, ContentDetailAPIView, 
-    VideoStreamAPIView, ChapterRetrieveApiView
+    VideoStreamAPIView, ChapterRetrieveApiView,
+    SubtitlesAPIView
 )
 
 urlpatterns = [
@@ -10,4 +11,5 @@ urlpatterns = [
     path('chapter/<int:pk>/', ChapterRetrieveApiView.as_view(), name='chapter-detail'),
     path('stream/<int:pk>/', VideoStreamAPIView.as_view(), name='content_stream'),
     path('stream/<int:pk>/<int:chapter_pk>/', VideoStreamAPIView.as_view(), name='content_chapter_stream'),
+    path('subtitle/<int:pk>/', SubtitlesAPIView.as_view(), name='subtitle_detail'),
 ]

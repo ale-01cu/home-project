@@ -4,8 +4,8 @@ import { useSelector } from 'react-redux';
 import VideoJS from './VideoJs'
 import 'video.js/dist/video-js.css';
 
-const VideoPlayer = ({ id }) => {
-  const srcSubtitle = useSelector(state => state.contentDetail.subtitle)
+const VideoPlayer = ({ id, subtitle }) => {
+  const contentDetail = useSelector(state => state.contentDetail)
   const [params] = useSearchParams()
   const videoQuery = params.get("v")
   const videoUrl = videoQuery 
@@ -13,6 +13,8 @@ const VideoPlayer = ({ id }) => {
   : `http://localhost:8000/api/catalogue/stream/${id}/`
   const playerRef = useRef(null)
 
+  console.log("aqui estamos otra vez");
+  console.log(subtitle);
   const options = {
     sources: [{
       src: videoUrl,
@@ -34,7 +36,7 @@ const VideoPlayer = ({ id }) => {
     preload: 'metadata',
     language: 'es',
     subtitles: {
-      src: srcSubtitle,
+      src: subtitle,
       kind: 'subtitles',
       srclang: 'es',
       label: 'Español'
@@ -67,6 +69,7 @@ const VideoPlayer = ({ id }) => {
         options={options} 
         onReady={handlePlayerReady} 
         videoQuery={videoQuery}
+        id={id}
       />
     </>
   );

@@ -10,7 +10,8 @@ whitenoise==6.4.0
 django-simple-history==3.3.0
 Pillow==9.5.0
 django-filter==23.2
-python-ffmpeg-video-streaming==0.1.15
+python-ffmpeg==2.0.4
+django-sage-streaming==0.1.1
 nltk==3.8.1
 
 # Instalar lo siguiente desde la consola de python

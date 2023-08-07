@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { fetching } from '../services/fetching'
 import { CATALOGUEURL } from '../utils/urls'
 import {useSelector, useDispatch} from 'react-redux'
@@ -16,12 +16,15 @@ export const ContentDetail = () => {
   const dispatch = useDispatch()
   const content = useSelector(state => state.contentDetail)
   const navegate = useNavigate()
+  const [subtitle, setSubtitle] = useState(null)
+
 
   useEffect(() => {
       fetching(CATALOGUEURL + id + '/')
       .then(data => {
         console.log(data.subtitle);
         console.log(data);
+        setSubtitle(data.subtitle)
         dispatch(addContentDetail(data))
       })
   }, [dispatch, id, navegate, videoQuery])
@@ -41,7 +44,7 @@ export const ContentDetail = () => {
           )
         : (
             <div className="w-full">
-              <VideoPlayer id={id}/>
+              <VideoPlayer id={id} subtitle={subtitle}/>
             </div>
           )
         }

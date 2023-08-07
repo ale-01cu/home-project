@@ -1,16 +1,14 @@
 import videojs from 'video.js';
 import { useRef, useEffect, useState } from 'react';
-import {CHAPTERDETAILURL} from '../utils/urls'
-import { useSelector } from 'react-redux';
+import {CHAPTERDETAILURL, CONTENTSUBTITLEURL} from '../utils/urls'
 import '@videojs/http-streaming'
 
 const VideoJS = (props) => {
-  const srcSubtitle = useSelector(state => state.contentDetail.subtitle)
   const videoRef = useRef(null);
   const playerRef = useRef(null);
-  const {options, onReady, videoQuery} = props;
+  const {options, onReady, videoQuery, id} = props;
   const [chapter, setChapter] = useState(null)
-
+  
   useEffect(() => {
     if (videoQuery) {
       const url = CHAPTERDETAILURL + videoQuery + '/'
@@ -24,7 +22,6 @@ const VideoJS = (props) => {
   }, [videoQuery])
 
   useEffect(() => {
-
     // Make sure Video.js player is only initialized once
     if (!playerRef.current) {
       // The Video.js player needs to be _inside_ the component el for React 18 Strict Mode. 
@@ -46,6 +43,19 @@ const VideoJS = (props) => {
 
       player.autoplay(options.autoplay);
       player.src(options.sources);
+
+      const videoJs = document.querySelector('video-js video')
+
+      const track = document.createElement('track')
+      track.src = options.subtitles.src
+      track.kind = options.subtitles.kind
+      track.srclang = options.subtitles.srclang
+      track.label = options.subtitles.label
+
+      videoJs.appendChild(track)
+
+      player.load();
+
     }
   }, [options, videoRef, onReady]);
 
@@ -63,9 +73,14 @@ const VideoJS = (props) => {
 
   return (
     <div data-vjs-player>
-      {chapter && <div className='backdrop-blur-lg p-3 pl-0 text-lg font-semibold z-50'>{chapter.name}</div>}
-      <div ref={videoRef}>
-      </div>
+      {
+        chapter && 
+          <div 
+            className='backdrop-blur-lg p-3 pl-0 text-lg font-semibold z-50'>
+              {chapter.name}
+            </div>
+      }
+      <div ref={videoRef}></div>
     </div>
   );
 }
