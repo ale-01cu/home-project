@@ -18,10 +18,10 @@ const CategorysList = () => {
   return (
     <div className='w-full'>
       {/* <h1 className='p-5 pl-0 text-3xl font-extrabold'>Categorias</h1> */}
-      <ul className='gallery gap-y-3 gap-x-1'>
+      <ul className='grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-y-3 gap-x-1'>
         {categorys.map(category => (
           <li key={category.id} className='max-w-lg'>
-            <Link to={'/' + category.name + '#12'} className='rounded-lg w-full relative flex justify-center items-center'>
+            <Link to={'/' + category.name + '#12'} id='category-card-catalogue' className='rounded-lg w-full relative flex justify-center items-center transition-all'>
               <img src={category.photo} alt="" className='rounded-lg object-contain'/>
               <span className='backdrop-blur-sm absolute font-semibold text-lg text-white p-2 rounded-3xl'>{category.name}</span>
             </Link>

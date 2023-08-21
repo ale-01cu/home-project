@@ -31,8 +31,8 @@ export const ContentDetail = () => {
 
 
   return (
-    <div className={`flex flex-col md:flex-row py-5 lg:px-18 xl:px-24 ${!content.seasons.length > 0 ? 'justify-center items-center' : ''}`}>
-      <div className={`flex flex-col min-h-screen space-y-5 sm:basis-9/12 sm:pr-10 ${!content.seasons.length > 0 ? 'w-11/12 sm:pr-0' : ''}`}>
+    <div className={`flex flex-col gap-y-5 md:flex-row py-5 lg:px-18 xl:px-24 ${!content.seasons.length > 0 ? 'justify-center items-center' : ''}`}>
+      <div className={`flex flex-col space-y-5 sm:basis-9/12 sm:pr-10 ${!content.seasons.length > 0 ? 'w-full sm:pr-0' : ''}`}>
         {content.seasons.length > 0 && !videoQuery 
         ? (
             <div className="w-full h-full flex justify-center items-center">
@@ -50,7 +50,7 @@ export const ContentDetail = () => {
         }
 
         <div className="grid grid-cols-1 sm:grid-cols-2">
-          <div className="flex flex-col p-7 sm:p-2 basis-4/5 space-y-6 relative sm:col-start-1 sm:col-end-2 sm:row-start-2 sm:row-end-3">
+          <div className="flex flex-col p-2 basis-4/5 space-y-6 relative sm:col-start-1 sm:col-end-2 sm:row-start-2 sm:row-end-3">
             
             <div className="flex flex-wrap gap-2 justify-between">
               <p className="text-2xl font-bold">{content.name}</p>
@@ -123,7 +123,7 @@ export const ContentDetail = () => {
 
       {
         content.seasons.length > 0 && (
-          <div className="sm:basis-3/12 py-3">
+          <div className="sm:basis-3/12 py-3 px-2 sm:px-0">
             
               <ul className="space-y-5">
                 {content.seasons.map(season => (

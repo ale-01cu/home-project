@@ -76,9 +76,9 @@ const VideoJS = (props) => {
       {
         chapter && 
           <div 
-            className='backdrop-blur-lg p-3 pl-0 text-lg font-semibold z-50'>
+            className='backdrop-blur-lg p-3 pl-2 sm:pl-0 text-lg font-semibold z-50'>
               {chapter.name}
-            </div>
+          </div>
       }
       <div ref={videoRef}></div>
     </div>

@@ -64,7 +64,7 @@ export default function NavBar(){
         className='
           bg-white
           items-center 
-          space-x-3 
+          space-x-4 
           fixed 
           w-full 
           h-max 
@@ -80,7 +80,7 @@ export default function NavBar(){
           sm:py-0 
           sm:w-max 
           sm:min-h-screen 
-          sm:space-y-3 
+          sm:space-y-4
           '
         >      
         

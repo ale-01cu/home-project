@@ -26,20 +26,29 @@ const SearchList = () => {
       const resTrendingSearchsList = await fetch(SEARCHLISTURL)
       const dataTrendingSearchsList = await resTrendingSearchsList.json()
       setTrendingSearchsList(dataTrendingSearchsList)
-
-      const resGendersList = await fetch(GENDERSLISTURL)
-      const dataGendersList = await resGendersList.json()
-      setGenderList(dataGendersList)
-
-      const resActorsList = await fetch(ACTORSLISTURL)
-      const dataresActorsList = await resActorsList.json()
-      setActorsList(dataresActorsList)
-
     }
-
     getLists()
 
   }, [])
+  useEffect(() => {
+    const getLists = async () => {
+      const resGendersList = await fetch(GENDERSLISTURL)
+      const dataGendersList = await resGendersList.json()
+      setGenderList(dataGendersList)
+    }
+    getLists()
+
+  }, [])
+  useEffect(() => {
+    const getLists = async () => {
+      const resActorsList = await fetch(ACTORSLISTURL)
+      const dataresActorsList = await resActorsList.json()
+      setActorsList(dataresActorsList)
+    }
+    getLists()
+
+  }, [])
+
 
 
   function buildURL(queryParams, text, query) {
@@ -55,6 +64,7 @@ const SearchList = () => {
         const newLocation = decodeURIComponent(location.search).replace(/\+/g, " ")
         const regex = new RegExp(`${query}=${text}(?:&|$)`, 'g');
         const newSearch = newLocation.replace(regex, '').replace(/ /g, '+');
+        
         if (newSearch === '') {
           return `${location.pathname}`;
         } else {
@@ -67,7 +77,8 @@ const SearchList = () => {
   }
 
   const buildURLCategorys = (name) => {
-    const params = new URLSearchParams(decodeURIComponent(location.search));
+    const params = new URLSearchParams(location.search);
+    params.delete('s');
 
     if (queryCategory) {
       if (queryCategory == name) {
@@ -94,7 +105,7 @@ const SearchList = () => {
       {
         trendingSearchsList.length > 0 && (
         <div>
-          <h1 className="">Busquedas en Tendencia</h1>
+          <h1 className="text-lg text-slate-950 font-medium">Busquedas en Tendencia</h1>
           <ul className="">
             {
               trendingSearchsList.map(e => (
@@ -114,7 +125,7 @@ const SearchList = () => {
       {
         gendersList.length > 0 && (
         <div>
-          <h1 className="">Generos</h1>
+          <h1 className="text-lg text-slate-950 font-medium">Generos</h1>
           <ul className=" py-4 flex gap-x-2 gap-y-3 flex-wrap">
             {
               gendersList.map(e => (
@@ -134,7 +145,7 @@ const SearchList = () => {
       {
         actorsList.length > 0 && (
         <div>
-          <h1 className="">Actores</h1>
+          <h1 className="text-lg text-slate-950 font-medium">Actores</h1>
           <ul className=" py-4 flex gap-x-2 gap-y-3 flex-wrap">
             {
               actorsList.map(e => (
@@ -154,7 +165,7 @@ const SearchList = () => {
       {
         categorys.length > 0 && (
         <div>
-          <h1 className=''>Categorias</h1>
+          <h1 className='text-lg text-slate-950 font-medium'>Categorias</h1>
           <ul className=' xl:p-0 grid grid-cols-2 gap-2 xl:gap-1 xl:py-2'>
             {categorys.map(category => (
               <li key={category.id} className='max-w-lg'>

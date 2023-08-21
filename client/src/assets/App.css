@@ -18,6 +18,10 @@ body {
     scale: 102%;
 }
 
+#category-card-catalogue:hover {
+    scale: 102%
+}
+
 /* #subRoot{
     background-color: rgb(26, 26, 26);
 }

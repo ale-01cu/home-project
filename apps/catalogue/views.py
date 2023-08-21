@@ -16,7 +16,6 @@ from rest_framework.response import Response
 from .models import Chapter
 from apps.search.searchEngine import SearchEngine
 from .filter import ContentFilter
-import ffmpeg_streaming
 import ffmpeg
 from django.http import FileResponse
 
@@ -154,6 +153,7 @@ class VideoStreamAPIView(views.APIView):
         return resp
     
 class SubtitlesAPIView(views.APIView):
+    
     def get_serializer_class(self):
         return ContentDetailSerializer
     
@@ -163,16 +163,20 @@ class SubtitlesAPIView(views.APIView):
                 status=True, pk=kwargs['pk']).first()
             
         elif 'chapter_pk' in kwargs.keys(): 
-            return Chapter.objects.filter(pk=kwargs['chapter_pk']).first()
+            return Chapter.objects.filter(
+                pk=kwargs['chapter_pk']).first()
             
-        return self.get_serializer_class().Meta.model.objects.filter(status=True)
+        return self.get_serializer_class(
+            ).Meta.model.objects.filter(status=True)
     
     def get(self, request, pk=None, chapter_pk=None):      
         print("almejas")  
         if pk:
             content = self.get_queryset(pk=pk)
         else:
-            return Response({'error':"El archivo no existe"}, status=status.HTTP_404_NOT_FOUND) 
+            return Response({
+                'error':"El archivo no existe"
+            }, status=status.HTTP_404_NOT_FOUND) 
             
         path = content.path
         filename = os.path.basename(path)

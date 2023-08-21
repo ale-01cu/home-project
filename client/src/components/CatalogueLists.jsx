@@ -60,79 +60,130 @@ const CatalogueLists = () => {
   return (
     (customLists.length > 0 || newContentList.length > 0)  &&
     <div className="">
-      {/* <h1 className="p-5 pl-0 text-3xl font-extrabold">Listas</h1> */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-10">
-        {
-          customLists.map(list => (
-            <div key={list.id} className="w-full">
-              <div className="p-5 pl-0 flex justify-end items-center max-w-max gap-x-2">
-                <img src={ListsIcon} alt="" />
-                <h1 className="text-xl font-medium max-w-max">{list.name}</h1>
-              </div>
-              <ul>
-                <Swiper
-                  spaceBetween={10}
-                  freeMode={true}
-                  scrollbar={{
-                    hide: true,
-                    draggable: true,
-                  }}
-                  mousewheel={{
-                    invert: false,
-                    sensitivity: 0.3,
-                  }}
-                  modules={[FreeMode, Scrollbar]}
-                  breakpoints={breakpoints}
-                  className="mySwiper max-w-full"
-                >
-                  {
-                    list.custom_list_items.map(content => (
-                      <SwiperSlide key={content.content.id} className="">
-                        <li>
-                          <CatalogueCard content={content.content}/>
-                        </li>
-                      </SwiperSlide>
-                    ))
-                  }
-                </Swiper>
-              </ul>
-            </div>
-          ))
-        }
-        <div>
-          <div className="p-5 pl-0 flex justify-end items-center max-w-max gap-x-2">
-            <img src={ListsIcon} alt="" />
-            <h1 className="text-xl font-medium max-w-max">Nuevo contenido de la semana</h1>
-          </div>
-          <Swiper
-            spaceBetween={10}
-            freeMode={true}
-            scrollbar={{
-              hide: true,
-              draggable: true,
-            }}
-            mousewheel={{
-              invert: false,
-              sensitivity: 0.3,
-            }}
-            modules={[FreeMode, Scrollbar]}
-            breakpoints={breakpoints}
-            className="mySwiper max-w-full"
-            >
-            {
-              newContentList.map(content => (
-                <SwiperSlide key={content.id} className="">
-                  <li>
-                    <CatalogueCard content={content}/>
-                  </li>
-                </SwiperSlide>
-              ))
-            }
 
-          </Swiper>
-        </div>
+      {/* Estos son las listas para resolucion movile */}
+
+      {/* <h1 className="p-5 pl-0 text-3xl font-extrabold">Listas</h1> */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-5 gap-x-10 lg:hidden">
+        {
+          customLists.length > 0 &&
+            customLists.map(list => (
+              <div key={list.id} className="w-full">
+                <div className="p-5 pl-0 flex justify-end items-center max-w-max gap-x-2">
+                  <img src={ListsIcon} alt="" />
+                  <h1 className="text-xl font-medium max-w-max">{list.name}</h1>
+                </div>
+                <ul>
+                  <Swiper
+                    spaceBetween={10}
+                    freeMode={true}
+                    scrollbar={{
+                      hide: true,
+                      draggable: true,
+                    }}
+                    mousewheel={{
+                      invert: false,
+                      sensitivity: 0.3,
+                    }}
+                    modules={[FreeMode, Scrollbar]}
+                    breakpoints={breakpoints}
+                    className="mySwiper max-w-full"
+                  >
+                    {
+                      list.custom_list_items.map(content => (
+                        <SwiperSlide key={content.content.id} className="">
+                          <li>
+                            <CatalogueCard content={content.content}/>
+                          </li>
+                        </SwiperSlide>
+                      ))
+                    }
+                  </Swiper>
+                </ul>
+              </div>
+            ))
+        }
+        {
+          newContentList.length > 0 &&
+          <div>
+            <div className="p-5 pl-0 flex justify-end items-center max-w-max gap-x-2 lg:hidden">
+              <img src={ListsIcon} alt="" />
+              <h1 className="text-xl font-medium max-w-max">Nuevo contenido de la semana</h1>
+            </div>
+            <Swiper
+              spaceBetween={10}
+              freeMode={true}
+              scrollbar={{
+                hide: true,
+                draggable: true,
+              }}
+              mousewheel={{
+                invert: false,
+                sensitivity: 0.3,
+              }}
+              modules={[FreeMode, Scrollbar]}
+              breakpoints={breakpoints}
+              className="mySwiper max-w-full"
+              >
+              {
+                newContentList.map(content => (
+                  <SwiperSlide key={content.id} className="">
+                    <li>
+                      <CatalogueCard content={content}/>
+                    </li>
+                  </SwiperSlide>
+                ))
+              }
+
+            </Swiper>
+          </div>
+        }
 
       </div>
+
+      {/* Estas son las listas para resoluciones grandes */}
+      <div className="hidden lg:flex lg:flex-col">
+        {
+          customLists.length > 0 &&
+            customLists.map(list => (
+              <div key={list.id} className="w-full ">
+                <div className="p-5 pl-0 flex items-center gap-x-2">
+                  <img src={ListsIcon} alt="" />
+                  <h1 className="text-xl font-medium">{list.name}</h1>
+                </div>
+                <ul className="grid lg:grid-cols-6 xl:grid-cols-7 2xl:grid-cols-9 gap-x-1">
+                  {
+                    list.custom_list_items.map(content => (
+                      <li key={content.id}>
+                        <CatalogueCard content={content.content}/>
+                      </li>
+                    ))
+                  }
+                </ul>
+              </div>
+            ))
+          }
+          {
+            newContentList.length > 0 &&
+            <div className="hidden lg:flex lg:flex-col">
+              <div className="p-5 pl-0 flex items-center gap-x-2">
+                <img src={ListsIcon} alt="" />
+                <h1 className="text-xl font-medium">Nuevo contenido de la semana</h1>
+              </div>
+                <ul className="grid lg:grid-cols-6 xl:grid-cols-7 2xl:grid-cols-9 gap-x-1">
+                  {
+                    newContentList.map(content => (
+                      <li key={content.id}>
+                        <CatalogueCard content={content}/>
+                      </li>
+                    ))
+                  }
+                </ul>
+            </div>
+        
+           }
+      </div>
+
     </div>
     
   )
