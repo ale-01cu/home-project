@@ -74,8 +74,8 @@ TEMPLATES = [
     },
 ]
 
-#WSGI_APPLICATION = 'core.wsgi.application'
-ASGI_APPLICATION = "core.asgi.application"
+WSGI_APPLICATION = 'core.wsgi.application'
+# ASGI_APPLICATION = "core.asgi.application"
 
 
 # Database
@@ -136,8 +136,6 @@ CORS_ALLOWED_ORIGINS = [
 
 CORS_ALLOW_ALL_ORIGINS = True
 
-REST_FRAMEWORK = {
-}
 AUTH_USER_MODEL = 'user.UserAccount'
 
 REST_FRAMEWORK = {
