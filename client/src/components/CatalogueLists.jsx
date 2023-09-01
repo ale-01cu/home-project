@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import {CATALOGUECUSTOMLISTSURL, CATALOGUENEWCONTENTLISTSURL} from '../utils/urls'
 import CatalogueCard from './CatalogueCard'
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { FreeMode, Mousewheel, Scrollbar } from 'swiper/modules';
+import { FreeMode, Scrollbar } from 'swiper/modules';
 import ListsIcon from '../assets/lists_FILL0_wght100_GRAD0_opsz24.svg'
 import 'swiper/css';
 import 'swiper/css/free-mode';
@@ -12,6 +12,7 @@ import 'swiper/css/scrollbar';
 const CatalogueLists = () => {
   const [customLists, setCustomLists] = useState([])
   const [newContentList, setNewContentList] = useState([])
+  const [isShowList, setShowList] = useState({})
 
   useEffect(() => {
     fetch(CATALOGUENEWCONTENTLISTSURL)
@@ -151,13 +152,30 @@ const CatalogueLists = () => {
                   <img src={ListsIcon} alt="" />
                   <h1 className="text-xl font-medium">{list.name}</h1>
                 </div>
-                <ul className="grid lg:grid-cols-6 xl:grid-cols-7 2xl:grid-cols-9 gap-x-1">
+                <ul className="grid grid-flow-row lg:grid-cols-6 xl:grid-cols-7 2xl:grid-cols-9 grid-rows-1 gap-x-1">
                   {
-                    list.custom_list_items.map(content => (
-                      <li key={content.id}>
-                        <CatalogueCard content={content.content}/>
-                      </li>
-                    ))
+                    list.custom_list_items.map((content, i) => {
+                      if (i >= 0 && i <= 5 ) {
+                        return <li key={content.id} className="">
+                          <CatalogueCard content={content.content}/>
+                        </li>
+                        
+                      }else if (i > 5 && i < 7) {
+                        return <li key={content.id} className="hidden xl:block">
+                          <CatalogueCard content={content.content}/>
+                        </li>
+
+                      }else if(i >= 7 && i <= 8) {
+                        return <li key={content.id} className="hidden 2xl:block">
+                          <CatalogueCard content={content.content}/>
+                        </li>
+                      
+                      }else {
+                        return <li key={content.id} className="hidden">
+                          <CatalogueCard content={content.content}/>
+                        </li>
+                      }
+                    })
                   }
                 </ul>
               </div>

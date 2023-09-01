@@ -81,7 +81,7 @@ export const ContentList = ({content, updateContent}) => {
           w-full 
           h-max 
           grid 
-          gap-x-1 
+          gap-x-2 
           gap-y-5 
           justify-center 
           grid-cols-2

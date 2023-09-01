@@ -25,7 +25,7 @@ export const Catalogue = () => {
   }, [dispatch, category])
 
   return (
-    <div className="px-1 md:px-24 space-y-12 lg:space-y-10">
+    <div className="px-1 md:px-24 space-y-24 lg:space-y-10">
       <section className="flex gap-y-16 lg:gap-x-10 flex-col-reverse lg:flex-row py-5">
         <CatalogueLists/>
       </section>
@@ -34,7 +34,7 @@ export const Catalogue = () => {
           <CategoryList/>
         </div>
       </section>
-      <section id="12">
+      <section id="catalogue">
         {/* <h1 className="hidden lg:block p-5 pl-0 sm:p-10 sm:pl-0 text-3xl font-extrabold">{category ? category : 'Catalogo'}</h1> */}
         <div className="">
           <h1 className="p-5 pl-0 sm:p-10 sm:pl-0 text-3xl font-extrabold">{category ? category : 'Catalogo'}</h1>

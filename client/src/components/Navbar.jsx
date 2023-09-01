@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {useEffect, useMemo, useState} from 'react'
 import {CATEGORYURL, GETUSERURL} from '../utils/urls.js'
 import COLORS from '../utils/colors.js'
 import {addCategorys} from '../redux/categorySlice.js'
@@ -55,7 +55,7 @@ export default function NavBar(){
     return randomElement
   }
 
-  const color = randomColor()
+  const color = useMemo(() => randomColor(), []) 
 
   return (
     <nav className="sm:w-20 px-2 flex justify-center relative">
@@ -176,7 +176,7 @@ export default function NavBar(){
                 list={[
                   {
                     id: 1,
-                    name: 'Loguearme',
+                    name: 'Acceder',
                     url: '/login'
                   },
                   {

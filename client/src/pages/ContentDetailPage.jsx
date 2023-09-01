@@ -8,6 +8,7 @@ import VideoPlayer from '../components/VideoPlayer'
 import PlayArrowIcon from '../assets/play_arrow_FILL0_wght100_GRAD0_opsz40.svg'
 import PlayArrowIconBegin from '../assets/play_arrow_FILL0_wght700_GRAD0_opsz24.svg'
 import randomColor from '../services/generateColor'
+import Gender from '../components/GenderCard'
 
 export const ContentDetail = () => {
   const { id } = useParams()
@@ -96,7 +97,7 @@ export const ContentDetail = () => {
               Generos:
               <div className="flex flex-wrap gap-1">
                 {content.genders.map(gender => (
-                  <span key={gender.id} className={"rounded-lg align-middle text-sm font-medium py-1 px-2 " + randomColor()} id="genders-cards">{gender.name} </span>
+                  <Gender key={gender.id} gender={gender} className={"rounded-lg align-middle text-sm font-medium py-1 px-2 "} />
                 ))}
               </div>
             </div>  

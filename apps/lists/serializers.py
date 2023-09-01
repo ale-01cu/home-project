@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .models import CustomsListItem, CustomsList
 from apps.catalogue.serializers import ContentListSerializer
 
-class CustomListsSerializer(serializers.ModelSerializer):
+class CustomListsSerializerItem(serializers.ModelSerializer):
     content = ContentListSerializer(
         read_only=True,
     )
@@ -13,7 +13,7 @@ class CustomListsSerializer(serializers.ModelSerializer):
 
 
 class CustomListsSerializer(serializers.ModelSerializer):
-    custom_list_items = CustomListsSerializer(
+    custom_list_items = CustomListsSerializerItem(
         many=True, 
         read_only=True
     )
