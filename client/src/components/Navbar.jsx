@@ -5,9 +5,9 @@ import {addCategorys} from '../redux/categorySlice.js'
 import {useSelector, useDispatch} from 'react-redux'
 import {fetching} from '../services/fetching.js'
 import {BtnMenu} from './BtnMenu.jsx'
-import LogoContent from '../assets/live_tv_FILL0_wght400_GRAD0_opsz24.svg'
-import LogoSearch from '../assets/search_FILL0_wght400_GRAD0_opsz24.svg'
-import LogoLoggedOut from '../assets/account_circle_FILL0_wght400_GRAD0_opsz24.svg'
+import LogoContent from '../assets/live_tv_FILL1_wght400_GRAD0_opsz24.svg'
+import LogoSearch from '../assets/video_search_FILL1_wght700_GRAD0_opsz24.svg'
+import LogoLoggedOut from '../assets/account_circle_FILL1_wght400_GRAD0_opsz24.svg'
 import '@szhsin/react-menu/dist/index.css';
 import '@szhsin/react-menu/dist/transitions/slide.css';
 

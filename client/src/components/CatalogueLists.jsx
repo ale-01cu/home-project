@@ -64,7 +64,6 @@ const CatalogueLists = () => {
     fetch(CATALOGUENEWCONTENTLISTSURL)
     .then(res => res.json())
     .then(data => {
-      console.log(data);
       setNewContentList(data)
     })
     .catch(e => console.error(e))
@@ -74,7 +73,6 @@ const CatalogueLists = () => {
     fetch(CATALOGUECUSTOMLISTSURL)
     .then(res => res.json())
     .then(data => {
-      console.log(data);
       const aux = {}
       
       data.forEach(e => {
@@ -101,6 +99,10 @@ const CatalogueLists = () => {
       slidesPerView: 2.2,
       spaceBetween: 10,
     },
+    715: {
+      slidesPerView: 3.2,
+      spaceBetween: 10,
+    },
     1280: {
       slidesPerView: 3.2,
       spaceBetween: 10,
@@ -114,6 +116,7 @@ const CatalogueLists = () => {
   return (
     (customLists.length > 0 || newContentList.length > 0)  &&
     <div className="">
+      <h1 className="p-2 pl-0 sm:p-10 sm:pl-0 text-3xl font-extrabold">Listas</h1>
 
       {/* Estos son las listas para resolucion movile */}
 
