@@ -9,10 +9,56 @@ import 'swiper/css/free-mode';
 import 'swiper/css/scrollbar';
 
 
+const ButtonShowMore = ({list, isVisibleList, setIsVisibleList, id = null}) => {
+  let classNameButtonShowMore = 'text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-2 py-1 text-center'
+
+  if (list.length > 0 && list.length <= 5) {
+    classNameButtonShowMore = classNameButtonShowMore.concat(' hidden')
+  
+  }else if (list.length > 5 && list.length <= 6) {
+    classNameButtonShowMore = classNameButtonShowMore.concat(' lg:hidden')
+
+  }else if (list.length > 6 && list.length <= 7) {
+    classNameButtonShowMore = classNameButtonShowMore.concat(' xl:hidden')
+
+  }else if (list.length > 7 && list.length <= 8) {
+    classNameButtonShowMore = classNameButtonShowMore.concat(' 2xl:hidden')
+    
+  }else {
+    classNameButtonShowMore = classNameButtonShowMore.concat('')
+  }
+
+  return (
+    <button 
+      onClick={() => {
+        if (id) {
+          const isVisibleListUpdated = {...isVisibleList}
+          isVisibleListUpdated[id] = !isVisibleList[id]
+          setIsVisibleList(isVisibleListUpdated)
+        
+        }else {
+          setIsVisibleList(!isVisibleList)
+        }
+      }} 
+      type="button" 
+      className={classNameButtonShowMore}
+      >
+        {
+          isVisibleList[id] 
+          ? 'Ver Menos'
+          : 'Ver Mas'
+        }
+          
+    </button>
+    )
+}
+
+
 const CatalogueLists = () => {
   const [customLists, setCustomLists] = useState([])
   const [newContentList, setNewContentList] = useState([])
-  const [isShowList, setShowList] = useState({})
+  const [isVisibleList, setIsVisibleList] = useState({})
+  const [isVisibleNewContentList, setIsVisibleNewContentList] = useState(false)
 
   useEffect(() => {
     fetch(CATALOGUENEWCONTENTLISTSURL)
@@ -29,7 +75,14 @@ const CatalogueLists = () => {
     .then(res => res.json())
     .then(data => {
       console.log(data);
+      const aux = {}
+      
+      data.forEach(e => {
+        aux[e.id] = false
+      })
+
       setCustomLists(data)
+      setIsVisibleList(aux)
     })
     .catch(e => console.error(e))
 
@@ -146,11 +199,17 @@ const CatalogueLists = () => {
       <div className="hidden lg:flex lg:flex-col">
         {
           customLists.length > 0 &&
-            customLists.map(list => (
-              <div key={list.id} className="w-full ">
+            customLists.map(list => {
+              return <div key={list.id} className="w-full ">
                 <div className="p-5 pl-0 flex items-center gap-x-2">
                   <img src={ListsIcon} alt="" />
                   <h1 className="text-xl font-medium">{list.name}</h1>
+                  <ButtonShowMore
+                    list={list.custom_list_items}
+                    isVisibleList={isVisibleList}
+                    setIsVisibleList={setIsVisibleList}
+                    id={list.id}  
+                  />
                 </div>
                 <ul className="grid grid-flow-row lg:grid-cols-6 xl:grid-cols-7 2xl:grid-cols-9 grid-rows-1 gap-x-1">
                   {
@@ -161,17 +220,17 @@ const CatalogueLists = () => {
                         </li>
                         
                       }else if (i > 5 && i < 7) {
-                        return <li key={content.id} className="hidden xl:block">
+                        return <li key={content.id} className={`${!isVisibleList[list.id] && 'hidden'} xl:block`}>
                           <CatalogueCard content={content.content}/>
                         </li>
 
                       }else if(i >= 7 && i <= 8) {
-                        return <li key={content.id} className="hidden 2xl:block">
+                        return <li key={content.id} className={`${!isVisibleList[list.id] && 'hidden'} 2xl:block`}>
                           <CatalogueCard content={content.content}/>
                         </li>
                       
                       }else {
-                        return <li key={content.id} className="hidden">
+                        return <li key={content.id} className={`${!isVisibleList[list.id] && 'hidden'}`}>
                           <CatalogueCard content={content.content}/>
                         </li>
                       }
@@ -179,7 +238,7 @@ const CatalogueLists = () => {
                   }
                 </ul>
               </div>
-            ))
+            })
           }
           {
             newContentList.length > 0 &&
@@ -187,14 +246,37 @@ const CatalogueLists = () => {
               <div className="p-5 pl-0 flex items-center gap-x-2">
                 <img src={ListsIcon} alt="" />
                 <h1 className="text-xl font-medium">Nuevo contenido de la semana</h1>
+                <ButtonShowMore
+                  list={newContentList}
+                  isVisibleList={isVisibleNewContentList}
+                  setIsVisibleList={setIsVisibleNewContentList}
+                />
               </div>
                 <ul className="grid lg:grid-cols-6 xl:grid-cols-7 2xl:grid-cols-9 gap-x-1">
                   {
-                    newContentList.map(content => (
-                      <li key={content.id}>
-                        <CatalogueCard content={content}/>
-                      </li>
-                    ))
+                    newContentList.map((content, i) => {
+                      if (i >= 0 && i <= 5 ) {
+                        return <li key={content.id} className="">
+                          <CatalogueCard content={content}/>
+                        </li>
+                        
+                      }else if (i > 5 && i < 7) {
+                        return <li key={content.id} className={`${!isVisibleNewContentList && 'hidden'} xl:block`}>
+                          <CatalogueCard content={content}/>
+                        </li>
+
+                      }else if(i >= 7 && i <= 8) {
+                        return <li key={content.id} className={`${!isVisibleNewContentList && 'hidden'} 2xl:block`}>
+                          <CatalogueCard content={content}/>
+                        </li>
+                      
+                      }else {
+                        return <li key={content.id} className={`${!isVisibleNewContentList && 'hidden'}`}>
+                          <CatalogueCard content={content}/>
+                        </li>
+                      }
+
+                    })
                   }
                 </ul>
             </div>

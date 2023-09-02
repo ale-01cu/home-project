@@ -25,7 +25,7 @@ export const Catalogue = () => {
   }, [dispatch, category])
 
   return (
-    <div className="px-1 md:px-24 space-y-24 lg:space-y-10">
+    <div className="px-1 md:px-24 space-y-36 lg:space-y-10">
       <section className="flex gap-y-16 lg:gap-x-10 flex-col-reverse lg:flex-row py-5">
         <CatalogueLists/>
       </section>
