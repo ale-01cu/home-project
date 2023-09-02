@@ -116,7 +116,7 @@ const CatalogueLists = () => {
   return (
     (customLists.length > 0 || newContentList.length > 0)  &&
     <div className="">
-      <h1 className="p-2 pl-0 sm:p-10 sm:pl-0 text-3xl font-extrabold">Listas</h1>
+      <h1 className="p-2 pl-0 sm:p-10 sm:pl-0 text-3xl font-extrabold text-center">Listas</h1>
 
       {/* Estos son las listas para resolucion movile */}
 

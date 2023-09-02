@@ -7,7 +7,7 @@ const Card = ({content}) => {
     <Link 
       id='card' 
       to={'/detail/' + content.id} 
-      className='flex flex-col justify-between h-full hover:bg-gray-200 transition-all duration-150 min-h-max'>
+      className='flex flex-col justify-between h-full hover:bg-gray-200 transition-all duration-150 min-h-max rounded-3xl'>
         
       <div 
         id="poster" 
@@ -15,7 +15,7 @@ const Card = ({content}) => {
         <img 
           src={content.photo} 
           alt="" 
-          className='h-full object-cover transition-all duration-150'/>
+          className='h-full object-cover transition-all duration-150 rounded-3xl'/>
       </div>
 
       <div id="detail" className=" p-2">
