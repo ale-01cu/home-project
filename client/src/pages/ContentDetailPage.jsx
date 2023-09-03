@@ -32,7 +32,7 @@ export const ContentDetail = () => {
 
 
   return (
-    <div className={`flex flex-col gap-y-5 md:flex-row py-5 lg:px-18 xl:px-24 ${!content.seasons.length > 0 ? 'justify-center items-center' : ''}`}>
+    <div className={`flex flex-col gap-y-5 lg:flex-row py-5 lg:px-18 xl:px-24 ${!content.seasons.length > 0 ? 'justify-center items-center' : ''}`}>
       <div className={`flex flex-col space-y-5 sm:basis-9/12 sm:pr-10 ${!content.seasons.length > 0 ? 'w-full sm:pr-0' : ''}`}>
         {content.seasons.length > 0 && !videoQuery 
         ? (
