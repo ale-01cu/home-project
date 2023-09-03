@@ -1,7 +1,7 @@
 import { useMemo } from "react"
-import randomColor from '../services/generateColor'
+import randomColor from '../utils/generateColor'
 
-const GenderCard = ({ gender, className }) => {
+const GenderList = ({ gender, className }) => {
   const color = useMemo(() => randomColor(), []);
 
   return (
@@ -15,4 +15,4 @@ const GenderCard = ({ gender, className }) => {
   );
 }
 
-export default GenderCard
+export default GenderList

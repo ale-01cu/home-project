@@ -134,7 +134,7 @@ class VideoStreamAPIView(views.APIView):
         else:
             print(f"{user} intento descargar el contenido {content.name}")
             return Response(
-                'No esta permitido descargar este medio', 
+                {'error':'No esta permitido descargar este medio'}, 
                 status=status.HTTP_401_UNAUTHORIZED
             )
             
@@ -146,7 +146,7 @@ class VideoStreamAPIView(views.APIView):
         if int(resp['Content-Length']) == size and 'Range' not in request.headers.keys():
             print(f"{user} intento descargar el contenido {content.name}")
             return Response(
-                'No esta permitido descargar este medio', 
+                {'error':'No esta permitido descargar este medio'}, 
                 status=status.HTTP_401_UNAUTHORIZED
             )
             

@@ -1,5 +1,4 @@
 const COLORS = [
-  'bg-white',
   'bg-slate-300',
   'bg-gray-300',
   'bg-zinc-300',

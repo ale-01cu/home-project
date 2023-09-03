@@ -14,7 +14,7 @@ class Content(models.Model):
     class Meta:
         verbose_name = 'Contenido'
         verbose_name_plural = 'Contenidos'
-        
+                
     name = models.CharField(
         max_length=100, 
         unique=True,

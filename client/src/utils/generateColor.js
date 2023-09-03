@@ -1,4 +1,4 @@
-import COLORS from '../utils/colors.js'
+import COLORS from './colors.js'
 
 const randomColor = () => {
     const randomIndex = Math.floor(Math.random() * COLORS.length);

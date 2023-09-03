@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom"
-import randomColor from '../services/generateColor'
-import Gender from './GenderCard'
+import GenderList from './GendersList'
 
 const Card = ({content}) => {
   return (
@@ -11,7 +10,7 @@ const Card = ({content}) => {
         
       <div 
         id="poster" 
-        className="h-full overflow-hidden">
+        className="h-full overflow-hidden rounded-3xl">
         <img 
           src={content.photo} 
           alt="" 
@@ -40,9 +39,12 @@ const Card = ({content}) => {
 
         <div 
           id="genders" 
-          className="text-slate-800 rounded-lg whitespace-nowrap text-ellipsis overflow-hidden space-x-1">
+          className="text-slate-800 rounded-lg whitespace-nowrap text-clip overflow-hidden space-x-1">
             {content.genders.map(gender => (
-              <Gender key={gender.id} gender={gender} className={`rounded-lg align-middle text-sm font-medium px-2 text-center `}/>
+              <GenderList 
+                key={gender.id} 
+                gender={gender} 
+                className={`rounded-lg align-middle text-sm font-medium px-2 text-center `}/>
             ))}
         </div>
       </div>

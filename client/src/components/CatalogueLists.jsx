@@ -203,7 +203,7 @@ const CatalogueLists = () => {
         {
           customLists.length > 0 &&
             customLists.map(list => {
-              return <div key={list.id} className="w-full ">
+              return <div key={list.id} className="w-full border-t-2 border-solid border-slate-300">
                 <div className="p-5 pl-0 flex items-center gap-x-2">
                   <img src={ListsIcon} alt="" />
                   <h1 className="text-xl font-medium">{list.name}</h1>
@@ -245,7 +245,7 @@ const CatalogueLists = () => {
           }
           {
             newContentList.length > 0 &&
-            <div className="hidden lg:flex lg:flex-col">
+            <div className="hidden lg:flex lg:flex-col border-y-2 border-solid border-slate-300">
               <div className="p-5 pl-0 flex items-center gap-x-2">
                 <img src={ListsIcon} alt="" />
                 <h1 className="text-xl font-medium">Nuevo contenido de la semana</h1>

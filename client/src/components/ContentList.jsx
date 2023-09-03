@@ -92,8 +92,7 @@ export const ContentList = ({content, updateContent}) => {
           lg:grid-cols-4 
           xl:grid-cols-5
           2xl:grid-cols-6 
-          3xl:grid-cols-7
-          '
+          3xl:grid-cols-7'
         >
 
           {content.results.map(content => {
