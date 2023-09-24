@@ -3,23 +3,7 @@ from django.dispatch import receiver
 from .models import Content, Season, Chapter
 import os
 import mimetypes
-from django.db.utils import IntegrityError
-
-def calculate_size(bytes):
-    if bytes >= 1073741824:
-        bytes = f"{(bytes / 1073741824):.2f} GB"
-    elif bytes >= 1048576:
-        bytes = f"{(bytes / 1048576):.2f} MB"
-    elif bytes >= 1024:
-        bytes = f"{(bytes / 1024):.2f} KB"
-    elif bytes > 1:
-        bytes = f"{bytes} bytes"
-    elif bytes == 1:
-        bytes = f"{bytes} byte"
-    else:
-        bytes = "0 bytes"
-    return bytes
-
+from .utils import calculate_size
 
 def iterate_OnePath(path, instance):
     for root, dirs, files in os.walk(path):

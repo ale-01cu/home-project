@@ -7,5 +7,5 @@ class CatalogueConfig(AppConfig):
     verbose_name = 'Catalogo'
 
     def ready(self):
-        import apps.catalogue.signals
+        import apps.catalogue.receivers
         return super().ready()
