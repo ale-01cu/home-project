@@ -27,7 +27,7 @@ export const BtnMenu = ({
         {
           img 
           ? img
-          : <img src={logo} alt="" width={35} height={35}/>
+          : <img src={logo} alt="" width={30} height={30}/>
         }
       </Link>
 

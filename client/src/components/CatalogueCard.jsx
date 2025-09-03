@@ -10,7 +10,7 @@ const Card = ({content}) => {
         
       <div 
         id="poster" 
-        className="h-full overflow-hidden rounded-3xl">
+        className="h-96 overflow-hidden rounded-3xl">
         <img 
           src={content.photo} 
           alt="" 
@@ -21,8 +21,8 @@ const Card = ({content}) => {
         <div className="flex justify-between">
           {
             content.release_year
-              ? <h3 id="release-year" className="text-slate-800">{content.release_year}</h3>
-              : <h3 id="release-year" className="text-slate-800">{content.release_date}</h3>
+              ? <h3 id="release-year" className="text-slate-800 text-sm">{content.release_year}</h3>
+              : <h3 id="release-year" className="text-slate-800 text-sm">{content.release_date}</h3>
           }
           <h3 
             id="price" 
